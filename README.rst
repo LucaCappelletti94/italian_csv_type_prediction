@@ -22,6 +22,9 @@ get slightly different results, here's three of them:
 
 Attempt at predicting common types in CSVs about Italian people and places using Spacy NLP tool.
 
+Implementation notes
+----------------------------------
+To train on GPU: https://mc.ai/spacy-training-using-gpu/
 
 .. |travis| image:: https://travis-ci.org/LucaCappelletti94/italian_csv_type_prediction.png
    :target: https://travis-ci.org/LucaCappelletti94/italian_csv_type_prediction
