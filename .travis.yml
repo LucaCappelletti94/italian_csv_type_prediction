@@ -1,0 +1,38 @@
+dist: trusty
+sudo: false
+git:
+  depth: false
+addons:
+  sonarcloud:
+    organization: lucacappelletti94-github
+    token:
+      secure: ZdxAO4eSHd4UmMphpcuIlaRi0v+AC0cauD5ZoNoJ8XUDFwcTM3eSjOXiNFCyhcFN/IzfY+mnbj6ARAT/U0bvtZUUO8qs4CXjFVVZbyRZP6Su5Rmg+nSJ9OlARzcnwKCYFngc1fXUNSopalqeT+xE8Cu1kbKRM342nP+3waZ6ZyETeBHKhoDf8GO+/a29WAvw0k/DEXub0S9F6Ls5TGcOCGHi3HGPszZ6diYR7S3jCtciWzYLpcnAoYQH2/Fvm5L8UGPZa4yPm2zWIn+OOOKHz5c6z8hssXbHe6Oq4u3Qhpb56aVDDU3FZHycopiNVlcp5vwnD69f6twljDlA/5QFweoueqtj328dastbGLaBPwqoXanqZC+avJPMYGCLWY7NMWTOAb4GoZbkpooPvVukwsefG5UZWycxEC8N2NGm2/HrjJS9e64TOcskd9eshH0YFa3fFXlqLom9rnfrv0w61zBbRdJKLf2a455jXgqFzPk7Q9Ps5WH6onX4bhBLkAqSjRzTBhD5fodLwoXxR9KGVxUSrtbT7Df2xaaqbJQizmuK6t8k6vnUMKHNdQBd+6bvd+2FEJqNX/P+DIdELcuwN2N5drJLu9r/EQomPQtdcr87+5IMLTYaXvuqB5TfRwKsAwCJxgGjBTbenGRyHW73l3Jz44nBsEcVDZ7+NivtDqc=
+language: python
+python:
+- '3.6'
+before_install:
+- pip install --upgrade pytest
+install:
+- pip install .[test]
+before_script:
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
+after_script:
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+script:
+- rm -rf .coverage
+- coverage erase
+- pytest --cov=italian_csv_type_prediction --cov-report xml:coverage.xml
+- coverage combine --append || true
+- coverage report
+- coverage xml
+- if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then sonar-scanner; fi
+after_success:
+- coveralls
+- python-codacy-coverage -r coverage.xml
+env:
+  global:
+  - secure: sPhcu2z50AEpnK6vJAZsAbCNgUwuwKi0zkAT3iDV0u4h/ejFUash2CQapz+dFSnoQz8wMgf+kDQBA8YkVvAILJMfv45DmWTZLfnVVRu6sBcq1n+L29jHLPxeQVyphw53nUcit+sdutjzq1Ketvylc6/GgA1fPERsVEWz5ITyOXBrZysUvcOyO4Aqf6mu9JmfsmxOeVOFqKcOKuK1j1nnJ41b8TlIEZYtWQcKQLIqyq1WkglYd/4jr1frZrOKTOjAraSVt8kD4jym0ldHcxbBqWvtdkJYFnqGXKurzoHVYFKxpHViK6GtvUr4LeWRX7QOKm94UmC4yAaNbi1EHiRs5OMMiAyukttwnBhstmXz0jO/MOOMokhsWdstnpWOSoaU7APTiqGuskvbQkbkWJ0/k7WgyCzAZ2DsJact9SfjE2At+p4dnO5iBPraZZphL2RT0DfgkHOfqQ3jS6aaPafUa8usYa3Y3F540DdaSoIFLEnidTmFBnno2ewYDmPcer4YBAy1UFOpVor8PixOo0x6BqGnhU5OyLxLkoMkZ9Rk1T/hm9/dCdgfvs9z1pcxNEdwDSfX9S5vAbblpXaZys6XiUHuT0ppshE0BPwlKuhytmJXG9jBEzFX5Q90rXAh/lhz661n2Cv8ijaG60nmeqgDY/67GqDNS+ci95D0VD+H12I=
+  - secure: bT3nXrZ1Ey0X2oaFtHmpXKPVNLThhc1EpHHZGeAs+N7Mio9EZj78HMr7P3Mhe960DoTrXyJGX0DZ6Ru6EfBIkS/ydwm78Xtk+5rUJLw9vNvh3MaW2vnhhmn7d+OZL9TqeVmRn4B5M0xLjfIQX1gWwWEFdD6kOy2sfdiRg+KTSpX2WlwxLVD2T2O11XicXO4TkMgC0QKvGI7A1jlhUEC4At5IB8I5NtESjA2tISYeSuoFgik9VXWCmBf6ZUgeVOmRZJ0AbVtTBUfAwLx35yNR3Z58CvwrnaR90qLliftHBmlrn1a6zdh/8w/VcQ9xF/RTvvGZHG39XvAzAudJE5xq5EEyXHZJ7HTWJEK9nG3OM4mroLY5biL05+bovi42RcehopUE64CA6YdM3SuukHHKd+HR40eAmtoYH22L/NNZc60q306X0a9q2wQMsCsslnzpvV8556IK5NPT0GP/bKPIV5IsHLSCI5jrFzHHxc9w0HpjCjcgwl2cfC9BxRPLrhQShpSqb1XMI++WeR6LPxGLMToZuews53lYKYtqUehyDAuhQq6UwNilkwEaQ3YY3beP2hODcW/Q2TXC+DpcU7IA0FstnVsWwBeWORZKkQgi07qfXLg6ouz2HuUKg65o2XrQLAiAFcADvxSpn1jr+Jg6nSk5+TztK9djjtdMGHo7VWg=
