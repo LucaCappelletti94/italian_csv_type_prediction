@@ -1,0 +1,1 @@
+{surname} {name} NATO A {municipality} IL {birth_municipality} RESIDENTE A {municipality} IN {address} N.{house_number} - C.F.: {codice_fiscale}
