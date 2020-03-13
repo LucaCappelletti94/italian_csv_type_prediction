@@ -4,7 +4,7 @@ from typing import List
 
 cap = ["29121", "00121", 561, 29121]
 dates = ["12/12/1994", "12 dicembre 1994", "12 dic 1994"]
-nans = ["", 0, "Nan", ".", "-", np.nan]
+nans = ["", 0, "Nan", ".", "-", np.nan, None]
 regions = ["Emilia-romagna", "valle d'aosta"]
 provinces_codes = ["pc"]
 
