@@ -18,8 +18,14 @@ def load_local_json_sets(path: str):
 def load_nan():
     return load_local_json_sets("nan")
 
+
 def load_provinces_codes():
     return load_local_json_sets("provinces_codes")
 
+
 def load_regions():
     return load_local_json_sets("regions")
+
+
+def load_municipalities():
+    return load_local_json_sets("municipalities")
