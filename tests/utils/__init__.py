@@ -8,11 +8,13 @@ nans = ["", 0, "Nan", ".", "-", np.nan, None]
 regions = ["Emilia-romagna", "valle d'aosta"]
 municipalities = ["Piacenza", "Ferriere"]
 provinces_codes = ["pc"]
+iva = ["00380210302", "02005780131", "02437800135", 2437800135]
 
 types = {
     "cap": cap,
     "dates": dates,
     "nans": nans,
+    "iva": iva,
     "regions": list(load_regions()) + regions,
     "municipalities":list(load_municipalities()) + municipalities,
     "provinces_codes": list(load_provinces_codes()) + provinces_codes
