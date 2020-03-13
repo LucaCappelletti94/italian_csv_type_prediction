@@ -1,11 +1,12 @@
 import numpy as np
-from italian_csv_type_prediction.datasets import load_provinces_codes, load_regions
+from italian_csv_type_prediction.datasets import load_provinces_codes, load_regions, load_municipalities
 from typing import List
 
 cap = ["29121", "00121", 561, 29121]
 dates = ["12/12/1994", "12 dicembre 1994", "12 dic 1994"]
 nans = ["", 0, "Nan", ".", "-", np.nan, None]
 regions = ["Emilia-romagna", "valle d'aosta"]
+municipalities = ["Piacenza", "Ferriere"]
 provinces_codes = ["pc"]
 
 types = {
@@ -13,6 +14,7 @@ types = {
     "dates": dates,
     "nans": nans,
     "regions": list(load_regions()) + regions,
+    "municipalities":list(load_municipalities()) + municipalities,
     "provinces_codes": list(load_provinces_codes()) + provinces_codes
 }
 
@@ -34,9 +36,9 @@ def get_cases(t):
     return get_type(t), get_not_type(t)
 
 
-def default_test(test, positives: List[str], negatives: List[str]=None):
+def default_test(test, positives: List[str], negatives: List[str]=None, black_list: List[str]=()):
     if negatives is None:
-        negatives = list(set(types.keys()) - set(positives))
+        negatives = list(set(types.keys()) - set(positives) - set(black_list))
 
     for pos in positives:
         for t in types[pos]:
