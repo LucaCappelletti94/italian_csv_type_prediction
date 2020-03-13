@@ -3,6 +3,7 @@ from italian_csv_type_prediction.datasets import load_provinces_codes, load_regi
 from typing import List
 
 cap = ["29121", "00121", 561, 29121]
+years = ["1999", "2010", 2017, 2030, 97, 17, 15]
 dates = ["12/12/1994", "12 dicembre 1994", "12 dic 1994"]
 nans = ["", 0, "Nan", ".", "-", np.nan, None]
 regions = ["Emilia-romagna", "valle d'aosta"]
@@ -16,6 +17,7 @@ types = {
     "dates": dates,
     "nans": nans,
     "iva": iva,
+    "years": years,
     "cf": cf,
     "regions": list(load_regions()) + regions,
     "municipalities":list(load_municipalities()) + municipalities,

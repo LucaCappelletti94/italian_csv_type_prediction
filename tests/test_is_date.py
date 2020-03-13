@@ -3,4 +3,4 @@ from .utils import default_test
 
 
 def test_is_date():
-    default_test(is_date, ["dates"], black_list=["cap"])
+    default_test(is_date, ["dates"], black_list=["cap", "years"])
