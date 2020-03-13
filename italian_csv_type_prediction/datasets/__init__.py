@@ -1,8 +1,10 @@
-from .load_json import load_nan, load_provinces_codes, load_regions, load_municipalities
+from .load_json import load_nan, load_provinces_codes, load_regions, load_municipalities, load_countries, load_country_codes
 
 __all__ = [
     "load_nan",
     "load_regions",
     "load_provinces_codes",
-    "load_municipalities"
+    "load_municipalities",
+    "load_countries",
+    "load_country_codes"
 ]

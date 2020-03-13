@@ -29,3 +29,11 @@ def load_regions():
 
 def load_municipalities():
     return load_local_json_sets("municipalities")
+
+
+def load_countries():
+    return load_local_json_sets("countries")
+
+
+def load_country_codes():
+    return load_local_json_sets("country_codes")

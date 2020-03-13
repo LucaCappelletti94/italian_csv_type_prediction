@@ -7,6 +7,8 @@ from .is_municipality import is_municipality
 from .is_iva import is_iva
 from .is_cf import is_cf
 from .is_year import is_year
+from .is_country import is_country
+from .is_country_code import is_country_code
 
 __all__ = [
     "is_nan",
@@ -17,5 +19,7 @@ __all__ = [
     "is_municipality",
     "is_iva",
     "is_cf",
-    "is_year"
+    "is_year",
+    "is_country",
+    "is_country_code"
 ]

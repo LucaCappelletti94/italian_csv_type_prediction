@@ -1,5 +1,5 @@
 import numpy as np
-from italian_csv_type_prediction.datasets import load_provinces_codes, load_regions, load_municipalities
+from italian_csv_type_prediction.datasets import load_provinces_codes, load_regions, load_municipalities, load_countries, load_country_codes
 from typing import List
 
 cap = ["29121", "00121", 561, 29121]
@@ -11,6 +11,9 @@ municipalities = ["Piacenza", "Ferriere"]
 provinces_codes = ["pc"]
 iva = ["00380210302", "02005780131", "02437800135", "IT02437800135", 2437800135]
 cf = ["BNCBBR69B58L219S", "SMPFBA87H03C722E", "HMDSRS66S65Z336A"]
+countries = ["italia", "Italia"]
+country_codes = ["DE", "IT", "it", "fr"]
+
 
 types = {
     "cap": cap,
@@ -19,6 +22,8 @@ types = {
     "iva": iva,
     "years": years,
     "cf": cf,
+    "countries": list(load_countries()) + countries,
+    "country_codes": list(load_country_codes()) + country_codes,
     "regions": list(load_regions()) + regions,
     "municipalities":list(load_municipalities()) + municipalities,
     "provinces_codes": list(load_provinces_codes()) + provinces_codes
