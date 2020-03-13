@@ -28,7 +28,7 @@ def find_version(*file_paths):
 
 __version__ = find_version("italian_csv_type_prediction", "__version__.py")
 
-test_deps =[
+test_deps = [
     "pytest",
     "pytest-cov",
     "coveralls",
@@ -62,7 +62,8 @@ setup(
     install_requires=[
         "spacy",
         "pandas",
-        "python-stdnum"
+        "python-stdnum",
+        "python-codicefiscale"
     ],
     extras_require=extras,
 )
