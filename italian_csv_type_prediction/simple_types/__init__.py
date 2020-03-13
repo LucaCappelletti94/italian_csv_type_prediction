@@ -5,6 +5,7 @@ from .is_province_code import is_province_code
 from .is_region import is_region
 from .is_municipality import is_municipality
 from .is_iva import is_iva
+from .is_cf import is_cf
 
 __all__ = [
     "is_nan",
@@ -13,5 +14,6 @@ __all__ = [
     "is_province_code",
     "is_region",
     "is_municipality",
-    "is_iva"
+    "is_iva",
+    "is_cf"
 ]
