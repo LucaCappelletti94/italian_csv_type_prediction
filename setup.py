@@ -62,7 +62,7 @@ setup(
     install_requires=[
         "spacy",
         "pandas",
-        "stdnum"
+        "python-stdnum"
     ],
     extras_require=extras,
 )
