@@ -53,3 +53,7 @@ def load_caps():
 
 def load_codice_fiscale():
     return load_local_json_sets("codice_fiscale")
+
+
+def load_iva():
+    return load_local_json_sets("iva")
