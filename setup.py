@@ -65,7 +65,8 @@ setup(
         "numpy",
         "python-stdnum",
         "tqdm",
-        "python-codicefiscale"
+        "python-codicefiscale",
+        "sklearn"
     ],
     extras_require=extras,
 )
