@@ -3,7 +3,8 @@ italian_csv_type_prediction
 |travis| |sonar_quality| |sonar_maintainability| |codacy|
 |code_climate_maintainability| |pip| |downloads|
 
-Attempt at predicting common types in CSVs about Italian people and places using Spacy NLP tool.
+This package is an attemp at predicting common types in CSVs about Italian people
+and places using ensemble heuristics with Decision Random Forests and Spacy NLP tool.
 
 How do I install this package?
 ----------------------------------------------
@@ -15,12 +16,29 @@ As usual, just download it using pip:
 
 Tests Coverage
 ----------------------------------------------
-Since some software handling coverages sometime
+Since some software handling coverages sometimes
 get slightly different results, here's three of them:
 
 |coveralls| |sonar_coverage| |code_climate_coverage|
 
-Attempt at predicting common types in CSVs about Italian people and places using Spacy NLP tool.
+Usage examples
+----------------------------------------------
+To get the tipization of a list of data you can use:
+
+.. python:: python
+
+    from italian_csv_type_prediction import predict_types
+
+    predictions = predict_types([
+        #list of words to predict goes here
+    ])
+
+
+Currently supported types
+----------------------------------------------
+We currently support the following types:
+
+TODO
 
 Implementation notes
 ----------------------------------
