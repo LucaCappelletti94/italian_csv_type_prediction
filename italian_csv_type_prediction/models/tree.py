@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import os
 import random
-import pickle
+import compress_pickle
 from typing import List
 from tqdm.auto import tqdm
 from sklearn.preprocessing import LabelEncoder
@@ -91,8 +91,7 @@ def compute_set_scores(x: List[str]):
 def load_tree():
     global tree
     if tree is None:
-        with open("{}/tree.pkl".format(os.path.dirname(os.path.abspath(__file__))), "rb") as f:
-            tree = pickle.load(f)
+        tree = compress_pickle.load("{}/tree.pkl.gz".format(os.path.dirname(os.path.abspath(__file__))))
     return tree
 
 

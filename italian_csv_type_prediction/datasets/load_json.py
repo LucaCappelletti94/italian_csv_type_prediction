@@ -1,4 +1,4 @@
-import json
+import compress_json
 import os
 
 datasets = {}
@@ -6,12 +6,10 @@ datasets = {}
 
 def load_local_json_sets(path: str):
     if path not in datasets:
-        json_path = "{pwd}/{path}.json".format(
+        datasets[path] = set(compress_json.load("{pwd}/{path}.json.gz".format(
             pwd=os.path.dirname(os.path.abspath(__file__)),
             path=path
-        )
-        with open(json_path, "r", encoding="utf8") as f:
-            datasets[path] = set(json.load(f))
+        )))
     return datasets[path]
 
 

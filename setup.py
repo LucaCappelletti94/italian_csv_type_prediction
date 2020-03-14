@@ -66,7 +66,9 @@ setup(
         "python-stdnum",
         "tqdm",
         "python-codicefiscale",
-        "sklearn"
+        "sklearn",
+        "compress_json",
+        "compress_pickle"
     ],
     extras_require=extras,
 )
