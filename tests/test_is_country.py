@@ -3,4 +3,4 @@ from .utils import default_test
 
 
 def test_is_country():
-    default_test(is_country, ["countries"], black_list=["municipalities"])
+    default_test(is_country, ["countries"], black_list=["municipalities", "names", "surnames"])

@@ -9,6 +9,8 @@ from .is_cf import is_cf
 from .is_year import is_year
 from .is_country import is_country
 from .is_country_code import is_country_code
+from .is_name import is_name
+from .is_surname import is_surname
 
 __all__ = [
     "is_nan",
@@ -21,5 +23,7 @@ __all__ = [
     "is_cf",
     "is_year",
     "is_country",
-    "is_country_code"
+    "is_country_code",
+    "is_name",
+    "is_surname"
 ]

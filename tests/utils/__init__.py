@@ -1,5 +1,5 @@
 import numpy as np
-from italian_csv_type_prediction.datasets import load_provinces_codes, load_regions, load_municipalities, load_countries, load_country_codes
+from italian_csv_type_prediction.datasets import load_provinces_codes, load_regions, load_municipalities, load_countries, load_country_codes, load_surnames, load_names
 from typing import List
 
 cap = ["29121", "00121", 561, 29121]
@@ -13,6 +13,8 @@ iva = ["00380210302", "02005780131", "02437800135", "IT02437800135", 2437800135]
 cf = ["BNCBBR69B58L219S", "SMPFBA87H03C722E", "HMDSRS66S65Z336A"]
 countries = ["italia", "Italia"]
 country_codes = ["DE", "IT", "it", "fr"]
+names = ["luca", "sara", "marco", "carlo", "giovanni", "noemi", "xiaoxiao", "xiao", "ali"]
+surnames = ["cappelletti", "bonfitto", "mesiti", "angelucci", "deda", "li", "fontana"]
 
 
 types = {
@@ -22,6 +24,8 @@ types = {
     "iva": iva,
     "years": years,
     "cf": cf,
+    "names": list(load_names()) + names,
+    "surnames": list(load_surnames()) + surnames,
     "countries": list(load_countries()) + countries,
     "country_codes": list(load_country_codes()) + country_codes,
     "regions": list(load_regions()) + regions,
@@ -62,7 +66,8 @@ def default_test(test, positives: List[str], negatives: List[str]=None, black_li
     for neg in negatives:
         for t in types[neg]:
             if test(t):
-                raise AssertionError("Test {testname} on {negative} has failed.".format(
+                raise AssertionError("Test {testname} on {negative} from {key} has failed.".format(
                     testname=test.__name__,
+                    key=neg,
                     negative=t
                 ))

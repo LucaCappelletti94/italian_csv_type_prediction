@@ -3,4 +3,4 @@ from .utils import default_test
 
 
 def test_is_province_code():
-    default_test(is_province_code, ["provinces_codes"], black_list=["municipalities", "country_codes"])
+    default_test(is_province_code, ["provinces_codes"], black_list=["municipalities", "country_codes", "names", "surnames"])

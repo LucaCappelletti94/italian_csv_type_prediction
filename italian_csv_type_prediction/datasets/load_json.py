@@ -10,7 +10,7 @@ def load_local_json_sets(path: str):
             pwd=os.path.dirname(os.path.abspath(__file__)),
             path=path
         )
-        with open(json_path, "r") as f:
+        with open(json_path, "r", encoding="utf8") as f:
             datasets[path] = set(json.load(f))
     return datasets[path]
 
@@ -37,3 +37,9 @@ def load_countries():
 
 def load_country_codes():
     return load_local_json_sets("country_codes")
+
+def load_surnames():
+    return load_local_json_sets("surnames")
+
+def load_names():
+    return load_local_json_sets("names")
