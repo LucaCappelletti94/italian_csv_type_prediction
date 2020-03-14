@@ -14,18 +14,21 @@ def get_datasets():
             for key, values in test.items()
             for value in values
         ]
-        for _ in range(10):
+        for _ in range(50):
             random.shuffle(data)
             yield list(zip(*data))
 
 
 def test_set_prediction():
+    errors = []
     for x, y in get_datasets():
         predictions = predict_types(x)
         for word, truth, pred in zip(x, y, predictions):
             if truth != pred:
-                raise ValueError("Word {word} of type {truth} was predicted as of type {pred}!".format(
+                errors.append("Word {word} of type {truth} was predicted as of type {pred}!".format(
                     word=word,
                     truth=truth,
                     pred=pred
                 ))
+    if errors:
+        raise AssertionError("\n".join(errors))

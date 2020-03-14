@@ -25,7 +25,7 @@ classes = [
 ]
 
 
-def generate_training_set(subsets_number=10000, subsets_elements_number=100, error_probability=0.3):
+def generate_training_set(subsets_number=1000, subsets_elements_number=40, error_probability=0.1):
     datasets = [
         tuple(load_nan()),
         tuple(load_caps()),
