@@ -11,6 +11,11 @@ from .is_country import is_country
 from .is_country_code import is_country_code
 from .is_name import is_name
 from .is_surname import is_surname
+from .is_euro import is_euro
+from .is_float import is_float
+from .is_integer import is_integer
+from .is_string import is_string
+from .is_any_type import is_any_type
 
 __all__ = [
     "is_nan",
@@ -25,5 +30,11 @@ __all__ = [
     "is_country",
     "is_country_code",
     "is_name",
-    "is_surname"
+    "is_surname",
+    "is_euro",
+    "is_float",
+    "is_integer",
+    "is_string",
+    "type_means",
+    "is_any_type"
 ]

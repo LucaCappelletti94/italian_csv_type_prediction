@@ -62,7 +62,9 @@ setup(
     install_requires=[
         "spacy",
         "pandas",
+        "numpy",
         "python-stdnum",
+        "tqdm",
         "python-codicefiscale"
     ],
     extras_require=extras,

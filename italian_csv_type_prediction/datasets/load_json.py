@@ -38,8 +38,18 @@ def load_countries():
 def load_country_codes():
     return load_local_json_sets("country_codes")
 
+
 def load_surnames():
     return load_local_json_sets("surnames")
 
+
 def load_names():
     return load_local_json_sets("names")
+
+
+def load_caps():
+    return load_local_json_sets("caps")
+
+
+def load_codice_fiscale():
+    return load_local_json_sets("codice_fiscale")
