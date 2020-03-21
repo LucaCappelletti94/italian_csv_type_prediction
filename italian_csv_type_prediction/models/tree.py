@@ -18,6 +18,8 @@ classes = [
     "Municipality",
     "CodiceFiscale",
     "Year",
+    "Integer",
+    "Float",
     "Country",
     "CountryCode",
     "Name",
@@ -36,7 +38,15 @@ def generate_training_set(subsets_number=1000, subsets_elements_number=40, error
         tuple(load_codice_fiscale()),
         [
             random.randint(1950, 2050)
-            for _ in range(1000)
+            for _ in range(10000)
+        ],
+        [
+            random.randint(-100000, 100000)
+            for _ in range(10000)
+        ],
+        [
+            random.uniform(-100000, 100000)
+            for _ in range(10000)
         ],
         tuple(load_countries()),
         tuple(load_country_codes()),
