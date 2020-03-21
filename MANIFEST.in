@@ -1,2 +1,2 @@
 include italian_csv_type_prediction/datasets/*.json
-include italian_csv_type_prediction/models/*.pkl
+include italian_csv_type_prediction/models/*.pkl.gz
