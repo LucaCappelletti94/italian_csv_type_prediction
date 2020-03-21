@@ -41,6 +41,6 @@ types = {
 def is_any_type(candidate) -> Dict[str, bool]:
     """Return dictionary of predicted types."""
     return {
-        key: test(candidate)
+        key: test(candidate.strip())
         for key, test in types.items()
     }
