@@ -17,6 +17,7 @@ from .is_float import is_float
 from .is_integer import is_integer
 from .is_string import is_string
 from .is_email import is_email
+from .is_phone import is_phone
 
 types = {
     "NaN": is_nan,
@@ -36,7 +37,8 @@ types = {
     "Float": is_float,
     "Integer": is_integer,
     "String": is_string,
-    "Email": is_email
+    "Email": is_email,
+    "Phone": is_phone
 }
 
 

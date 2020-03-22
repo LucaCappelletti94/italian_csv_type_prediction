@@ -1,7 +1,7 @@
 from ..datasets import (
     load_nan, load_names, load_regions, load_countries, load_country_codes,
     load_municipalities, load_surnames, load_provinces_codes, load_caps,
-    load_codice_fiscale, load_iva, load_strings, load_email
+    load_codice_fiscale, load_iva, load_strings, load_email, load_phone
 )
 from ..simple_types import is_any_type
 import pandas as pd
@@ -30,11 +30,12 @@ classes = [
     "Surname",
     "IVA",
     "String",
-    "Email"
+    "Email",
+    "Phone"
 ]
 
 
-def generate_training_set(subsets_number=1000, subsets_elements_number=40, error_probability=0.1):
+def generate_training_set(subsets_number=1000, subsets_elements_number=40, error_probability=0.01):
     datasets = [
         tuple(load_nan()),
         tuple(load_caps()),
@@ -60,7 +61,8 @@ def generate_training_set(subsets_number=1000, subsets_elements_number=40, error
         tuple(load_surnames()),
         tuple(load_iva()),
         tuple(load_strings()),
-        tuple(load_email())
+        tuple(load_email()),
+        tuple(load_phone())
     ]
     datasets = list(zip(classes, datasets))
     X, Y = None, []

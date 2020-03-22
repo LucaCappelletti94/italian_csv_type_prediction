@@ -63,3 +63,7 @@ def load_strings():
 
 def load_email():
     return load_local_json_sets("email")
+
+
+def load_phone():
+    return load_local_json_sets("phone")
