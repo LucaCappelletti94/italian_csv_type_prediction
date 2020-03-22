@@ -8,7 +8,7 @@ def is_cap(candidate)->bool:
     if isinstance(candidate, (str, int, float)):
         try:
             return bool(cap_regex.match(str(int(float(candidate))).zfill(5))) and not is_nan(candidate)
-        except ValueError:
+        except (ValueError, OverflowError):
             return False
         
     return False

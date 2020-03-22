@@ -4,7 +4,7 @@ from typing import List
 
 datasets_corner_cases = {
     "NaN": ["", 0, "Nan", ".", "-", np.nan, None],
-    "CAP": ["29121", "00121", 561, 29121],
+    "CAP": ["29121", "00121", 561, 29121, 29121.00],
     "ProvinceCode": ["pc", "re"],
     "Region": ["Emilia-romagna", "valle d'aosta"],
     "Municipality": ["Piacenza", "Ferriere"],
