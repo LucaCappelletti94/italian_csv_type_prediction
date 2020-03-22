@@ -3,4 +3,4 @@ from .utils import default_test
 
 
 def test_is_date():
-    default_test(is_date, ["Date"], black_list=["CAP", "Year", "Name", "Surname", "String"])
+    default_test(is_date, ["Date"], black_list=["CAP", "Year", "Name", "Surname", "String", "HouseNumber"])

@@ -18,6 +18,8 @@ from .is_integer import is_integer
 from .is_string import is_string
 from .is_email import is_email
 from .is_phone import is_phone
+from .is_address import is_address
+from .is_house_number import is_house_number
 
 types = {
     "NaN": is_nan,
@@ -38,7 +40,9 @@ types = {
     "Integer": is_integer,
     "String": is_string,
     "Email": is_email,
-    "Phone": is_phone
+    "Phone": is_phone,
+    "Address": is_address,
+    "HouseNumber": is_house_number
 }
 
 

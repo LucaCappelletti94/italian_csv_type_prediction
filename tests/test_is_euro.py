@@ -4,4 +4,4 @@ from .utils import default_test
 
 def test_is_euro():
     default_test(is_euro, ["Euro"], black_list=[
-                 "CAP", "Integer", "Year", "IVA", "NaN"])
+                 "CAP", "Integer", "Year", "IVA", "NaN", "HouseNumber"])

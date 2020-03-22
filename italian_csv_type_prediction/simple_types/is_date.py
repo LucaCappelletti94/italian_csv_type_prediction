@@ -1,5 +1,6 @@
 from dateutil.parser import parse
 from dateutil.parser import parserinfo
+from .is_integer import is_integer
 
 class ItalianMonths(parserinfo):
 
@@ -29,6 +30,8 @@ def is_date(string, fuzzy=False):
     :param string: str, string to check for date
     :param fuzzy: bool, ignore unknown tokens in string if True
     """
+    if is_integer(string):
+        return False
     try: 
         parse(string, fuzzy=fuzzy, parserinfo=ItalianMonths())
         return True

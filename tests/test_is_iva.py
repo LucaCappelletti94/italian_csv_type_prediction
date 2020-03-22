@@ -3,4 +3,4 @@ from .utils import default_test
 
 
 def test_is_iva():
-    default_test(is_iva, ["IVA"], black_list=["Integer", "CAP", "Year"])
+    default_test(is_iva, ["IVA"], black_list=["Integer", "CAP", "Year", "HouseNumber"])

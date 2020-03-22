@@ -3,4 +3,4 @@ from .utils import default_test
 
 
 def test_is_year():
-    default_test(is_year, ["Year"], black_list=["CAP", "Integer"])
+    default_test(is_year, ["Year"], black_list=["CAP", "Integer", "HouseNumber"])
