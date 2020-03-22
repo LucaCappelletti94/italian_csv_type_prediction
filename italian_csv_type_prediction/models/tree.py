@@ -1,7 +1,8 @@
 from ..datasets import (
     load_nan, load_names, load_regions, load_countries, load_country_codes,
     load_municipalities, load_surnames, load_provinces_codes, load_caps,
-    load_codice_fiscale, load_iva, load_strings, load_email, load_phone
+    load_codice_fiscale, load_iva, load_strings, load_email, load_phone,
+    load_date, load_euro
 )
 from ..simple_types import is_any_type
 import pandas as pd
@@ -12,59 +13,37 @@ import compress_pickle
 from typing import List
 from tqdm.auto import tqdm
 from sklearn.preprocessing import LabelEncoder
+from multiprocessing import Pool, cpu_count
 
 tree = None
-classes = [
-    "NaN",
-    "CAP",
-    "ProvinceCode",
-    "Region",
-    "Municipality",
-    "CodiceFiscale",
-    "Year",
-    "Integer",
-    "Float",
-    "Country",
-    "CountryCode",
-    "Name",
-    "Surname",
-    "IVA",
-    "String",
-    "Email",
-    "Phone"
-]
+
+datasets = {
+    "NaN": tuple(load_nan()),
+    "CAP": tuple(load_caps()),
+    "ProvinceCode": tuple(load_provinces_codes()),
+    "Region": tuple(load_regions()),
+    "Municipality": tuple(load_municipalities()),
+    "CodiceFiscale": tuple(load_codice_fiscale()),
+    "Year": [random.randint(1950, 2050) for _ in range(10000)],
+    "Integer": [random.randint(-100000, 100000) for _ in range(10000)],
+    "Float": [random.uniform(-100000, 100000) for _ in range(10000)],
+    "Country": tuple(load_countries()),
+    "CountryCode": tuple(load_country_codes()),
+    "Name": tuple(load_names()),
+    "Surname": tuple(load_surnames()),
+    "IVA": tuple(load_iva()),
+    "String": tuple(load_strings()),
+    "Email": tuple(load_email()),
+    "Phone": tuple(load_phone()),
+    "Euro": tuple(load_euro()),
+    "Date": tuple(load_date())
+}
+
+classes = list(datasets.keys())
 
 
 def generate_training_set(subsets_number=1000, subsets_elements_number=40, error_probability=0.01):
-    datasets = [
-        tuple(load_nan()),
-        tuple(load_caps()),
-        tuple(load_provinces_codes()),
-        tuple(load_regions()),
-        tuple(load_municipalities()),
-        tuple(load_codice_fiscale()),
-        [
-            random.randint(1950, 2050)
-            for _ in range(10000)
-        ],
-        [
-            random.randint(-100000, 100000)
-            for _ in range(10000)
-        ],
-        [
-            random.uniform(-100000, 100000)
-            for _ in range(10000)
-        ],
-        tuple(load_countries()),
-        tuple(load_country_codes()),
-        tuple(load_names()),
-        tuple(load_surnames()),
-        tuple(load_iva()),
-        tuple(load_strings()),
-        tuple(load_email()),
-        tuple(load_phone())
-    ]
-    datasets = list(zip(classes, datasets))
+
     X, Y = None, []
     for _ in tqdm(
         range(subsets_number),

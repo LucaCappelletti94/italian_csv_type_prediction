@@ -70,7 +70,8 @@ setup(
         "compress_json",
         "compress_pickle",
         "validate_email",
-        "phonenumbers"
+        "phonenumbers",
+        "money_parser"
     ],
     extras_require=extras,
 )

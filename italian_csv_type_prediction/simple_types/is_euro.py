@@ -1,9 +1,14 @@
+from money_parser import price_str
+from .is_float import is_float
+
 def is_euro(candidate) -> bool:
-    if isinstance(candidate, str):
-        for target in ("EUR", "€"):
-            candidate = candidate.replace(target, " ")
-        candidate = " ".join(candidate.split()).strip()
+    if isinstance(candidate, str) and candidate.startswith("0"):
+        return False
+    if is_float(candidate):
+        return len(str(candidate).split(".")[-1]) <= 2
     try:
-        return len(str(float(candidate)).split(".")) <= 2
+        candidate = price_str(str(candidate))
+        print(candidate)
+        return len(str(float(candidate)).split(".")[-1]) <= 2
     except (ValueError, TypeError):
         return False

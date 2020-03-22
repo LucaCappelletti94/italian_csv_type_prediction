@@ -18,47 +18,47 @@ def load_nan():
 
 
 def load_provinces_codes():
-    return load_local_json_sets("provinces_codes")
+    return load_local_json_sets("ProvinceCode")
 
 
 def load_regions():
-    return load_local_json_sets("regions")
+    return load_local_json_sets("Region")
 
 
 def load_municipalities():
-    return load_local_json_sets("municipalities")
+    return load_local_json_sets("Municipality")
 
 
 def load_countries():
-    return load_local_json_sets("countries")
+    return load_local_json_sets("Country")
 
 
 def load_country_codes():
-    return load_local_json_sets("country_codes")
+    return load_local_json_sets("CountryCode")
 
 
 def load_surnames():
-    return load_local_json_sets("surnames")
+    return load_local_json_sets("Surname")
 
 
 def load_names():
-    return load_local_json_sets("names")
+    return load_local_json_sets("Name")
 
 
 def load_caps():
-    return load_local_json_sets("caps")
+    return load_local_json_sets("CAP")
 
 
 def load_codice_fiscale():
-    return load_local_json_sets("codice_fiscale")
+    return load_local_json_sets("CodiceFiscale")
 
 
 def load_iva():
-    return load_local_json_sets("iva")
+    return load_local_json_sets("IVA")
 
 
 def load_strings():
-    return load_local_json_sets("strings")
+    return load_local_json_sets("String")
 
 
 def load_email():
@@ -67,3 +67,11 @@ def load_email():
 
 def load_phone():
     return load_local_json_sets("phone")
+
+
+def load_euro():
+    return load_local_json_sets("euro")
+
+
+def load_date():
+    return load_local_json_sets("date")

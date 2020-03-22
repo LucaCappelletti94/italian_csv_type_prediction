@@ -3,4 +3,4 @@ from .utils import default_test
 
 
 def test_is_cf():
-    default_test(is_cf, ["cf"])
+    default_test(is_cf, ["CodiceFiscale"])

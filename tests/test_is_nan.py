@@ -4,7 +4,7 @@ import pytest
 
 
 def test_is_nan():
-    default_test(is_nan, ["nans"], black_list=["country_codes"])
+    default_test(is_nan, ["NaN"], black_list=["CountryCode"])
 
     with pytest.raises(ValueError):
         is_nan({})

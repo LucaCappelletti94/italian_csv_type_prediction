@@ -3,4 +3,5 @@ from .utils import default_test
 
 
 def test_is_surname():
-    default_test(is_surname, ["surnames"], black_list=["regions", "provinces_codes", "countries", "country_codes", "names", "nans", "municipalities"])
+    default_test(is_surname, ["Surname"], black_list=[
+                 "Region", "ProvinceCode", "Country", "CountryCode", "Name", "NaN", "Municipality", "String"])

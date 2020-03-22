@@ -1,36 +1,27 @@
 import numpy as np
-from italian_csv_type_prediction.datasets import load_provinces_codes, load_regions, load_municipalities, load_countries, load_country_codes, load_surnames, load_names
+from italian_csv_type_prediction.models.tree import datasets
 from typing import List
 
-cap = ["29121", "00121", 561, 29121]
-years = ["1999", "2010", 2017, 2030, 97, 17, 15]
-dates = ["12/12/1994", "12 dicembre 1994", "12 dic 1994"]
-nans = ["", 0, "Nan", ".", "-", np.nan, None]
-regions = ["Emilia-romagna", "valle d'aosta"]
-municipalities = ["Piacenza", "Ferriere"]
-provinces_codes = ["pc"]
-iva = ["00380210302", "02005780131", "02437800135", "IT02437800135", 2437800135]
-cf = ["BNCBBR69B58L219S", "SMPFBA87H03C722E", "HMDSRS66S65Z336A"]
-countries = ["italia", "Italia"]
-country_codes = ["DE", "IT", "it", "fr"]
-names = ["luca", "sara", "marco", "carlo", "giovanni", "noemi", "xiaoxiao", "xiao", "ali"]
-surnames = ["cappelletti", "bonfitto", "mesiti", "angelucci", "deda", "li", "fontana"]
-
+datasets_corner_cases = {
+    "NaN": ["", 0, "Nan", ".", "-", np.nan, None],
+    "CAP": ["29121", "00121", 561, 29121],
+    "ProvinceCode": ["pc", "re"],
+    "Region": ["Emilia-romagna", "valle d'aosta"],
+    "Municipality": ["Piacenza", "Ferriere"],
+    "CodiceFiscale": ["BNCBBR69B58L219S", "SMPFBA87H03C722E", "HMDSRS66S65Z336A"],
+    "Year": ["1999", "2010", 2017, 2030, 97, 17, 15],
+    "Country": ["italia", "Italia"],
+    "CountryCode": ["DE", "IT", "it", "fr"],
+    "Name": ["luca", "sara", "marco", "carlo", "giovanni", "noemi", "xiaoxiao", "xiao", "ali"],
+    "Surname": ["cappelletti", "bonfitto", "mesiti", "angelucci", "deda", "li", "fontana"],
+    "IVA": ["00380210302", "02005780131", "02437800135", "IT02437800135", 2437800135],
+    "Date": ["12/12/1994", "12 dicembre 1994", "12 dic 1994"]
+}
 
 types = {
-    "cap": cap,
-    "dates": dates,
-    "nans": nans,
-    "iva": iva,
-    "years": years,
-    "cf": cf,
-    "names": list(load_names()) + names,
-    "surnames": list(load_surnames()) + surnames,
-    "countries": list(load_countries()) + countries,
-    "country_codes": list(load_country_codes()) + country_codes,
-    "regions": list(load_regions()) + regions,
-    "municipalities":list(load_municipalities()) + municipalities,
-    "provinces_codes": list(load_provinces_codes()) + provinces_codes
+    key: list(value) + list(datasets_corner_cases[key]
+                  if key in datasets_corner_cases else [])
+    for key, value in datasets.items()
 }
 
 
@@ -51,15 +42,20 @@ def get_cases(t):
     return get_type(t), get_not_type(t)
 
 
-def default_test(test, positives: List[str], negatives: List[str]=None, black_list: List[str]=()):
-    if negatives is None:
+def default_test(test, positives: List[str], negatives: List[str] = (), black_list: List[str] = ()):
+    for e in list(positives) + list(negatives) + list(black_list):
+        if e not in types:
+            raise ValueError("Given type {} is not available!".format(e))
+
+    if not negatives:
         negatives = list(set(types.keys()) - set(positives) - set(black_list))
 
     for pos in positives:
         for t in types[pos]:
             if not test(t):
-                raise AssertionError("Test {testname} on {positive} has failed.".format(
+                raise AssertionError("Test {testname} on {positive} from {key} has failed.".format(
                     testname=test.__name__,
+                    key=pos,
                     positive=t
                 ))
 

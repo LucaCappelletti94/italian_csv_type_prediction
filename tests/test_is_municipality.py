@@ -3,4 +3,5 @@ from .utils import default_test
 
 
 def test_is_municipality():
-    default_test(is_municipality, ["municipalities"], black_list=["regions", "provinces_codes", "countries", "country_codes", "names", "surnames"])
+    default_test(is_municipality, ["Municipality"], black_list=[
+                 "Region", "ProvinceCode", "Country", "CountryCode", "Name", "Surname", "String"])
