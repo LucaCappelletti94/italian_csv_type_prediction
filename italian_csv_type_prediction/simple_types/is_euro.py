@@ -8,7 +8,6 @@ def is_euro(candidate) -> bool:
         return len(str(candidate).split(".")[-1]) <= 2
     try:
         candidate = price_str(str(candidate))
-        print(candidate)
         return len(str(float(candidate)).split(".")[-1]) <= 2
     except (ValueError, TypeError):
         return False

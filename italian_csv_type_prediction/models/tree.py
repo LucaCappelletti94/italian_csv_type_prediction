@@ -43,21 +43,21 @@ classes = list(datasets.keys())
 
 
 def generate_training_set(subsets_number=1000, subsets_elements_number=40, error_probability=0.01):
-
+    items = list(datasets.items())
     X, Y = None, []
     for _ in tqdm(
         range(subsets_number),
         total=subsets_number,
         desc="Generating training dataset"
     ):
-        main_dataset_name, dataset = random.choice(datasets)
+        main_dataset_name, dataset = random.choice(items)
         x = []
         for _ in range(subsets_elements_number):
             if random.uniform(0, 1) < 1-error_probability:
                 x.append(random.choice(dataset))
                 Y.append(main_dataset_name)
             else:
-                tmp_dataset_name, tmp_dataset = random.choice(datasets)
+                tmp_dataset_name, tmp_dataset = random.choice(items)
                 x.append(random.choice(tmp_dataset))
                 Y.append(tmp_dataset_name)
         scores = compute_set_scores(x)
