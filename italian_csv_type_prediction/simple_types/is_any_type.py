@@ -16,6 +16,7 @@ from .is_euro import is_euro
 from .is_float import is_float
 from .is_integer import is_integer
 from .is_string import is_string
+from .is_email import is_email
 
 types = {
     "NaN": is_nan,
@@ -34,13 +35,14 @@ types = {
     "Euro": is_euro,
     "Float": is_float,
     "Integer": is_integer,
-    "String": is_string
+    "String": is_string,
+    "Email": is_email
 }
 
 
 def is_any_type(candidate) -> Dict[str, bool]:
     """Return dictionary of predicted types."""
     return {
-        key: test(candidate.strip())
+        key: test(candidate.strip() if isinstance(candidate, str) else candidate)
         for key, test in types.items()
     }

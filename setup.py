@@ -68,7 +68,9 @@ setup(
         "python-codicefiscale",
         "sklearn",
         "compress_json",
-        "compress_pickle"
+        "compress_pickle",
+        "validate_email",
+        "phonenumbers"
     ],
     extras_require=extras,
 )

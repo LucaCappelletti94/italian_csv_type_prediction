@@ -1,4 +1,8 @@
-from ..datasets import load_nan, load_names, load_regions, load_countries, load_country_codes, load_municipalities, load_surnames, load_provinces_codes, load_caps, load_codice_fiscale, load_iva
+from ..datasets import (
+    load_nan, load_names, load_regions, load_countries, load_country_codes,
+    load_municipalities, load_surnames, load_provinces_codes, load_caps,
+    load_codice_fiscale, load_iva, load_strings, load_email
+)
 from ..simple_types import is_any_type
 import pandas as pd
 import numpy as np
@@ -24,7 +28,9 @@ classes = [
     "CountryCode",
     "Name",
     "Surname",
-    "IVA"
+    "IVA",
+    "String",
+    "Email"
 ]
 
 
@@ -52,7 +58,9 @@ def generate_training_set(subsets_number=1000, subsets_elements_number=40, error
         tuple(load_country_codes()),
         tuple(load_names()),
         tuple(load_surnames()),
-        tuple(load_iva())
+        tuple(load_iva()),
+        tuple(load_strings()),
+        tuple(load_email())
     ]
     datasets = list(zip(classes, datasets))
     X, Y = None, []
@@ -101,7 +109,8 @@ def compute_set_scores(x: List[str]):
 def load_tree():
     global tree
     if tree is None:
-        tree = compress_pickle.load("{}/tree.pkl.gz".format(os.path.dirname(os.path.abspath(__file__))))
+        tree = compress_pickle.load(
+            "{}/tree.pkl.gz".format(os.path.dirname(os.path.abspath(__file__))))
     return tree
 
 

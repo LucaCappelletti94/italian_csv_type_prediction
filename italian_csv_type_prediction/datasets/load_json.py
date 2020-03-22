@@ -55,3 +55,11 @@ def load_codice_fiscale():
 
 def load_iva():
     return load_local_json_sets("iva")
+
+
+def load_strings():
+    return load_local_json_sets("strings")
+
+
+def load_email():
+    return load_local_json_sets("email")

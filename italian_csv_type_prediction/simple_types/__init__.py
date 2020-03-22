@@ -15,6 +15,7 @@ from .is_euro import is_euro
 from .is_float import is_float
 from .is_integer import is_integer
 from .is_string import is_string
+from .is_email import is_email
 from .is_any_type import is_any_type
 
 __all__ = [
@@ -35,6 +36,6 @@ __all__ = [
     "is_float",
     "is_integer",
     "is_string",
-    "type_means",
+    "is_email",
     "is_any_type"
 ]
