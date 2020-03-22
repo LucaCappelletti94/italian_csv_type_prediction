@@ -2,7 +2,7 @@ from ..datasets import (
     load_nan, load_names, load_regions, load_countries, load_country_codes,
     load_municipalities, load_surnames, load_provinces_codes, load_caps,
     load_codice_fiscale, load_iva, load_strings, load_email, load_phone,
-    load_date, load_euro
+    load_date, load_euro, load_address
 )
 from ..simple_types import is_any_type
 import pandas as pd
@@ -36,7 +36,8 @@ datasets = {
     "Email": tuple(load_email()),
     "Phone": tuple(load_phone()),
     "Euro": tuple(load_euro()),
-    "Date": tuple(load_date())
+    "Date": tuple(load_date()),
+    "Address": tuple(load_address()),
 }
 
 classes = list(datasets.keys())

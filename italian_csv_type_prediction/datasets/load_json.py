@@ -75,3 +75,11 @@ def load_euro():
 
 def load_date():
     return load_local_json_sets("date")
+
+
+def load_address():
+    return load_local_json_sets("Address")
+
+
+def load_house_number():
+    return load_local_json_sets("HouseNumber")

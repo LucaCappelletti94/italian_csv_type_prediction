@@ -17,6 +17,7 @@ from .is_integer import is_integer
 from .is_string import is_string
 from .is_email import is_email
 from .is_any_type import is_any_type
+from .is_address import is_address
 
 __all__ = [
     "is_nan",
@@ -37,5 +38,6 @@ __all__ = [
     "is_integer",
     "is_string",
     "is_email",
-    "is_any_type"
+    "is_any_type",
+    "is_address"
 ]
