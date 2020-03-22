@@ -3,4 +3,4 @@ from .utils import default_test
 
 
 def test_is_cap():
-    default_test(is_cap, ["CAP"], black_list=["Year", "Integer", "HouseNumber"])
+    default_test(is_cap, ["CAP"], black_list=["Year", "Integer", "Float", "HouseNumber"])
