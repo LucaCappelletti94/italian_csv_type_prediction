@@ -7,7 +7,7 @@ def is_cap(candidate)->bool:
     """Return a boolean representing if given candidate is a valid italian CAP."""
     if isinstance(candidate, (str, int, float)):
         try:
-            return bool(cap_regex.match(str(int(candidate)).zfill(5))) and not is_nan(candidate)
+            return bool(cap_regex.match(str(int(float(candidate))).zfill(5))) and not is_nan(candidate)
         except ValueError:
             return False
         
