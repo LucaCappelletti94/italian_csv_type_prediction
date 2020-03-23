@@ -3,9 +3,10 @@ from .is_municipality import is_municipality
 from .is_region import is_region
 from .is_name import is_name
 
-def is_address(candidate)->bool:
+
+def is_address(candidate) -> bool:
     """Return boolean representing if candidate may be an italian address.
-    
+
     Notes
     ------------------------------
     Sestiere is a kind of place in Venetian.
