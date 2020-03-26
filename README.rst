@@ -3,7 +3,7 @@ italian_csv_type_prediction
 |travis| |sonar_quality| |sonar_maintainability| |codacy|
 |code_climate_maintainability| |pip| |downloads|
 
-This package is an attemp at predicting common types in CSVs about Italian people
+This package is an attempt at predicting common types in CSVs about Italian people
 and places using ensemble heuristics with Decision Random Forests and Spacy NLP tool.
 
 How do I install this package?
@@ -23,9 +23,9 @@ get slightly different results, here's three of them:
 
 Usage examples
 ----------------------------------------------
-To get the tipization of a list of data you can use:
+To get the typization of a list of data you can use:
 
-.. python:: python
+.. code:: python
 
     from italian_csv_type_prediction import predict_types
 
