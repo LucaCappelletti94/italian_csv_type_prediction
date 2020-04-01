@@ -11,4 +11,4 @@ class CAPType(IntegerType):
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate matches regex for CAP values."""
-        return super().validate(candidate, **kwargs) and self._predictor.validate(str(int(float(candidate))).zfill(5))
+        return super().validate(candidate, **kwargs) and self._predictor.validate(str(int(float(candidate))))
