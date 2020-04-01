@@ -1,7 +1,7 @@
 from dateutil.parser import parse
 from dateutil.parser import parserinfo
 from .string_type import StringType
-
+from .float_type import FloatType
 
 class ItalianMonths(parserinfo):
 
@@ -31,9 +31,12 @@ class DateType(StringType):
         """Create new DateType predictor."""
         super().__init__()
         self._parserinfo = ItalianMonths()
+        self._float_predictor = FloatType()
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate is a Date."""
+        if self._float_predictor.validate(candidate):
+            return False
         try:
             parse(candidate, parserinfo=self._parserinfo)
             return True
