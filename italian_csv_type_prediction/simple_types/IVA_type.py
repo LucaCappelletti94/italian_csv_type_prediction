@@ -10,4 +10,4 @@ class IVAType(IntegerType):
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate is an IVA."""
-        return super().validate(candidate, **kwargs) and self._vat_predictor.is_valid(candidate)
+        return super().validate(candidate, **kwargs) and len(str(candidate)) == 11 and self._vat_predictor.is_valid(candidate)
