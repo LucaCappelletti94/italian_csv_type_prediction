@@ -24,7 +24,7 @@ after_script:
 script:
 - rm -rf .coverage
 - coverage erase
-- pytest --cov=italian_csv_type_prediction --cov-report xml:coverage.xml
+- pytest tests --cov=italian_csv_type_prediction --cov-report xml:coverage.xml
 - coverage combine --append || true
 - coverage report
 - coverage xml
