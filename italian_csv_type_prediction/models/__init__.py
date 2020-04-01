@@ -1,3 +1,3 @@
-from .tree import predict_types
+from .type_predictor import TypePredictor
 
-__all__ = ["predict_types"]
+__all__ = ["TypePredictor"]

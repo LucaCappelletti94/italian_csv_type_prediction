@@ -1,3 +1,3 @@
-from .models import predict_types
+from .models import TypePredictor
 
-__all__ = ["predict_types"]
+__all__ = ["TypePredictor"]

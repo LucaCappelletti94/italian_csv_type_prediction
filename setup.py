@@ -71,7 +71,9 @@ setup(
         "compress_pickle",
         "validate_email",
         "phonenumbers",
-        "money_parser"
+        "money_parser",
+        "unidecode",
+        "deco"
     ],
     extras_require=extras,
 )
