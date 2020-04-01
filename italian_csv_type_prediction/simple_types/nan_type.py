@@ -12,7 +12,7 @@ class NaNType(StringType):
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate is a NaN."""
-        return self._predictor.validate(candidate) or super().validate(candidate) and all(
+        return self._predictor.validate(candidate) or pd.isna(candidate) or super().validate(candidate) and all(
             self._predictor.validate(element)
             for element in set(candidate)
         )
