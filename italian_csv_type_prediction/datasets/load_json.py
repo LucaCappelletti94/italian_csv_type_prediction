@@ -81,9 +81,5 @@ def load_address_starters():
     return load_local_json("address_starters")
 
 
-def load_house_number():
-    return load_local_json("HouseNumber")
-
-
 def load_biological_sex():
     return load_local_json("BiologicalSex")

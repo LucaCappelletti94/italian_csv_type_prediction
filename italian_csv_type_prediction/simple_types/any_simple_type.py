@@ -8,7 +8,6 @@ from .currency_type import CurrencyType
 from .date_type import DateType
 from .email_type import EMailType
 from .float_type import FloatType
-from .house_number_type import HouseNumberType
 from .integer_type import IntegerType
 from .IVA_type import IVAType
 from .municipality_type import MunicipalityType
@@ -30,7 +29,7 @@ class AnySimpleTypePredictor:
             for predictor in (
                 AddressType, CAPType, CodiceFiscaleType, CountryCodeType,
                 CountryType, CurrencyType, DateType, EMailType,
-                FloatType, HouseNumberType, IntegerType, IVAType,
+                FloatType, IntegerType, IVAType,
                 MunicipalityType, NameType, NaNType, PhoneNumberType,
                 ProvinceCodeType, RegionType, StringType, SurnameType,
                 YearType, BiologicalSexType
