@@ -3,7 +3,7 @@ from ..dataframe_generators import SimpleDatasetGenerator
 import compress_pickle
 import pandas as pd
 import os
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
 
 
 class TypePredictor:
@@ -18,8 +18,7 @@ class TypePredictor:
 
     def fit(self, number: int = 1000):
         X, y = SimpleDatasetGenerator().build(number)
-        self._forest = RandomForestClassifier(
-            n_estimators=1000, max_depth=20, random_state=42, class_weight="balanced").fit(X, y)
+        self._forest = DecisionTreeClassifier(max_depth=20, random_state=42, class_weight="balanced").fit(X, y)
         self._save_model()
 
     def _save_model(self):
