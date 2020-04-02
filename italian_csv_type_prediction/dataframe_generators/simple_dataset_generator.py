@@ -112,11 +112,11 @@ class SimpleDatasetGenerator:
         df, types = self.generate_simple_dataframe()
         return self._embedding.transform(df, types)
 
-    def build(self, number: int = 1000):
+    def build(self, number: int = 1000, verbose:bool=True):
         """Creates and encodes a number of dataframe samples for training"""
         X, y = list(zip(*[
             self._build()
-            for _ in trange(number, desc="Rendering dataset")
+            for _ in trange(number, desc="Rendering dataset", disable=not verbose)
         ]))
 
         return np.vstack(X), np.concatenate(y)
