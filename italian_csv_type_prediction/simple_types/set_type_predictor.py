@@ -1,5 +1,6 @@
 from .simple_type import SimpleTypePredictor
 from unidecode import unidecode
+from ..utility import normalize
 from typing import List
 
 
@@ -18,18 +19,15 @@ class SetTypePredictor(SimpleTypePredictor):
         self._normalize_values = normalize_values
         if self._normalize_values:
             elements = [
-                self._normalize(element)
+                normalize(element)
                 for element in elements
             ]
         self._set = set(elements)
 
-    def _normalize(self, element: str) -> str:
-        return unidecode(element).lower()
-
     def validate(self, candidate) -> bool:
         """Return boolean representing if given candidate is part of set."""
         return (
-            self._normalize(candidate)
+            normalize(candidate)
             if self._normalize_values
             else candidate
         ) in self._set

@@ -12,6 +12,10 @@ class NameType(StringType):
         self._predictor = PartialSetTypePredictor(
             load_names(), normalize_values=True, **kwargs)
 
+    @property
+    def fuzzy(self):
+        return True
+
     def validate(self, candidate, codice_fiscale: str = None, **kwargs) -> bool:
         """Return boolean representing if given candidate is a valid italian name."""
         if not super().validate(candidate, **kwargs):

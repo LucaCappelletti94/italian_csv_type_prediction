@@ -1,6 +1,8 @@
 from ..embedding import DataframeEmbedding
-import random
+from ..simple_types.simple_type import SimpleTypePredictor
+from random import randint, uniform, choice
 import numpy as np
+from typing import List
 from tqdm.auto import trange
 import pandas as pd
 from ..datasets import (
@@ -27,9 +29,9 @@ class SimpleDatasetGenerator:
             "ProvinceCode": load_provinces_codes(),
             "Region": load_regions(),
             "Municipality": load_municipalities(),
-            "Year": [random.randint(1990, 2030) for _ in range(1000)],
-            "Integer": [random.randint(-100000, 100000) for _ in range(10000)],
-            "Float": [random.uniform(-100000, 100000) for _ in range(10000)],
+            "Year": [randint(1990, 2030) for _ in range(1000)] + [str(randint(1990, 2030)) for _ in range(1000)],
+            "Integer": [randint(-100000, 100000) for _ in range(10000)] + [str(randint(-100000, 100000)) for _ in range(10000)],
+            "Float": [uniform(-100000, 100000) for _ in range(10000)] + [str(uniform(-100000, 100000)) for _ in range(10000)],
             "Country": load_countries(),
             "CountryCode": load_country_codes(),
             "Name": load_names(),
@@ -47,6 +49,10 @@ class SimpleDatasetGenerator:
             for key, value in datasets.items()
         }
 
+    def get_dataset(self, predictor: SimpleTypePredictor) -> List:
+        """Return dataset for given predictor."""
+        return self._datasets[predictor.name]
+
     def generate_simple_dataframe(
         self,
         nan_percentage: float = 0.1,
@@ -54,7 +60,7 @@ class SimpleDatasetGenerator:
         max_rows: int = 50,
         mix_codes: bool = True
     ):
-        rows = random.randint(min_rows, max_rows)
+        rows = randint(min_rows, max_rows)
         df = pd.DataFrame({
             key: np.random.choice(values, size=rows, replace=True)
             for key, values in self._datasets.items()
@@ -73,7 +79,7 @@ class SimpleDatasetGenerator:
 
         if nan_percentage > 0:
             mask = np.random.choice([False, True], size=df.shape, p=[
-                                    nan_percentage, 1-nan_percentage])
+                nan_percentage, 1-nan_percentage])
             types[np.logical_not(mask)] = "NaN"
             df = df.where(mask)
         return df, types
@@ -82,7 +88,7 @@ class SimpleDatasetGenerator:
         df, types = self.generate_simple_dataframe()
         return self._embedding.transform(df, types)
 
-    def build(self, number:int=1000):
+    def build(self, number: int = 1000):
         """Creates and encodes a number of dataframe samples for training"""
         X, y = list(zip(*[
             self._build()

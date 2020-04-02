@@ -1,8 +1,8 @@
 from stdnum import get_cc_module
-from .integer_type import IntegerType
+from .simple_type import SimpleTypePredictor
 
 
-class IVAType(IntegerType):
+class IVAType(SimpleTypePredictor):
     def __init__(self):
         """Create new IVA type predictor based on rules."""
         super().__init__()
@@ -10,4 +10,4 @@ class IVAType(IntegerType):
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate is an IVA."""
-        return super().validate(candidate, **kwargs) and len(str(candidate)) == 11 and self._vat_predictor.is_valid(candidate)
+        return self._vat_predictor.is_valid(candidate)

@@ -12,6 +12,10 @@ class SurnameType(StringType):
         self._predictor = PartialSetTypePredictor(
             load_surnames(), normalize_values=True, **kwargs)
 
+    @property
+    def fuzzy(self):
+        return True
+
     def validate(self, candidate, codice_fiscale: str = None, **kwargs) -> bool:
         """Return boolean representing if given candidate is a valid italian surname."""
         if not super().validate(candidate, **kwargs):

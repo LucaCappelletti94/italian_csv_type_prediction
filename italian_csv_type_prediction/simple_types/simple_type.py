@@ -10,7 +10,17 @@ class SimpleTypePredictor:
         This type of predictor mainly tries to avoid
         false negatives.
     """
-    
+
+    @property
+    def name(self):
+        """Return type identified by this predictor."""
+        return self.__class__.__name__[:-4]
+
+    @property
+    def fuzzy(self) -> bool:
+        """Return a boolean representing if predicted type is fuzzy or defined."""
+        return False
+
     def validate(self, candidate, **kwargs: Dict) -> bool:
         """Return boolean representing if type is identified.
 

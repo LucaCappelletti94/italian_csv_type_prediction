@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, List
 from .address_type import AddressType
 from .CAP_type import CAPType
 from .codice_fiscale_type import CodiceFiscaleType
@@ -20,6 +20,7 @@ from .string_type import StringType
 from .surname_type import SurnameType
 from .biological_sex_type import BiologicalSexType
 from .year_type import YearType
+from .simple_type import SimpleTypePredictor
 
 
 class AnySimpleTypePredictor:
@@ -39,6 +40,10 @@ class AnySimpleTypePredictor:
     def supported_types(self):
         """Return list of currently supported types."""
         return list(self._predictors.keys())
+
+    @property
+    def predictors(self) -> List[SimpleTypePredictor]:
+        return list(self._predictors.values())
 
     def predict(self, candidate, **kwargs) -> Dict[str, bool]:
         """Return prediction from all available type."""

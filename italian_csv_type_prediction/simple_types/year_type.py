@@ -8,7 +8,7 @@ class YearType(IntegerType):
         if super().validate(candidate, **kwargs):
             candidate = int(float(str(candidate).replace(",", ".")))
             return any(
-                candidate > _max and candidate < _min
-                for _max, _min in ((1990, 2030),)
+                candidate >= _min and candidate <= _max
+                for _min, _max in ((1990, 2030),)
             )
         return False
