@@ -74,7 +74,7 @@ class SimpleDatasetGenerator:
         """Return dataset for given predictor."""
         return self._datasets[predictor.name]
 
-    def random_nan(self):
+    def random_nan(self, *args):
         return choice(self._datasets["NaN"])
 
     def generate_simple_dataframe(

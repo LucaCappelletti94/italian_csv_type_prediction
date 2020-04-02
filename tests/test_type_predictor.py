@@ -8,7 +8,7 @@ pd.options.mode.chained_assignment = "raise"
 def test_type_predictor():
     dataset = SimpleDatasetGenerator()
     model = TypePredictor(local_path="test.pkl.gz")
-    model.fit(number=10)
+    model.fit(*dataset.build(1))
 
     df, _ = dataset.generate_simple_dataframe()
 
