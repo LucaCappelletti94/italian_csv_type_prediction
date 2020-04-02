@@ -20,34 +20,39 @@ from .string_type import StringType
 from .surname_type import SurnameType
 from .biological_sex_type import BiologicalSexType
 from .year_type import YearType
+from .boolean_type import BooleanType
 from .simple_type import SimpleTypePredictor
 
 
 class AnySimpleTypePredictor:
     def __init__(self):
-        self._predictors = {
-            predictor.__name__[:-4]: predictor()
+        self._predictors = [
+            predictor()
             for predictor in (
                 AddressType, CAPType, CodiceFiscaleType, CountryCodeType,
                 CountryType, CurrencyType, DateType, EMailType,
                 FloatType, IntegerType, IVAType,
                 MunicipalityType, NameType, NaNType, PhoneNumberType,
                 ProvinceCodeType, RegionType, StringType, SurnameType,
-                YearType, BiologicalSexType
+                YearType, BiologicalSexType, BooleanType
             )
-        }
+        ]
 
+    @property
     def supported_types(self):
         """Return list of currently supported types."""
-        return list(self._predictors.keys())
+        return [
+            predictor.name
+            for predictor in self._predictors
+        ]
 
     @property
     def predictors(self) -> List[SimpleTypePredictor]:
-        return list(self._predictors.values())
+        return self._predictors
 
     def predict(self, candidate, **kwargs) -> Dict[str, bool]:
         """Return prediction from all available type."""
         return {
-            key: predictor.validate(candidate)
-            for key, predictor in self._predictors.items()
+            predictor.name: predictor.validate(candidate)
+            for predictor in self._predictors
         }

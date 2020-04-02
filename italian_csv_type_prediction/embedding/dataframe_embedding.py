@@ -8,7 +8,7 @@ class DataframeEmbedding:
 
     def __init__(self):
         self._predictor = AnySimpleTypePredictor()
-        self._encoder = LabelEncoder().fit(self._predictor.supported_types())
+        self._encoder = LabelEncoder().fit(self._predictor.supported_types)
 
     def transform(self, df: pd.DataFrame, y: np.ndarray = None) -> np.ndarray:
         """Encode given dataframe into a vector space."""

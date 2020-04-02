@@ -77,6 +77,10 @@ def load_address():
     return load_local_json("Address")
 
 
+def load_boolean():
+    return load_local_json("Boolean")
+
+
 def load_address_starters():
     return load_local_json("address_starters")
 

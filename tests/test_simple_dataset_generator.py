@@ -9,9 +9,9 @@ def test_simple_dataset_builder():
     dataset = SimpleDatasetGenerator()
     simple_predictor = AnySimpleTypePredictor()
     assert set(list(dataset._datasets.keys())) == set(
-        simple_predictor.supported_types())
+        simple_predictor.supported_types)
 
-    available_types_number = len(simple_predictor.supported_types())
+    available_types_number = len(simple_predictor.supported_types)
 
     X, y = dataset.build(10)
 
