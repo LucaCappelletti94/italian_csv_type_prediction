@@ -34,3 +34,17 @@ class SimpleTypePredictor:
         raise NotImplementedError(
             "Method validate must be implemented in child class."
         )
+
+    def convert(self, candidate, **kwargs: Dict) -> bool:
+        """Return candidate converted to type.
+
+        Parameters
+        -----------------------------------
+        candidate,
+            The candidate to be identified.
+        kwargs:Dict,
+            Additional features to be considered.
+        """
+        raise NotImplementedError(
+            "Method convert must be implemented in child class."
+        )
