@@ -14,14 +14,14 @@ class TypePredictor:
             pwd=os.path.dirname(os.path.abspath(__file__)),
             local_path=local_path
         )
-        self._forest = self._load_model()
+        self._model = self._load_model()
 
     def fit(self, X:np.array, y:np.array):
-        self._forest = DecisionTreeClassifier(max_depth=20, random_state=42, class_weight="balanced").fit(X, y)
+        self._model = DecisionTreeClassifier(random_state=42, class_weight="balanced").fit(X, y)
         self._save_model()
 
     def _save_model(self):
-        compress_pickle.dump(self._forest, self._local_path)
+        compress_pickle.dump(self._model, self._local_path)
 
     def _load_model(self):
         if os.path.exists(self._local_path):
@@ -31,6 +31,6 @@ class TypePredictor:
     def predict_dataframe(self, df: pd.DataFrame) -> pd.DataFrame:
         """Return dataframe with given dataframe type predictions."""
         return self._embedder.reverse_label_embedding(
-            self._forest.predict(self._embedder.transform(df)),
+            self._model.predict(self._embedder.transform(df)),
             df
         )
