@@ -1,5 +1,5 @@
 from ..embedding import DataframeEmbedding
-from ..dataframe_generators import SimpleDatasetGenerator
+import numpy as np
 import compress_pickle
 import pandas as pd
 import os
@@ -16,8 +16,7 @@ class TypePredictor:
         )
         self._forest = self._load_model()
 
-    def fit(self, number: int = 1000):
-        X, y = SimpleDatasetGenerator().build(number)
+    def fit(self, X:np.array, y:np.array):
         self._forest = DecisionTreeClassifier(max_depth=20, random_state=42, class_weight="balanced").fit(X, y)
         self._save_model()
 

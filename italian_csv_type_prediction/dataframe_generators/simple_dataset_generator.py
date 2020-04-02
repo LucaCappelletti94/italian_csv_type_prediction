@@ -20,6 +20,26 @@ class SimpleDatasetGenerator:
         self._embedding = DataframeEmbedding()
 
     def _load_types_datasets(self):
+
+        integers = np.random.randint(-1000000, 100000, size=1000)
+        string_integers = integers.astype(str)
+        float_integers = integers.astype(float)
+
+        all_integers = integers.tolist() + string_integers.tolist() + \
+            float_integers.tolist()
+
+        floats = np.random.uniform(-1000000, 100000, size=1000)
+        string_floats = floats.astype(str)
+
+        all_floats = floats.tolist() + string_floats.tolist()
+
+        years = np.random.randint(1990, 2030, size=1000)
+        string_years = years.astype(str)
+        float_years = years.astype(float)
+
+        all_years = years.tolist() + string_years.tolist() + \
+            float_years.tolist()
+
         datasets = {
             "CodiceFiscale": load_codice_fiscale(),
             "IVA": load_iva(),
@@ -29,9 +49,9 @@ class SimpleDatasetGenerator:
             "ProvinceCode": load_provinces_codes(),
             "Region": load_regions(),
             "Municipality": load_municipalities(),
-            "Year": [randint(1990, 2030) for _ in range(1000)] + [str(randint(1990, 2030)) for _ in range(1000)],
-            "Integer": [randint(-100000, 100000) for _ in range(10000)] + [str(randint(-100000, 100000)) for _ in range(10000)],
-            "Float": [uniform(-100000, 100000) for _ in range(10000)] + [str(uniform(-100000, 100000)) for _ in range(10000)],
+            "Year": all_years,
+            "Integer": all_integers,
+            "Float": all_floats,
             "Country": load_countries(),
             "CountryCode": load_country_codes(),
             "Name": load_names(),
@@ -53,6 +73,9 @@ class SimpleDatasetGenerator:
     def get_dataset(self, predictor: SimpleTypePredictor) -> List:
         """Return dataset for given predictor."""
         return self._datasets[predictor.name]
+
+    def random_nan(self):
+        return choice(self._datasets["NaN"])
 
     def generate_simple_dataframe(
         self,
@@ -82,7 +105,7 @@ class SimpleDatasetGenerator:
             mask = np.random.choice([False, True], size=df.shape, p=[
                 nan_percentage, 1-nan_percentage])
             types[np.logical_not(mask)] = "NaN"
-            df = df.where(mask)
+            df = df.where(mask, other=self.random_nan)
         return df, types
 
     def _build(self):
