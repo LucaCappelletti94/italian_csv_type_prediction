@@ -1,4 +1,5 @@
 from .simple_type import SimpleTypePredictor
+from ..utils import normalize
 import re
 
 
@@ -16,4 +17,4 @@ class RegexTypePredictor(SimpleTypePredictor):
 
     def validate(self, candidate) -> bool:
         """Return boolean representing if given candidate matches regex."""
-        return bool(self._regex.match(str(candidate)))
+        return bool(self._regex.match(normalize(str(candidate))))

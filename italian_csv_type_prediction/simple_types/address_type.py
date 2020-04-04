@@ -1,14 +1,8 @@
-from .string_type import StringType
+from .set_regex_type_predictor import SetRegexTypePredictor
 from ..datasets import load_address_starters
-from ..utility import normalize
 
 
-class AddressType(StringType):
+class AddressType(SetRegexTypePredictor):
 
     def __init__(self):
-        super().__init__()
-        self._starters = load_address_starters()
-
-    def validate(self, candidate, **kwargs) -> bool:
-        """Return boolean representing if candidate may be an italian address."""
-        return super().validate(candidate) and any(normalize(candidate).startswith(start+" ") for start in self._starters)
+        super().__init__(load_address_starters())

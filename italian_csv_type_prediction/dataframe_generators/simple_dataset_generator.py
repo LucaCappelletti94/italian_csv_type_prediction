@@ -21,6 +21,7 @@ class SimpleDatasetGenerator:
 
     def _load_types_datasets(self):
 
+        small_integers = np.random.randint(1, 300, size=50)
         integers = np.random.randint(-1000000, 100000, size=1000)
         string_integers = integers.astype(str)
         float_integers = integers.astype(float)
@@ -40,6 +41,35 @@ class SimpleDatasetGenerator:
         all_years = years.tolist() + string_years.tolist() + \
             float_years.tolist()
 
+        names = load_names()
+        surnames = load_surnames()
+        dates = load_date()
+        ivas = load_iva()
+        cfs = load_codice_fiscale()
+
+        complete_names = [
+            "{} {}".format(name, surname)
+            for name, surname in zip(names, surnames)
+        ] + [
+            "{} {}".format(surname, name)
+            for name, surname in zip(names, surnames)
+        ]
+
+        date_complete_names = [
+            "{} ({})".format(complete_name, date)
+            for complete_name, date in zip(complete_names, dates)
+        ]
+
+        iva_complete_names = [
+            "{} - {}".format(complete_name, iva)
+            for complete_name, iva in zip(complete_names, ivas)
+        ]
+
+        cfs_complete_names = [
+            "{} - {}".format(complete_name, cf)
+            for complete_name, cf in zip(complete_names, cfs)
+        ]
+
         datasets = {
             "CodiceFiscale": load_codice_fiscale(),
             "IVA": load_iva(),
@@ -54,9 +84,9 @@ class SimpleDatasetGenerator:
             "Float": all_floats,
             "Country": load_countries(),
             "CountryCode": load_country_codes(),
-            "Name": load_names(),
-            "Surname": load_surnames(),
-            "String": load_strings(),
+            "Name": names,
+            "Surname": surnames,
+            "String": load_strings() + complete_names + date_complete_names + iva_complete_names + cfs_complete_names,
             "EMail": load_email(),
             "PhoneNumber": load_phone(),
             "Currency": load_euro(),
@@ -79,9 +109,9 @@ class SimpleDatasetGenerator:
 
     def generate_simple_dataframe(
         self,
-        nan_percentage: float = 0.1,
+        nan_percentage: float = 0.2,
         min_rows: int = 3,
-        max_rows: int = 50,
+        max_rows: int = 100,
         mix_codes: bool = True
     ):
         rows = randint(min_rows, max_rows)
