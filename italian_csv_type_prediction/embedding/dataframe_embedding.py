@@ -12,13 +12,13 @@ class DataframeEmbedding:
 
     def transform(self, df: pd.DataFrame, y: np.ndarray = None) -> np.ndarray:
         """Encode given dataframe into a vector space."""
-        x = pd.concat([
+        X = pd.concat([
             pd.DataFrame(self._predictor.predict(df[column]))
             for column in df.columns
         ])
         if y is not None:
-            return x, self._encoder.transform(y.T.ravel())
-        return x
+            return X, self._encoder.transform(y.T.ravel())
+        return X
 
     def reverse_label_embedding(self, encoded_labels: np.ndarray, df: pd.DataFrame) -> np.ndarray:
         decoded_labels = self._encoder.inverse_transform(encoded_labels)

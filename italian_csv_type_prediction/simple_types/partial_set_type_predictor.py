@@ -6,7 +6,7 @@ import math
 
 class PartialSetTypePredictor(SetTypePredictor):
 
-    def __init__(self, elements: List, dataset_percentage: float = 0.8, **kwargs):
+    def __init__(self, elements: List, dataset_percentage: float = 0.95, **kwargs):
         """Create new partial set based predictor.
 
         Parameters
