@@ -10,4 +10,6 @@ class FloatType(SimpleTypePredictor):
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate matches regex for float values."""
+        if str(candidate).startswith("0"):
+            return False
         return self._predictor.validate(candidate)

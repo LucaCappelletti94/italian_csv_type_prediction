@@ -1,17 +1,17 @@
-from .simple_type import SimpleTypePredictor
 from .integer_type import IntegerType
-from .integer_type import FloatType
-from .regex_type_predictor import RegexTypePredictor
+from .set_type_predictor import SetTypePredictor
+from ..datasets import load_caps
 
 
-class CAPType(SimpleTypePredictor):
+class CAPType(SetTypePredictor):
 
     def __init__(self):
         """Create new float type predictor based on regex."""
-        super().__init__()
-        self._predictor = RegexTypePredictor(r"^\d{5}$")
         self._integer = IntegerType()
-        self._float = FloatType()
+        super().__init__([
+            self.convert(e)
+            for e in load_caps()
+        ])
 
     def convert(self, candidate) -> str:
         """Convert given candidate to CAP."""
@@ -21,7 +21,4 @@ class CAPType(SimpleTypePredictor):
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate matches regex for CAP values."""
-        if self._float.validate(candidate) and not self._integer.validate(candidate):
-            # If it is an float but not an integer it is not a valid CAP.
-            return False
-        return self._predictor.validate(self.convert(candidate))
+        return super().validate(self.convert(candidate))

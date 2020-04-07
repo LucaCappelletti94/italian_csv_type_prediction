@@ -15,6 +15,6 @@ class RegexTypePredictor(SimpleTypePredictor):
         """
         self._regex = re.compile(pattern)
 
-    def validate(self, candidate) -> bool:
+    def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate matches regex."""
         return bool(self._regex.match(normalize(str(candidate))))

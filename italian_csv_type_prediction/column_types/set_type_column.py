@@ -72,7 +72,7 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
         self._nan = NaNType()
 
 
-    def validate(self, values: List, **kwargs: Dict) -> List[bool]:
+    def validate(self, values: List, fiscal_codes:List=None, ivas:List=None, **kwargs: Dict) -> List[bool]:
         """Return list of booleans representing if each value has been identified.
 
         Parameters
@@ -92,9 +92,11 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
         is_nan_type = []
 
         # We iterate on every available value
-        for value in values:
+        for i, value in enumerate(values):
+            fiscal_code = fiscal_codes[i] if fiscal_codes is not None else None
+            iva = ivas[i] if ivas is not None else None
             # If the value is of the main type
-            if self._main.validate(value, **kwargs):
+            if self._main.validate(value, fiscal_code=fiscal_code, iva=iva, **kwargs):
                 is_main_type.append(True)
                 is_other_type.append(False)
                 # The type itself is considered a generalization
@@ -103,21 +105,21 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
                 is_nan_type.append(False)
                 continue
             # Or is from any of the other given valid types
-            if any(other.validate(value, **kwargs) for other in self._others):
+            if any(other.validate(value, fiscal_code=fiscal_code, iva=iva, **kwargs) for other in self._others):
                 is_main_type.append(False)
                 is_other_type.append(True)
                 is_generalization.append(False)
                 is_nan_type.append(False)
                 continue
             # Or the main predictor is fuzzy and we have to check the given generalizations
-            if self._main.fuzzy and any(generalization.validate(value, **kwargs) for generalization in self._generalizations):
+            if self._main.fuzzy and any(generalization.validate(value, fiscal_code=fiscal_code, iva=iva, **kwargs) for generalization in self._generalizations):
                 is_main_type.append(False)
                 is_other_type.append(False)
                 is_generalization.append(True)
                 is_nan_type.append(False)
                 continue
             # Or finally the value can be a NaN
-            if self._nan.validate(value, **kwargs):
+            if self._nan.validate(value, fiscal_code=fiscal_code, iva=iva, **kwargs):
                 is_main_type.append(False)
                 is_other_type.append(False)
                 is_generalization.append(False)

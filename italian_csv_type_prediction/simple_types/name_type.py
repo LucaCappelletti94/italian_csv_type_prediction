@@ -1,5 +1,5 @@
 from .string_type import StringType
-from .partial_set_type_predictor import PartialSetTypePredictor
+from .set_type_predictor import SetTypePredictor
 from ..datasets import load_names
 from codicefiscale import codicefiscale
 
@@ -9,22 +9,21 @@ class NameType(StringType):
     def __init__(self, **kwargs):
         """Create new surname type predictor."""
         super().__init__()
-        self._predictor = PartialSetTypePredictor(
-            load_names(), normalize_values=True, **kwargs)
+        self._predictor = SetTypePredictor(load_names(), normalize_values=True, **kwargs)
 
     @property
     def fuzzy(self) -> bool:
         return True
 
-    def validate(self, candidate, codice_fiscale: str = None, **kwargs) -> bool:
+    def validate(self, candidate, fiscal_code: str = None, **kwargs) -> bool:
         """Return boolean representing if given candidate is a valid italian name."""
         if not super().validate(candidate, **kwargs):
             return False
-        if codice_fiscale is None:
+        if fiscal_code is None:
             return self._predictor.validate(candidate)
 
         characters = codicefiscale.decode(
-            codice_fiscale
+            fiscal_code
         )["raw"]["name"]
 
         return all(

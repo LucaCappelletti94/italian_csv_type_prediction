@@ -37,9 +37,14 @@ class AnyTypePredictor:
     def predictors(self) -> List[ColumnTypePredictor]:
         return self._predictors
 
-    def predict(self, values: List, **kwargs) -> Dict[str, List[bool]]:
+    def predict(self, values: List, fiscal_codes: List[str] = (), ivas: List[str] = (), **kwargs) -> Dict[str, List[bool]]:
         """Return prediction from all available type."""
         return {
-            predictor.name: predictor.validate(values)
+            predictor.name: predictor.validate(
+                values,
+                fiscal_codes=fiscal_codes,
+                ivas=ivas,
+                **kwargs
+            )
             for predictor in self._predictors
         }

@@ -5,6 +5,7 @@ import numpy as np
 from typing import List
 from tqdm.auto import trange
 import pandas as pd
+from random_csv_generator import random_csv
 from ..datasets import (
     load_nan, load_names, load_regions, load_countries, load_country_codes,
     load_municipalities, load_surnames, load_provinces_codes, load_caps,
@@ -122,6 +123,12 @@ class SimpleDatasetGenerator:
             key: np.random.choice(values, size=rows, replace=True)
             for key, values in self._datasets.items()
         })
+
+        rnd = random_csv(rows)
+
+        df["Name"] = rnd["name"]
+        df["Surname"] = rnd["surname"]
+        df["CodiceFiscale"] = rnd["codice_fiscale"]
 
         types = np.tile(np.array(df.columns), (len(df), 1))
 
