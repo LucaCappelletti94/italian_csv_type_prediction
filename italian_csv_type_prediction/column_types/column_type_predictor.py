@@ -11,17 +11,13 @@ class ColumnTypePredictor:
         false negatives.
     """
     
-    def validate(self, candidate, values:List, types:List[str], **kwargs: Dict) -> bool:
-        """Return boolean representing if type is identified.
+    def validate(self, values:List, **kwargs: Dict) -> List[bool]:
+        """Return list of booleans representing if each value has been identified.
 
         Parameters
         -----------------------------------
-        candidate,
-            The candidate to be identified.
         values:List,
             List of other values in the column.
-        types:List[str],
-            List of other types in the column.
         kwargs:Dict,
             Additional features to be considered.
         """
