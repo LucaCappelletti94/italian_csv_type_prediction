@@ -2,6 +2,7 @@ from .address_type import AddressType
 from .biological_sex_type import BiologicalSexType
 from .boolean_type import BooleanType
 from .CAP_type import CAPType
+from .currency_type import CurrencyType
 from .codice_fiscale_type import CodiceFiscaleType
 from .country_code_type import CountryCodeType
 from .country_type import CountryType

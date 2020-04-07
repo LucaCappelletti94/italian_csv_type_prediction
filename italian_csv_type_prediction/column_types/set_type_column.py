@@ -50,9 +50,9 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
 
         # We normalize the others and generalizations parameters
         # for when they are a single predictor.
-        if issubclass(others, SimpleTypePredictor):
+        if isinstance(others, SimpleTypePredictor):
             others = (others,)
-        if issubclass(generalizations, SimpleTypePredictor):
+        if isinstance(generalizations, SimpleTypePredictor):
             generalizations = (generalizations,)
 
         if len(generalizations) > 0 and not self._main.fuzzy:
@@ -139,7 +139,7 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
         # known to happen in the same column such as others or NaN
         # are less than a given percentage, we consider the eventual
         # positive matches as false positives.
-        if only_main < (total_values - only_others - only_nan)*self.min_threshold:
+        if only_main < (total_values - only_others - only_nan)*self._min_threshold:
             return [False]*total_values
 
         # If the identified values are above a given percentage of the values

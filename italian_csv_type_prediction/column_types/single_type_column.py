@@ -7,6 +7,7 @@ from ..simple_types import CAPType as SimpleCAPType
 from ..simple_types import CodiceFiscaleType as SimpleCodiceFiscaleType
 from ..simple_types import CountryCodeType as SimpleCountryCodeType
 from ..simple_types import CountryType as SimpleCountryType
+from ..simple_types import CurrencyType as SimpleCurrencyType
 from ..simple_types import DateType as SimpleDateType
 from ..simple_types import DocumentType as SimpleDocumentType
 from ..simple_types import EMailType as SimpleEMailType
@@ -69,6 +70,12 @@ class CountryType(SetTypeColumnPredictor):
         super().__init__(SimpleCountryType())
 
 
+class CurrencyType(SetTypeColumnPredictor):
+    def __init__(self):
+        """Create new Predictor based on a single type."""
+        super().__init__(SimpleCurrencyType())
+
+
 class DateType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
@@ -78,7 +85,7 @@ class DateType(SetTypeColumnPredictor):
 class DocumentType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleDocumentType())
+        super().__init__(SimpleDocumentType(), generalizations=SimpleStringType())
 
 
 class EMailType(SetTypeColumnPredictor):
@@ -115,6 +122,12 @@ class NameType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
         super().__init__(SimpleNameType(), generalizations=SimpleStringType())
+
+
+class NaNType(SetTypeColumnPredictor):
+    def __init__(self):
+        """Create new Predictor based on a single type."""
+        super().__init__(SimpleNaNType(), min_threshold=0)
 
 
 class PhoneNumberType(SetTypeColumnPredictor):

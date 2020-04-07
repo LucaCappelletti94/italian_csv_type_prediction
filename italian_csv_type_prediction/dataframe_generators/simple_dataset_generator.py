@@ -100,7 +100,7 @@ class SimpleDatasetGenerator:
             for key, value in datasets.items()
         }
 
-    def get_dataset(self, predictor: SimpleTypePredictor) -> List:
+    def get_dataset(self, predictor: SimpleTypePredictor) -> np.ndarray:
         """Return dataset for given predictor."""
         return self._datasets[predictor.name]
 
