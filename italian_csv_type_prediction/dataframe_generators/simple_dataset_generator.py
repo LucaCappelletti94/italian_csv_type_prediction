@@ -49,29 +49,6 @@ class SimpleDatasetGenerator:
         ivas = load_iva()
         cfs = load_codice_fiscale()
 
-        complete_names = [
-            "{} {}".format(name, surname)
-            for name, surname in zip(names, surnames)
-        ] + [
-            "{} {}".format(surname, name)
-            for name, surname in zip(names, surnames)
-        ]
-
-        date_complete_names = [
-            "{} ({})".format(complete_name, date)
-            for complete_name, date in zip(complete_names, dates)
-        ]
-
-        iva_complete_names = [
-            "{} - {}".format(complete_name, iva)
-            for complete_name, iva in zip(complete_names, ivas)
-        ]
-
-        cfs_complete_names = [
-            "{} - {}".format(complete_name, cf)
-            for complete_name, cf in zip(complete_names, cfs)
-        ]
-
         datasets = {
             "CodiceFiscale": load_codice_fiscale(),
             "Document": load_document_types(),
@@ -90,7 +67,7 @@ class SimpleDatasetGenerator:
             "CountryCode": load_country_codes(),
             "Name": names,
             "Surname": surnames,
-            "String": load_strings() + complete_names + date_complete_names + iva_complete_names + cfs_complete_names,
+            "String": load_strings(),
             "EMail": load_email(),
             "PhoneNumber": load_phone(),
             "Currency": load_euro(),
