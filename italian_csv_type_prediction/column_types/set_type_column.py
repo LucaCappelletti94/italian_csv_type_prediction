@@ -38,12 +38,37 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
             is fuzzy and the predicted elements are more than the fuzzy
             generalization threshold.
             THIS PARAMETER ONLY APPLY TO FUZZY TYPES.
+
+        Raises
+        ----------------------------------
+        ValueError,
+            When a predictor is not fuzzy but generalization are given.
+        ValueError,
+            When a predictor is fuzzy but not generalization are given.
         """
         self._main = main
+
+        # We normalize the others and generalizations parameters
+        # for when they are a single predictor.
+        if issubclass(others, SimpleTypePredictor):
+            others = (others,)
+        if issubclass(generalizations, SimpleTypePredictor):
+            generalizations = (generalizations,)
+
+        if len(generalizations) > 0 and not self._main.fuzzy:
+            raise ValueError("Given main predictor {predictor_type} is not fuzzy, but generalizations were given.".format(
+                predictor_type=self._main.__class__.__name__
+            ))
+
+        if len(generalizations) == 0 and self._main.fuzzy:
+            raise ValueError("Given main predictor {predictor_type} is fuzzy, but not generalizations were given.".format(
+                predictor_type=self._main.__class__.__name__
+            ))
+
         self._others = others
+        self._generalizations = generalizations
         self._min_threshold = min_threshold
         self._fuzzy_generalization_threshold = fuzzy_generalization_threshold
-        self._generalizations = generalizations
         self._nan = NaNType()
 
     def validate(self, values: List, **kwargs: Dict) -> List[bool]:
@@ -55,7 +80,7 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
             List of other values in the column.
         kwargs:Dict,
             Additional features to be considered.
-        
+
         Returns
         -----------------------------------
         Returns list of boolean predictions.
@@ -122,5 +147,5 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
         # values that are predicted by any of the generalizations.
         if only_main > (total_values - only_nan)*self._fuzzy_generalization_threshold:
             is_main_type = is_generalization
-        
+
         return is_main_type

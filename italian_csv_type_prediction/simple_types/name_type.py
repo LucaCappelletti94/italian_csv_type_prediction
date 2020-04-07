@@ -13,7 +13,7 @@ class NameType(StringType):
             load_names(), normalize_values=True, **kwargs)
 
     @property
-    def fuzzy(self):
+    def fuzzy(self) -> bool:
         return True
 
     def validate(self, candidate, codice_fiscale: str = None, **kwargs) -> bool:
@@ -26,7 +26,7 @@ class NameType(StringType):
         characters = codicefiscale.decode(
             codice_fiscale
         )["raw"]["name"]
-        
+
         return all(
             character in candidate.lower()
             for character in characters.rstrip("X").lower()

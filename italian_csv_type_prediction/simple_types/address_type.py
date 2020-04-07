@@ -6,3 +6,7 @@ class AddressType(SetRegexTypePredictor):
 
     def __init__(self):
         super().__init__(load_address_starters())
+
+    @property
+    def fuzzy(self) -> bool:
+        return True

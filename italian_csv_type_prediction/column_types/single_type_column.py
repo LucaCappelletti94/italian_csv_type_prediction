@@ -1,81 +1,158 @@
+from typing import Dict, List
+
+from ..simple_types import AddressType as SimpleAddressType
+from ..simple_types import BiologicalSexType as SimpleBiologicalSexType
+from ..simple_types import BooleanType as SimpleBooleanType
+from ..simple_types import CAPType as SimpleCAPType
+from ..simple_types import CodiceFiscaleType as SimpleCodiceFiscaleType
+from ..simple_types import CountryCodeType as SimpleCountryCodeType
+from ..simple_types import CountryType as SimpleCountryType
+from ..simple_types import DateType as SimpleDateType
+from ..simple_types import EMailType as SimpleEMailType
+from ..simple_types import FloatType as SimpleFloatType
+from ..simple_types import IntegerType as SimpleIntegerType
+from ..simple_types import IVAType as SimpleIVAType
+from ..simple_types import MunicipalityType as SimpleMunicipalityType
+from ..simple_types import NameType as SimpleNameType
+from ..simple_types import NaNType as SimpleNaNType
+from ..simple_types import PhoneNumberType as SimplePhoneNumberType
+from ..simple_types import PlateType as SimplePlateType
+from ..simple_types import ProvinceCodeType as SimpleProvinceCodeType
+from ..simple_types import RegionType as SimpleRegionType
+from ..simple_types import SimpleTypePredictor
+from ..simple_types import StringType as SimpleStringType
+from ..simple_types import SurnameType as SimpleSurnameType
+from ..simple_types import YearType as SimpleYearType
 from .set_type_column import SetTypeColumnPredictor
-from ..simple_types import (
-    SimpleTypePredictor,
-    CAPType as SimpleCAPType,
-    AddressType as SimpleAddressType,
-    BiologicalSexType as SimpleBiologicalSexType,
-    BooleanType as SimpleBooleanType,
-    CountryCodeType as SimpleCountryCodeType,
-    CountryType as SimpleCountryType,
-    DateType as SimpleDateType,
-    EMailType as SimpleEMailType,
-    FloatType as SimpleFloatType,
-    IntegerType as SimpleIntegerType
-)
-from typing import List, Dict
 
 
-class SingleTypeColumnPredictor(SetTypeColumnPredictor):
-    def __init__(self, predictor: SimpleTypePredictor):
-        """Create new Predictor based on a single type."""
-        super().__init__([predictor])
-
-
-class CAPType(SingleTypeColumnPredictor):
+class AddressType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCAPType())
+        super().__init__(SimpleAddressType(), generalizations=SimpleStringType())
 
 
-class AddressType(SingleTypeColumnPredictor):
-    def __init__(self):
-        """Create new Predictor based on a single type."""
-        super().__init__(SimpleAddressType())
-
-
-class BiologicalSexType(SingleTypeColumnPredictor):
+class BiologicalSexType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
         super().__init__(SimpleBiologicalSexType())
 
 
-class BooleanType(SingleTypeColumnPredictor):
+class BooleanType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
         super().__init__(SimpleBooleanType())
 
 
-class CountryCodeType(SingleTypeColumnPredictor):
+class CAPType(SetTypeColumnPredictor):
+    def __init__(self):
+        """Create new Predictor based on a single type."""
+        super().__init__(SimpleCAPType())
+
+
+class CodiceFiscaleType(SetTypeColumnPredictor):
+    def __init__(self):
+        """Create new Predictor based on a single type."""
+        super().__init__(SimpleCodiceFiscaleType(), others=SimpleIVAType())
+
+
+class CountryCodeType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
         super().__init__(SimpleCountryCodeType())
 
 
-class CountryType(SingleTypeColumnPredictor):
+class CountryType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
         super().__init__(SimpleCountryType())
 
 
-class DateType(SingleTypeColumnPredictor):
+class DateType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
         super().__init__(SimpleDateType())
 
 
-class EMailType(SingleTypeColumnPredictor):
+class EMailType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
         super().__init__(SimpleEMailType())
 
 
-class FloatType(SingleTypeColumnPredictor):
+class FloatType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
         super().__init__(SimpleFloatType())
 
 
-class IntegerType(SingleTypeColumnPredictor):
+class IntegerType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
         super().__init__(SimpleIntegerType())
+
+
+class IVAType(SetTypeColumnPredictor):
+    def __init__(self):
+        """Create new Predictor based on a single type."""
+        super().__init__(SimpleIVAType(), others=SimpleCodiceFiscaleType())
+
+
+class MunicipalityType(SetTypeColumnPredictor):
+    def __init__(self):
+        """Create new Predictor based on a single type."""
+        super().__init__(SimpleMunicipalityType())
+
+
+class NameType(SetTypeColumnPredictor):
+    def __init__(self):
+        """Create new Predictor based on a single type."""
+        super().__init__(SimpleNameType(), generalizations=SimpleStringType())
+
+
+class PhoneNumberType(SetTypeColumnPredictor):
+    def __init__(self):
+        """Create new Predictor based on a single type."""
+        super().__init__(SimplePhoneNumberType())
+
+
+class PlateType(SetTypeColumnPredictor):
+    def __init__(self):
+        """Create new Predictor based on a single type."""
+        super().__init__(SimplePlateType())
+
+
+class ProvinceCodeType(SetTypeColumnPredictor):
+    def __init__(self):
+        """Create new Predictor based on a single type."""
+        super().__init__(SimpleProvinceCodeType())
+
+
+class RegionType(SetTypeColumnPredictor):
+    def __init__(self):
+        """Create new Predictor based on a single type."""
+        super().__init__(SimpleRegionType())
+
+
+class StringType(SetTypeColumnPredictor):
+    def __init__(self):
+        """Create new Predictor based on a single type."""
+        super().__init__(SimpleStringType())
+
+
+class SurnameType(SetTypeColumnPredictor):
+    def __init__(self):
+        """Create new Predictor based on a single type."""
+        super().__init__(SurnameType(), generalizations=SimpleStringType())
+
+
+class YearType(SetTypeColumnPredictor):
+    def __init__(self):
+        """Create new Predictor based on a single type."""
+        super().__init__(SimpleYearType())
+
+
+class SurnameType(SetTypeColumnPredictor):
+    def __init__(self):
+        """Create new Predictor based on a single type."""
+        super().__init__(SimpleSurnameType(), generalizations=SimpleStringType())
