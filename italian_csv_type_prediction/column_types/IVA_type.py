@@ -14,7 +14,7 @@ class IVAType(SetTypeColumnPredictor):
 
     def validate(self, values: List, **kwargs: Dict) -> List[bool]:
         if not super().validate(values, **kwargs):
-            return False
+            return [False]*len(values)
         return [
             self._iva.validate(value)
             for value in values

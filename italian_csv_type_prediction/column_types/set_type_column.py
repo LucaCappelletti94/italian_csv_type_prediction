@@ -2,11 +2,49 @@ from .column_type_predictor import ColumnTypePredictor
 from ..simple_types.simple_type import SimpleTypePredictor
 from ..simple_types.nan_type import NaNType
 from typing import List, Dict
+import numpy as np
 
 
 class SetTypeColumnPredictor(ColumnTypePredictor):
-    def __init__(self, predictors: List[SimpleTypePredictor]):
-        self._predictors = predictors + NaNType()
+    def __init__(
+        self,
+        main: SimpleTypePredictor,
+        others: List[SimpleTypePredictor] = (),
+        min_threshold: float = 0.9,
+        fuzzy_generalization_threshold: float = 0.9,
+        generalizations: List[SimpleTypePredictor] = ()
+    ):
+        """Create new Predictor based on a set.
+
+        Predictors
+        ----------------------------------
+        main: SimpleTypePredictor,
+            The main predictor to use.
+        others: List[SimpleTypePredictor] = (),
+            The other predictors that are allowed in this column.
+            For instance often in CodiceFiscale columns there
+            are often IVA codes.
+        min_threshold: float = 0.9,
+            Minimal amount of predictions of either main, others
+            to accept the predictions as correct.
+            This percentage excludes values that are identified as NaN values.
+        fuzzy_generalization_threshold: float = 0.9,
+            Minimal amount of predictions of main (only main, not others)
+            to generalize the type to the values that are accept by any of
+            the predictors specified in the generalizations parameter.
+            THIS PARAMETER ONLY APPLY TO FUZZY TYPES.
+        generalizations: List[SimpleTypePredictor] = ()
+            List of predictors that accept the type when main predictor
+            is fuzzy and the predicted elements are more than the fuzzy
+            generalization threshold.
+            THIS PARAMETER ONLY APPLY TO FUZZY TYPES.
+        """
+        self._main = main
+        self._others = others
+        self._min_threshold = min_threshold
+        self._fuzzy_generalization_threshold = fuzzy_generalization_threshold
+        self._generalizations = generalizations
+        self._nan = NaNType()
 
     def validate(self, values: List, **kwargs: Dict) -> List[bool]:
         """Return list of booleans representing if each value has been identified.
@@ -17,8 +55,72 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
             List of other values in the column.
         kwargs:Dict,
             Additional features to be considered.
+        
+        Returns
+        -----------------------------------
+        Returns list of boolean predictions.
         """
-        return all([
-            any(predictor.validate(value) for predictor in self._predictors)
-            for value in values
-        ])
+        is_main_type = []
+        is_other_type = []
+        is_generalization = []
+        is_nan_type = []
+
+        # We iterate on every available value
+        for value in values:
+            # If the value is of the main type
+            if self._main.validate(value, **kwargs):
+                is_main_type.append(True)
+                is_other_type.append(False)
+                # The type itself is considered a generalization
+                # of itself so to avoid another loop afterwards
+                is_generalization.append(True)
+                is_nan_type.append(False)
+                continue
+            # Or is from any of the other given valid types
+            if any(other.validate(value, **kwargs) for other in self._others):
+                is_main_type.append(False)
+                is_other_type.append(True)
+                is_generalization.append(False)
+                is_nan_type.append(False)
+                continue
+            # Or the main predictor is fuzzy and we have to check the given generalizations
+            if self._main.fuzzy and any(generalization.validate(value, **kwargs) for generalization in self._generalizations):
+                is_main_type.append(False)
+                is_other_type.append(False)
+                is_generalization.append(True)
+                is_nan_type.append(False)
+                continue
+            # Or finally the value can be a NaN
+            if self._nan.validate(value, **kwargs):
+                is_main_type.append(False)
+                is_other_type.append(False)
+                is_generalization.append(False)
+                is_nan_type.append(True)
+                continue
+            # Otherwise no type at all was detected
+            # from the considered ones.
+            is_main_type.append(False)
+            is_other_type.append(False)
+            is_generalization.append(False)
+            is_nan_type.append(False)
+
+        only_main = sum(is_main_type)
+        only_others = sum(is_other_type)
+        only_nan = sum(is_nan_type)
+        total_values = len(values)
+
+        # If the identified values, removed the known values that are
+        # known to happen in the same column such as others or NaN
+        # are less than a given percentage, we consider the eventual
+        # positive matches as false positives.
+        if only_main < (total_values - only_others - only_nan)*self.min_threshold:
+            return [False]*total_values
+
+        # If the identified values are above a given percentage of the values
+        # of the same column, and the Predictor used is caracterized by false negatives
+        # with the "fuzzy" property, we extend the predictions to the
+        # values that are predicted by any of the generalizations.
+        if only_main > (total_values - only_nan)*self._fuzzy_generalization_threshold:
+            is_main_type = is_generalization
+        
+        return is_main_type

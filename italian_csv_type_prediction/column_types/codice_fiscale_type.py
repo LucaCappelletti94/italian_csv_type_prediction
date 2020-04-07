@@ -13,8 +13,8 @@ class CodiceFiscaleType(SetTypeColumnPredictor):
         ])
 
     def validate(self, values: List, **kwargs: Dict) -> List[bool]:
-        if not super().validate(values, **kwargs):
-            return False
+        if not super().all(values, **kwargs):
+            return [False]*len(values)
         return [
             self._codife_fiscale.validate(value)
             for value in values

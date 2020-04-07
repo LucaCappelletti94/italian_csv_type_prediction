@@ -18,14 +18,14 @@ class NumericIdType(SingleTypeColumnPredictor):
 
     def validate(self, values: List, **kwargs: Dict) -> List[bool]:
         """Return list of booleans representing, for each value, if are indices."""
-        if super().validate(values, **kwargs):
-            return False
+        if super().all(values, **kwargs):
+            return [False]*len(values)
 
         are_integers = [
             self._predictor.validate(value)
             for value in values
         ]
-            
+
         integer_values = [
             self._predictor.convert(value)
             for value, is_integer in zip(values, are_integers)
