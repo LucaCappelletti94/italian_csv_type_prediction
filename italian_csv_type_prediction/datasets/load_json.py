@@ -87,3 +87,7 @@ def load_address_starters():
 
 def load_biological_sex():
     return load_local_json("BiologicalSex")
+
+
+def load_document_types():
+    return load_local_json("Document")

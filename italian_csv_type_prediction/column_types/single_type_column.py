@@ -8,6 +8,7 @@ from ..simple_types import CodiceFiscaleType as SimpleCodiceFiscaleType
 from ..simple_types import CountryCodeType as SimpleCountryCodeType
 from ..simple_types import CountryType as SimpleCountryType
 from ..simple_types import DateType as SimpleDateType
+from ..simple_types import DocumentType as SimpleDocumentType
 from ..simple_types import EMailType as SimpleEMailType
 from ..simple_types import FloatType as SimpleFloatType
 from ..simple_types import IntegerType as SimpleIntegerType
@@ -72,6 +73,12 @@ class DateType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
         super().__init__(SimpleDateType())
+
+
+class DocumentType(SetTypeColumnPredictor):
+    def __init__(self):
+        """Create new Predictor based on a single type."""
+        super().__init__(SimpleDocumentType())
 
 
 class EMailType(SetTypeColumnPredictor):

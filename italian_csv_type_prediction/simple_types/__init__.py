@@ -6,6 +6,7 @@ from .codice_fiscale_type import CodiceFiscaleType
 from .country_code_type import CountryCodeType
 from .country_type import CountryType
 from .date_type import DateType
+from .document_type import DocumentType
 from .email_type import EMailType
 from .float_type import FloatType
 from .integer_type import IntegerType
@@ -31,6 +32,7 @@ __all__ = [
     "CountryCodeType",
     "CountryType",
     "DateType",
+    "DocumentType",
     "EMailType",
     "FloatType",
     "IntegerType",

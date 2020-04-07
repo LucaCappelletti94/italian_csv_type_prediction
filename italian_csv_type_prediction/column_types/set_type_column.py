@@ -71,6 +71,7 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
         self._fuzzy_generalization_threshold = fuzzy_generalization_threshold
         self._nan = NaNType()
 
+
     def validate(self, values: List, **kwargs: Dict) -> List[bool]:
         """Return list of booleans representing if each value has been identified.
 
