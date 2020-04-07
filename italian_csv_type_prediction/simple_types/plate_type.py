@@ -6,7 +6,7 @@ class PlateType(SimpleTypePredictor):
 
     def __init__(self):
         """Create new float type predictor based on regex."""
-        self._predictor = RegexTypePredictor(r"^[a-zA-Z]{2}[0-9]{3}[a-zA-z]{2}$")
+        self._predictor = RegexTypePredictor(r"^[a-zA-Z]{2}\s?[0-9]{3}\s?[a-zA-z]{2}$")
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate matches regex for ."""

@@ -18,10 +18,10 @@ class AnyTypePredictor:
             for predictor in (
                 AddressType, CAPType, CodiceFiscaleType, CountryCodeType,
                 CountryType, CurrencyType, DateType, EMailType,
-                FloatType, IntegerType, IVAType,
+                FloatType, IntegerType, IVAType, DocumentType,
                 MunicipalityType, NameType, NaNType, PhoneNumberType,
                 ProvinceCodeType, RegionType, StringType, SurnameType,
-                YearType, BiologicalSexType, BooleanType
+                YearType, BiologicalSexType, BooleanType, PlateType
             )
         ]
 

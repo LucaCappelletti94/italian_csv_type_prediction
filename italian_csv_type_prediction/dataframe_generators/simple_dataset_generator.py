@@ -9,7 +9,8 @@ from ..datasets import (
     load_nan, load_names, load_regions, load_countries, load_country_codes,
     load_municipalities, load_surnames, load_provinces_codes, load_caps,
     load_codice_fiscale, load_iva, load_strings, load_email, load_phone,
-    load_date, load_euro, load_address, load_biological_sex, load_boolean
+    load_date, load_euro, load_address, load_biological_sex, load_boolean,
+    load_document_types, load_plate
 )
 
 
@@ -72,6 +73,8 @@ class SimpleDatasetGenerator:
 
         datasets = {
             "CodiceFiscale": load_codice_fiscale(),
+            "Document": load_document_types(),
+            "Plate": load_plate(),
             "IVA": load_iva(),
             "Address": load_address(),
             "CAP": load_caps(),

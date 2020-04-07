@@ -91,3 +91,7 @@ def load_biological_sex():
 
 def load_document_types():
     return load_local_json("Document")
+
+
+def load_plate():
+    return load_local_json("Plate")
