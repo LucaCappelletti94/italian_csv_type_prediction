@@ -66,7 +66,7 @@ setup(
         "python-stdnum",
         "tqdm",
         "python-codicefiscale",
-        "sklearn",
+        "scikit-learn",
         "compress_json",
         "compress_pickle",
         "validate_email",
