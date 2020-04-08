@@ -108,7 +108,7 @@ class SimpleDatasetGenerator:
             for key, values in self._datasets.items()
         })
 
-        base = randint(0, 100000)
+        base = randint(1, 100000)
         df["NumericId"] = list(range(base, base+rows))
 
         rnd = random_csv(rows)

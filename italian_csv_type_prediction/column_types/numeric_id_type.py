@@ -30,6 +30,9 @@ class NumericIdType(IntegerType):
 
         _min, _max = min(integer_values), max(integer_values)
 
+        if _min == _max:
+            return False
+
         unique_values = len(set(integer_values))
 
         are_indices = unique_values / (_max - _min) >= self._density
