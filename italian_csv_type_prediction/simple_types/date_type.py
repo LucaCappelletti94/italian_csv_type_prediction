@@ -2,6 +2,7 @@ from dateutil.parser import parse
 from dateutil.parser import parserinfo
 from .string_type import StringType
 from .float_type import FloatType
+from .CAP_type import CAPType
 
 class ItalianMonths(parserinfo):
 
@@ -31,11 +32,14 @@ class DateType(StringType):
         """Create new DateType predictor."""
         super().__init__()
         self._parserinfo = ItalianMonths()
-        self._float_predictor = FloatType()
+        self._float = FloatType()
+        self._cap = CAPType()
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate is a Date."""
-        if self._float_predictor.validate(candidate):
+        if self._float.validate(candidate):
+            return False
+        if self._cap.validate(candidate):
             return False
         try:
             parse(candidate, parserinfo=self._parserinfo)
