@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict
 
 from ..simple_types import AddressType as SimpleAddressType
 from ..simple_types import BiologicalSexType as SimpleBiologicalSexType

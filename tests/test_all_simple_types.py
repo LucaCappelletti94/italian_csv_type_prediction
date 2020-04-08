@@ -13,7 +13,7 @@ def test_all_simple_types():
             if not simple_predictor.fuzzy:
                 try:
                     assert simple_predictor.validate(candidate)
-                except AssertionError as e:
+                except AssertionError:
                     print(
                         f"Predictor {simple_predictor.name} was not able to correctly predict data from its dataset!")
                     print(f"A sample of the data is: {candidate}.")
