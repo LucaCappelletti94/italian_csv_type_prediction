@@ -6,7 +6,7 @@ from typing import List
 
 class SetRegexTypePredictor(RegexTypePredictor):
 
-    def __init__(self, words: List[str]):
+    def __init__(self, words: List[str], pattern:str = r"(?:\W|\b)(?:{})(?:\W|\b)"):
         """Create new set regex based predictor.
 
         Parameters
@@ -14,7 +14,7 @@ class SetRegexTypePredictor(RegexTypePredictor):
         pattern: str,
             The pattern against which to test.
         """
-        super().__init__(r"(?:\W|\b)(?:{})(?:\W|\b)".format("|".join([
+        super().__init__(pattern.format("|".join([
             re.escape(normalize(word))
             for word in words
         ])))

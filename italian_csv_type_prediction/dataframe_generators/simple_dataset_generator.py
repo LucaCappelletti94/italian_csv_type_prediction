@@ -11,7 +11,7 @@ from ..datasets import (
     load_municipalities, load_surnames, load_provinces_codes, load_caps,
     load_codice_fiscale, load_iva, load_strings, load_email, load_phone,
     load_date, load_euro, load_address, load_biological_sex, load_boolean,
-    load_document_types, load_plate
+    load_document_types, load_plate, load_codice_catasto
 )
 
 
@@ -48,15 +48,16 @@ class SimpleDatasetGenerator:
         dates = load_date()
         ivas = load_iva()
         cfs = load_codice_fiscale()
+        self._nans = load_nan()
 
         datasets = {
             "CodiceFiscale": load_codice_fiscale(),
+            "IVA": load_iva(),
+            "CodiceCatasto": load_codice_catasto(),
             "Document": load_document_types(),
             "Plate": load_plate(),
-            "IVA": load_iva(),
             "Address": load_address(),
             "CAP": load_caps(),
-            "NaN": load_nan(),
             "ProvinceCode": load_provinces_codes(),
             "Region": load_regions(),
             "Municipality": load_municipalities(),
@@ -83,10 +84,16 @@ class SimpleDatasetGenerator:
 
     def get_dataset(self, predictor: SimpleTypePredictor) -> np.ndarray:
         """Return dataset for given predictor."""
+        if predictor.name == "NaN":
+            return self._nans
+        if predictor.name == "NumericId":
+            base = randint(0, 100000)
+            rows = randint(0, 100)
+            return list(range(base, base+rows))
         return self._datasets[predictor.name]
 
     def random_nan(self, *args):
-        return choice(self._datasets["NaN"])
+        return choice(self._nans)
 
     def generate_simple_dataframe(
         self,
@@ -101,22 +108,32 @@ class SimpleDatasetGenerator:
             for key, values in self._datasets.items()
         })
 
+        base = randint(0, 100000)
+        df["NumericId"] = list(range(base, base+rows))
+
         rnd = random_csv(rows)
 
         df["Name"] = rnd["name"]
         df["Surname"] = rnd["surname"]
         df["CodiceFiscale"] = rnd["codice_fiscale"]
 
-        types = np.tile(np.array(df.columns), (len(df), 1))
+        types = pd.DataFrame(
+            np.tile(np.array(df.columns), (len(df), 1)),
+            columns=df.columns,
+            index=df.index
+        )
 
-        if mix_codes:
+        if mix_codes and choice([True, False]):
             mask = np.random.randint(0, 2, size=df.shape[0], dtype=bool)
             swap_codice_fiscale = df.CodiceFiscale[mask].values
             swap_iva = df.IVA[mask].values
             df.loc[mask, "CodiceFiscale"] = swap_iva
             df.loc[mask, "IVA"] = swap_codice_fiscale
-            types[mask, 0] = "IVA"
-            types[mask, 1] = "CodiceFiscale"
+            types.loc[mask, "CodiceFiscale"] = "IVA"
+            types.loc[mask, "IVA"] = "CodiceFiscale"
+            column_to_drop = choice(["CodiceFiscale", "IVA"])
+            df = df.drop(columns=column_to_drop)
+            types = types.drop(columns=column_to_drop)
 
         if nan_percentage > 0:
             mask = np.random.choice([False, True], size=df.shape, p=[
@@ -129,7 +146,7 @@ class SimpleDatasetGenerator:
         df, types = self.generate_simple_dataframe()
         return self._embedding.transform(df, types)
 
-    def build(self, number: int = 1000, verbose:bool=True):
+    def build(self, number: int = 1000, verbose: bool = True):
         """Creates and encodes a number of dataframe samples for training"""
         X, y = list(zip(*[
             self._build()

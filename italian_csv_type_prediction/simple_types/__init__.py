@@ -2,10 +2,11 @@ from .address_type import AddressType
 from .biological_sex_type import BiologicalSexType
 from .boolean_type import BooleanType
 from .CAP_type import CAPType
-from .currency_type import CurrencyType
+from .codice_catasto_type import CodiceCatastoType
 from .codice_fiscale_type import CodiceFiscaleType
 from .country_code_type import CountryCodeType
 from .country_type import CountryType
+from .currency_type import CurrencyType
 from .date_type import DateType
 from .document_type import DocumentType
 from .email_type import EMailType
@@ -30,6 +31,7 @@ __all__ = [
     "BooleanType",
     "CAPType",
     "CodiceFiscaleType",
+    "CodiceCatastoType",
     "CountryCodeType",
     "CountryType",
     "DateType",

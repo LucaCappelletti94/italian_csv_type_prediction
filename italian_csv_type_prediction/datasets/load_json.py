@@ -95,3 +95,11 @@ def load_document_types():
 
 def load_plate():
     return load_local_json("Plate")
+
+
+def load_codice_catasto():
+    return load_local_json("CodiceCatasto")
+
+
+def load_currency_starters():
+    return load_local_json("currency_starters")

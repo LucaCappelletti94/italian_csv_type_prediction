@@ -6,7 +6,12 @@ class FloatType(SimpleTypePredictor):
 
     def __init__(self):
         """Create new float type predictor based on regex."""
-        self._predictor = RegexTypePredictor(r"^-?\d+[,\.]?\d*$")
+        self._predictor = RegexTypePredictor(r"^-?(?:\d+|[,.]\d{3})+(?:[,.]\d+)?$")
+
+    def convert(self, candidate, **kwargs):
+        candidate = str(candidate).replace(",", ".")
+        candidate = candidate.replace('.', "", (candidate.count('.')-1))
+        return float(candidate)
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate matches regex for float values."""

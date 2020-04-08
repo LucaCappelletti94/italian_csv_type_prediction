@@ -8,7 +8,9 @@ from .single_type_column import (AddressType, BiologicalSexType, BooleanType,
                                  IntegerType, IVAType, MunicipalityType,
                                  NameType, NaNType, PhoneNumberType, PlateType,
                                  ProvinceCodeType, RegionType, StringType,
-                                 SurnameType, YearType)
+                                 SurnameType, YearType, CodiceCatastoType
+                                 )
+from .numeric_id_type import NumericIdType
 
 
 class AnyTypePredictor:
@@ -18,10 +20,10 @@ class AnyTypePredictor:
             for predictor in (
                 AddressType, CAPType, CodiceFiscaleType, CountryCodeType,
                 CountryType, CurrencyType, DateType, EMailType,
-                FloatType, IntegerType, IVAType, DocumentType,
+                FloatType, IntegerType, IVAType, DocumentType, NumericIdType,
                 MunicipalityType, NameType, NaNType, PhoneNumberType,
                 ProvinceCodeType, RegionType, StringType, SurnameType,
-                YearType, BiologicalSexType, BooleanType, PlateType
+                YearType, BiologicalSexType, BooleanType, PlateType, CodiceCatastoType
             )
         ]
 

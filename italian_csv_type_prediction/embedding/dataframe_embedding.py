@@ -43,7 +43,7 @@ class DataframeEmbedding:
             for column in df.columns
         ])
         if y is not None:
-            return X, self._encoder.transform(y.T.ravel())
+            return X, self._encoder.transform(y.T.values.ravel())
         return X
 
     def reverse_label_embedding(self, encoded_labels: np.ndarray, df: pd.DataFrame) -> np.ndarray:

@@ -5,7 +5,7 @@ class IntegerType(FloatType):
 
     def convert(self, candidate) -> int:
         """Cast given candidate to integer."""
-        return int(float(str(candidate).replace(",", ".")))
+        return int(super().convert(candidate))
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate can be considered integer."""

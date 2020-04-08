@@ -1,11 +1,12 @@
-from .load_json import (load_nan, load_provinces_codes, load_regions, load_municipalities, load_countries,
-                        load_country_codes, load_names, load_surnames, load_caps, load_codice_fiscale,
-                        load_iva, load_email, load_strings, load_phone, load_euro, load_date, load_address,
-                        load_address_starters, load_biological_sex, load_boolean, load_document_types,
-                        load_plate
-                    )
-
-
+from .load_json import (load_address, load_address_starters,
+                        load_biological_sex, load_boolean, load_caps,
+                        load_codice_catasto, load_codice_fiscale,
+                        load_countries, load_country_codes,
+                        load_currency_starters, load_date, load_document_types,
+                        load_email, load_euro, load_iva, load_municipalities,
+                        load_names, load_nan, load_phone, load_plate,
+                        load_provinces_codes, load_regions, load_strings,
+                        load_surnames)
 
 __all__ = [
     "load_nan",
@@ -27,5 +28,7 @@ __all__ = [
     "load_biological_sex",
     "load_boolean",
     "load_document_types",
-    "load_plate"
+    "load_plate",
+    "load_codice_catasto",
+    "load_currency_starters"
 ]

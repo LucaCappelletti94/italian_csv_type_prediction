@@ -12,7 +12,8 @@ def test_all_column_types():
 
     known_collisions = {
         "CAP": [
-            "Integer"
+            "Integer",
+            "Year"
         ],
         "Integer":[
             "CAP",
@@ -38,6 +39,7 @@ def test_all_column_types():
             "Float",
             "Integer",
             "CAP",
+            "NumericId",
             "Boolean"
         ]
     }

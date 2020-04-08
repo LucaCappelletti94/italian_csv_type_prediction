@@ -1,21 +1,24 @@
 from money_parser import price_str
 from .string_type import StringType
-from .plate_type import PlateType
-from .IVA_type import IVAType
-
+from .float_type import FloatType
+from .set_regex_type_predictor import SetRegexTypePredictor
+from ..datasets import load_currency_starters
 
 class CurrencyType(StringType):
     def __init__(self):
         super().__init__()
-        self._plate = PlateType()
+        self._float = FloatType()
+        self._regex = SetRegexTypePredictor(load_currency_starters(), pattern=r"(?:\W|\b|\d)(?:{})(?:\W|\b|\d)")
 
     def validate(self, candidate, **kwargs) -> bool:
-        if str(candidate).startswith("0"):
-            return False
-        if not super().validate(candidate, **kwargs) or self._plate.validate(candidate):
-            return False
+        if self._float.validate(candidate):
+            print("I think this is a float")
+            return len(str(self._float.convert(candidate)).split(".")[-1]) <= 2
         try:
+            if not self._regex.validate(candidate):
+                print("Excluded by regex")
+                return False
             candidate = price_str(str(candidate))
-            return len(str(float(candidate)).split(".")[-1]) <= 2
+            return len(str(self._float.convert(candidate)).split(".")[-1]) <= 2
         except (ValueError, TypeError):
             return False

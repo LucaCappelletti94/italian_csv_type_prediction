@@ -17,4 +17,4 @@ class RegexTypePredictor(SimpleTypePredictor):
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate matches regex."""
-        return bool(self._regex.match(normalize(str(candidate))))
+        return bool(self._regex.findall(normalize(str(candidate))))

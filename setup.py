@@ -73,7 +73,7 @@ setup(
         "phonenumbers",
         "money_parser",
         "unidecode",
-        "deco"
+        "random_csv_generator"
     ],
     extras_require=extras,
 )

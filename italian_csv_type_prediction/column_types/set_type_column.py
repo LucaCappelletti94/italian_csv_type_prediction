@@ -10,7 +10,7 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
         self,
         main: SimpleTypePredictor,
         others: List[SimpleTypePredictor] = (),
-        min_threshold: float = 0.9,
+        min_threshold: float = 0.8,  # [4 out of 5]
         fuzzy_generalization_threshold: float = 0.9,
         generalizations: List[SimpleTypePredictor] = ()
     ):
@@ -71,8 +71,7 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
         self._fuzzy_generalization_threshold = fuzzy_generalization_threshold
         self._nan = NaNType()
 
-
-    def validate(self, values: List, fiscal_codes:List=None, ivas:List=None, **kwargs: Dict) -> List[bool]:
+    def validate(self, values: List, fiscal_codes: List = None, ivas: List = None, **kwargs: Dict) -> List[bool]:
         """Return list of booleans representing if each value has been identified.
 
         Parameters
@@ -111,19 +110,19 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
                 is_generalization.append(False)
                 is_nan_type.append(False)
                 continue
-            # Or the main predictor is fuzzy and we have to check the given generalizations
-            if self._main.fuzzy and any(generalization.validate(value, fiscal_code=fiscal_code, iva=iva, **kwargs) for generalization in self._generalizations):
-                is_main_type.append(False)
-                is_other_type.append(False)
-                is_generalization.append(True)
-                is_nan_type.append(False)
-                continue
             # Or finally the value can be a NaN
             if self._nan.validate(value, fiscal_code=fiscal_code, iva=iva, **kwargs):
                 is_main_type.append(False)
                 is_other_type.append(False)
                 is_generalization.append(False)
                 is_nan_type.append(True)
+                continue
+            # Or the main predictor is fuzzy and we have to check the given generalizations
+            if self._main.fuzzy and any(generalization.validate(value, fiscal_code=fiscal_code, iva=iva, **kwargs) for generalization in self._generalizations):
+                is_main_type.append(False)
+                is_other_type.append(False)
+                is_generalization.append(True)
+                is_nan_type.append(False)
                 continue
             # Otherwise no type at all was detected
             # from the considered ones.
@@ -141,7 +140,7 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
         # known to happen in the same column such as others or NaN
         # are less than a given percentage, we consider the eventual
         # positive matches as false positives.
-        if only_main < (total_values - only_others - only_nan)*self._min_threshold:
+        if only_main < (total_values - only_others - only_nan) * self._min_threshold:
             return [False]*total_values
 
         # If the identified values are above a given percentage of the values
