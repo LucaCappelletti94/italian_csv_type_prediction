@@ -13,7 +13,11 @@ def test_all_column_types():
     known_collisions = {
         "CAP": [
             "Integer",
-            "Year"
+            "Year",
+            "NumericId"
+        ],
+        "Name":[
+            "Country"
         ],
         "Integer":[
             "CAP",
