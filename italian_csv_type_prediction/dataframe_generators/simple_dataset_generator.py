@@ -2,7 +2,6 @@ from ..embedding import DataframeEmbedding
 from ..simple_types.simple_type import SimpleTypePredictor
 from random import randint, uniform, choice
 import numpy as np
-from typing import List
 from tqdm.auto import trange
 import pandas as pd
 from random_csv_generator import random_csv
@@ -22,8 +21,6 @@ class SimpleDatasetGenerator:
         self._embedding = DataframeEmbedding()
 
     def _load_types_datasets(self):
-
-        small_integers = np.random.randint(1, 300, size=50)
         integers = np.random.randint(-1000000, 100000, size=1000)
         string_integers = integers.astype(str)
         float_integers = integers.astype(float)
@@ -45,9 +42,6 @@ class SimpleDatasetGenerator:
 
         names = load_names()
         surnames = load_surnames()
-        dates = load_date()
-        ivas = load_iva()
-        cfs = load_codice_fiscale()
         self._nans = load_nan()
 
         datasets = {

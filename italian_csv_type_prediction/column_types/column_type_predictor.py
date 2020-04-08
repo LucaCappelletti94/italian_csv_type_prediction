@@ -15,8 +15,8 @@ class ColumnTypePredictor:
     def name(self):
         """Return type identified by this predictor."""
         return self.__class__.__name__[:-4]
-    
-    def validate(self, values:List, **kwargs: Dict) -> List[bool]:
+
+    def validate(self, values: List, **kwargs: Dict) -> List[bool]:
         """Return list of booleans representing if each value has been identified.
 
         Parameters

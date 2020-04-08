@@ -1,5 +1,4 @@
 from .simple_type import SimpleTypePredictor
-from unidecode import unidecode
 from ..utils import normalize
 from typing import List
 

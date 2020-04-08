@@ -12,7 +12,6 @@ class DataframeEmbedding:
         self._ivas = IVAType()
         self._fiscal_codes = CodiceFiscaleType()
 
-
     def transform(self, df: pd.DataFrame, y: np.ndarray = None) -> np.ndarray:
         """Encode given dataframe into a vector space."""
         fiscal_codes = [None]*df.shape[0]
@@ -29,11 +28,11 @@ class DataframeEmbedding:
         for column in df.columns:
             predictions = self._fiscal_codes.validate(df[column])
             if any(predictions):
-                fisca_fiscal_codes = [
+                fiscal_codes = [
                     value if prediction else None
                     for value, prediction in zip(df[column].values, predictions)
                 ]
-    
+
         X = pd.concat([
             pd.DataFrame(self._predictor.predict(
                 df[column],

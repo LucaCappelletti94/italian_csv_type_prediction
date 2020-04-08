@@ -2,7 +2,6 @@ from .column_type_predictor import ColumnTypePredictor
 from ..simple_types.simple_type import SimpleTypePredictor
 from ..simple_types.nan_type import NaNType
 from typing import List, Dict
-import numpy as np
 
 
 class SetTypeColumnPredictor(ColumnTypePredictor):
