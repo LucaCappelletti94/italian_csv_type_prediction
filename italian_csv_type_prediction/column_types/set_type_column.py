@@ -9,7 +9,7 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
         self,
         main: SimpleTypePredictor,
         others: List[SimpleTypePredictor] = (),
-        min_threshold: float = 0.8,  # [4 out of 5]
+        min_threshold: float = 0.7,  # [4 out of 5]
         fuzzy_generalization_threshold: float = 0.9,
         generalizations: List[SimpleTypePredictor] = ()
     ):

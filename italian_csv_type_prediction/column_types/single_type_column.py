@@ -38,55 +38,55 @@ class AddressType(SetTypeColumnPredictor):
 class BiologicalSexType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleBiologicalSexType(), min_threshold=1)
+        super().__init__(SimpleBiologicalSexType())
 
 
 class BooleanType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleBooleanType(), min_threshold=1)
+        super().__init__(SimpleBooleanType())
 
 
 class CAPType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCAPType(), min_threshold=1)
+        super().__init__(SimpleCAPType())
 
 
 class CodiceFiscaleType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCodiceFiscaleType(), others=SimpleIVAType(), min_threshold=1)
+        super().__init__(SimpleCodiceFiscaleType(), others=SimpleIVAType())
 
 
 class CodiceCatastoType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCodiceCatastoType(), min_threshold=1)
+        super().__init__(SimpleCodiceCatastoType())
 
 
 class CountryCodeType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCountryCodeType(), min_threshold=1)
+        super().__init__(SimpleCountryCodeType())
 
 
 class CountryType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCountryType(), min_threshold=1)
+        super().__init__(SimpleCountryType())
 
 
 class CurrencyType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCurrencyType(), min_threshold=1)
+        super().__init__(SimpleCurrencyType())
 
 
 class DateType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleDateType(), min_threshold=1)
+        super().__init__(SimpleDateType())
 
 
 class DocumentType(SetTypeColumnPredictor):
@@ -98,31 +98,31 @@ class DocumentType(SetTypeColumnPredictor):
 class EMailType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleEMailType(), min_threshold=1)
+        super().__init__(SimpleEMailType())
 
 
 class FloatType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleFloatType(), min_threshold=1)
+        super().__init__(SimpleFloatType())
 
 
 class IntegerType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleIntegerType(), min_threshold=1)
+        super().__init__(SimpleIntegerType())
 
 
 class IVAType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleIVAType(), others=SimpleCodiceFiscaleType(), min_threshold=1)
+        super().__init__(SimpleIVAType(), others=SimpleCodiceFiscaleType())
 
 
 class MunicipalityType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleMunicipalityType(), min_threshold=1)
+        super().__init__(SimpleMunicipalityType())
 
 
 class NameType(SetTypeColumnPredictor):
@@ -140,25 +140,25 @@ class NaNType(SetTypeColumnPredictor):
 class PhoneNumberType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimplePhoneNumberType(), min_threshold=1)
+        super().__init__(SimplePhoneNumberType())
 
 
 class PlateType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimplePlateType(), min_threshold=1)
+        super().__init__(SimplePlateType())
 
 
 class ProvinceCodeType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleProvinceCodeType(), min_threshold=1)
+        super().__init__(SimpleProvinceCodeType())
 
 
 class RegionType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleRegionType(), min_threshold=1)
+        super().__init__(SimpleRegionType())
 
 
 class StringType(SetTypeColumnPredictor):
@@ -176,4 +176,4 @@ class SurnameType(SetTypeColumnPredictor):
 class YearType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleYearType(), min_threshold=1)
+        super().__init__(SimpleYearType())
