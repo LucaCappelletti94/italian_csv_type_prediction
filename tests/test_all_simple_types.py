@@ -9,7 +9,7 @@ def test_all_simple_types():
     X = SimpleDatasetGenerator()
     for column_predictor in tqdm(predictor.predictors, desc="Testing predictors"):
         simple_predictor = column_predictor._main
-        for candidate in tqdm(X.get_dataset(simple_predictor), desc=f"Testing {simple_predictor.name}"):
+        for candidate in X.get_dataset(simple_predictor):
             if not simple_predictor.fuzzy:
                 try:
                     assert simple_predictor.validate(candidate)

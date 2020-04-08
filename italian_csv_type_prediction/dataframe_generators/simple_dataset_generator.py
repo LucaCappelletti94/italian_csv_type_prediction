@@ -82,7 +82,7 @@ class SimpleDatasetGenerator:
             return self._nans
         if predictor.name == "NumericId":
             base = randint(0, 100000)
-            rows = randint(0, 100)
+            rows = randint(5, 100)
             return list(range(base, base+rows))
         return self._datasets[predictor.name]
 

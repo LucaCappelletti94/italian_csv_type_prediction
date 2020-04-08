@@ -170,7 +170,7 @@ class StringType(SetTypeColumnPredictor):
 class SurnameType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SurnameType(), generalizations=SimpleStringType())
+        super().__init__(SimpleSurnameType(), generalizations=SimpleStringType())
 
 
 class YearType(SetTypeColumnPredictor):
