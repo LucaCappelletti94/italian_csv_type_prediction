@@ -27,7 +27,11 @@ class SurnameType(StringType):
             fiscal_code
         )["raw"]["surname"]
 
-        return all(
-            character in candidate.lower()
-            for character in characters.rstrip("X").lower()
-        )
+        candidate = candidate.lower()
+
+        for character in characters.rstrip("X").lower():
+            if character not in candidate:
+                return False
+            candidate = candidate[candidate.index(character):]
+
+        return True

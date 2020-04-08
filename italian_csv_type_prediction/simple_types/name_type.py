@@ -26,7 +26,11 @@ class NameType(StringType):
             fiscal_code
         )["raw"]["name"]
 
-        return all(
-            character in candidate.lower()
-            for character in characters.rstrip("X").lower()
-        )
+        candidate = candidate.lower()
+
+        for character in characters.rstrip("X").lower():
+            if character not in candidate:
+                return False
+            candidate = candidate[candidate.index(character):]
+
+        return True
