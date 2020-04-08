@@ -22,7 +22,6 @@ from ..simple_types import PhoneNumberType as SimplePhoneNumberType
 from ..simple_types import PlateType as SimplePlateType
 from ..simple_types import ProvinceCodeType as SimpleProvinceCodeType
 from ..simple_types import RegionType as SimpleRegionType
-from ..simple_types import SimpleTypePredictor
 from ..simple_types import StringType as SimpleStringType
 from ..simple_types import SurnameType as SimpleSurnameType
 from ..simple_types import YearType as SimpleYearType
@@ -178,9 +177,3 @@ class YearType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
         super().__init__(SimpleYearType(), min_threshold=1)
-
-
-class SurnameType(SetTypeColumnPredictor):
-    def __init__(self):
-        """Create new Predictor based on a single type."""
-        super().__init__(SimpleSurnameType(), generalizations=SimpleStringType())

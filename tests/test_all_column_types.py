@@ -64,7 +64,7 @@ def test_all_column_types():
                         assert all(prediction)
                     else:
                         assert not any(prediction)
-                except AssertionError as e:
+                except AssertionError:
                     success = False
                     error_type = "False negative" if column_predictor == sub_predictor else "False positive"
                     print(
