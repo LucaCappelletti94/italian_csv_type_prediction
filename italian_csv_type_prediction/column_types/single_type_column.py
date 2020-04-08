@@ -129,8 +129,7 @@ class MunicipalityType(SetTypeColumnPredictor):
 class NameType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleNameType(), generalizations=SimpleStringType(),
-                         fuzzy_generalization_threshold=0.8)
+        super().__init__(SimpleNameType(), generalizations=SimpleStringType())
 
 
 class NaNType(SetTypeColumnPredictor):
@@ -172,8 +171,7 @@ class StringType(SetTypeColumnPredictor):
 class SurnameType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SurnameType(), generalizations=SimpleStringType(),
-                         fuzzy_generalization_threshold=0.8)
+        super().__init__(SurnameType(), generalizations=SimpleStringType())
 
 
 class YearType(SetTypeColumnPredictor):

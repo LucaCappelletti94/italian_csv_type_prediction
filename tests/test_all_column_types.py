@@ -57,7 +57,7 @@ def test_all_column_types():
             if sub_predictor.name in known_collisions.get(column_predictor.name, []):
                 continue
             dataset = X.get_dataset(sub_predictor)
-            for candidate in [np.random.choice(dataset, size=np.random.randint(5, 30)) for i in range(300)]:
+            for candidate in [np.random.choice(dataset, size=np.random.randint(5, 30)) for i in range(500)]:
                 try:
                     prediction = np.array(column_predictor.validate(candidate))
                     if column_predictor == sub_predictor:
