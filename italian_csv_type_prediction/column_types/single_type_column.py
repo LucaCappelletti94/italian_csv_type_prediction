@@ -56,7 +56,7 @@ class CAPType(SetTypeColumnPredictor):
 class CodiceFiscaleType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCodiceFiscaleType(), others=SimpleIVAType())
+        super().__init__(SimpleCodiceFiscaleType(), others=SimpleIVAType(), min_threshold=0.95)
 
 
 class CodiceCatastoType(SetTypeColumnPredictor):
@@ -116,7 +116,7 @@ class IntegerType(SetTypeColumnPredictor):
 class IVAType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleIVAType(), others=SimpleCodiceFiscaleType())
+        super().__init__(SimpleIVAType(), others=SimpleCodiceFiscaleType(), min_threshold=0.95)
 
 
 class MunicipalityType(SetTypeColumnPredictor):
