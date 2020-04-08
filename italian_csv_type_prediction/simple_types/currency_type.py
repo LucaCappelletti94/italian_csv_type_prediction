@@ -12,11 +12,9 @@ class CurrencyType(StringType):
 
     def validate(self, candidate, **kwargs) -> bool:
         if self._float.validate(candidate):
-            print("I think this is a float")
             return len(str(self._float.convert(candidate)).split(".")[-1]) <= 2
         try:
             if not self._regex.validate(candidate):
-                print("Excluded by regex")
                 return False
             candidate = price_str(str(candidate))
             return len(str(self._float.convert(candidate)).split(".")[-1]) <= 2
