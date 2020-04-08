@@ -19,6 +19,9 @@ def test_all_column_types():
         "Name":[
             "Country"
         ],
+        "Surname":[
+            "BiologicalSex"
+        ],
         "Integer":[
             "CAP",
             "Boolean"
