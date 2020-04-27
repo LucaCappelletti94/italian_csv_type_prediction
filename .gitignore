@@ -18,3 +18,4 @@ coverage.xml
 .ipynb_checkpoints
 .pytest_cache
 *.egg-info
+test.pkl.gz
