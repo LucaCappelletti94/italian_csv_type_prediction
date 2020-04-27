@@ -86,8 +86,8 @@ class SimpleDatasetGenerator:
             return list(range(base, base+rows))
         return self._datasets[predictor.name]
 
-    def random_nan(self, *args):
-        return choice(self._nans)
+    def random_nan(self, df):
+        return np.random.choice(self._nans, size=df.shape)
 
     def generate_simple_dataframe(
         self,

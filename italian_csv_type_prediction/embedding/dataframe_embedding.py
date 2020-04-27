@@ -33,14 +33,29 @@ class DataframeEmbedding:
                     for value, prediction in zip(df[column].values, predictions)
                 ]
 
-        X = pd.concat([
-            pd.DataFrame(self._predictor.predict(
+        column_x = []
+        means = []
+
+        for column in df.columns:
+            predictions = pd.DataFrame(self._predictor.predict(
                 df[column],
                 fiscal_codes=fiscal_codes,
                 ivas=ivas
             ))
-            for column in df.columns
+
+            column_x.append(predictions.values)
+            means.append(np.tile(predictions.values.mean(axis=0), (predictions.shape[0], 1)))
+
+        column_x = np.vstack(column_x)
+        means = np.vstack(means)
+        global_means = np.tile(means.mean(axis=0), (column_x.shape[0], 1))
+
+        X = np.hstack([
+            column_x,
+            means,
+            global_means
         ])
+
         if y is not None:
             return X, self._encoder.transform(y.T.values.ravel())
         return X

@@ -16,4 +16,4 @@ def test_simple_dataset_builder():
     X, y = dataset.build(10)
 
     assert X.shape[0] == y.size
-    assert X.shape[1] == available_types_number
+    assert X.shape[1] == available_types_number*3
