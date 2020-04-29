@@ -17,18 +17,22 @@ def test_all_column_types():
             "NumericId"
         ],
         "Name":[
-            "Country"
+            "Country",
+            "BiologicalSex"
         ],
         "Surname":[
-            "BiologicalSex"
+            "BiologicalSex",
+            "Document"
         ],
         "Integer":[
             "CAP",
-            "Boolean"
+            "Boolean",
+            "IVA"
         ],
         "Float":[
             "CAP",
-            "Boolean"
+            "Boolean",
+            "IVA"
         ],
         "PhoneNumber":[
             "IVA"
