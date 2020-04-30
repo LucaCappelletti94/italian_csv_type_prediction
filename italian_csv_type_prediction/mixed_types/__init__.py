@@ -1,5 +1,5 @@
-from .extract_placeholders import extract_placeholders
+from .placeholder_extractor import PlaceholderExtractor
 
 __all__ = [
-    "extract_placeholders"
+    "PlaceholderExtractor"
 ]

@@ -1,6 +1,6 @@
 from .models import TypePredictor
-from .mixed_types import extract_placeholders
+from .mixed_types import PlaceholderExtractor
 
 __all__ = [
-    "TypePredictor", "extract_placeholders"
+    "TypePredictor", "PlaceholderExtractor"
 ]
