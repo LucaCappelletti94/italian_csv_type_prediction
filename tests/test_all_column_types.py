@@ -11,7 +11,7 @@ def test_all_column_types():
     success = True
 
     known_collisions = {
-        "CAP": [
+        "ItalianZIPCode": [
             "Integer",
             "Year",
             "NumericId"
@@ -25,17 +25,17 @@ def test_all_column_types():
             "Document"
         ],
         "Integer":[
-            "CAP",
+            "ItalianZIPCode",
             "Boolean",
-            "IVA"
+            "ItalianVAT"
         ],
         "Float":[
-            "CAP",
+            "ItalianZIPCode",
             "Boolean",
-            "IVA"
+            "ItalianVAT"
         ],
         "PhoneNumber":[
-            "IVA"
+            "ItalianVAT"
         ],
         "CountryCode":[
             "Boolean",
@@ -49,7 +49,7 @@ def test_all_column_types():
             "Year",
             "Float",
             "Integer",
-            "CAP",
+            "ItalianZIPCode",
             "NumericId",
             "Boolean"
         ]

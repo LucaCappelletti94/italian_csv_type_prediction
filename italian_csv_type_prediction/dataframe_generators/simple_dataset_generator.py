@@ -45,13 +45,13 @@ class SimpleDatasetGenerator:
         self._nans = load_nan()
 
         datasets = {
-            "CodiceFiscale": load_codice_fiscale(),
-            "IVA": load_iva(),
-            "CodiceCatasto": load_codice_catasto(),
+            "ItalianFiscalCode": load_codice_fiscale(),
+            "ItalianVAT": load_iva(),
+            "CadastreCode": load_codice_catasto(),
             "Document": load_document_types(),
             "Plate": load_plate(),
             "Address": load_address(),
-            "CAP": load_caps(),
+            "ItalianZIPCode": load_caps(),
             "ProvinceCode": load_provinces_codes(),
             "Region": load_regions(),
             "Municipality": load_municipalities(),
@@ -109,7 +109,7 @@ class SimpleDatasetGenerator:
 
         df["Name"] = rnd["name"]
         df["Surname"] = rnd["surname"]
-        df["CodiceFiscale"] = rnd["codice_fiscale"]
+        df["ItalianFiscalCode"] = rnd["codice_fiscale"]
 
         types = pd.DataFrame(
             np.tile(np.array(df.columns), (len(df), 1)),
@@ -119,13 +119,13 @@ class SimpleDatasetGenerator:
 
         if mix_codes and choice([True, False]):
             mask = np.random.randint(0, 2, size=df.shape[0], dtype=bool)
-            swap_codice_fiscale = df.CodiceFiscale[mask].values
-            swap_iva = df.IVA[mask].values
-            df.loc[mask, "CodiceFiscale"] = swap_iva
-            df.loc[mask, "IVA"] = swap_codice_fiscale
-            types.loc[mask, "CodiceFiscale"] = "IVA"
-            types.loc[mask, "IVA"] = "CodiceFiscale"
-            column_to_drop = choice(["CodiceFiscale", "IVA"])
+            swap_codice_fiscale = df.ItalianFiscalCode[mask].values
+            swap_iva = df.ItalianVAT[mask].values
+            df.loc[mask, "ItalianFiscalCode"] = swap_iva
+            df.loc[mask, "ItalianVAT"] = swap_codice_fiscale
+            types.loc[mask, "ItalianFiscalCode"] = "ItalianVAT"
+            types.loc[mask, "ItalianVAT"] = "ItalianFiscalCode"
+            column_to_drop = choice(["ItalianFiscalCode", "ItalianVAT"])
             df = df.drop(columns=column_to_drop)
             types = types.drop(columns=column_to_drop)
 
