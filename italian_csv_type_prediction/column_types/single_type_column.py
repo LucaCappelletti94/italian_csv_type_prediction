@@ -3,9 +3,9 @@ from typing import Dict
 from ..simple_types import AddressType as SimpleAddressType
 from ..simple_types import BiologicalSexType as SimpleBiologicalSexType
 from ..simple_types import BooleanType as SimpleBooleanType
-from ..simple_types import CAPType as SimpleCAPType
-from ..simple_types import CodiceCatastoType as SimpleCodiceCatastoType
-from ..simple_types import CodiceFiscaleType as SimpleCodiceFiscaleType
+from ..simple_types import ItalianZIPCodeType as SimpleItalianZIPCodeType
+from ..simple_types import CadastreCodeType as SimpleCadastreCodeType
+from ..simple_types import ItalianFiscalCodeType as SimpleItalianFiscalCodeType
 from ..simple_types import CountryCodeType as SimpleCountryCodeType
 from ..simple_types import CountryType as SimpleCountryType
 from ..simple_types import CurrencyType as SimpleCurrencyType
@@ -14,7 +14,7 @@ from ..simple_types import DocumentType as SimpleDocumentType
 from ..simple_types import EMailType as SimpleEMailType
 from ..simple_types import FloatType as SimpleFloatType
 from ..simple_types import IntegerType as SimpleIntegerType
-from ..simple_types import IVAType as SimpleIVAType
+from ..simple_types import ItalianVATType as SimpleItalianVATType
 from ..simple_types import MunicipalityType as SimpleMunicipalityType
 from ..simple_types import NameType as SimpleNameType
 from ..simple_types import NaNType as SimpleNaNType
@@ -47,22 +47,22 @@ class BooleanType(SetTypeColumnPredictor):
         super().__init__(SimpleBooleanType())
 
 
-class CAPType(SetTypeColumnPredictor):
+class ItalianZIPCodeType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCAPType())
+        super().__init__(SimpleItalianZIPCodeType())
 
 
-class CodiceFiscaleType(SetTypeColumnPredictor):
+class ItalianFiscalCodeType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCodiceFiscaleType(), others=SimpleIVAType(), min_threshold=0.95)
+        super().__init__(SimpleItalianFiscalCodeType(), others=SimpleItalianVATType(), min_threshold=0.95)
 
 
-class CodiceCatastoType(SetTypeColumnPredictor):
+class CadastreCodeType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCodiceCatastoType())
+        super().__init__(SimpleCadastreCodeType())
 
 
 class CountryCodeType(SetTypeColumnPredictor):
@@ -113,10 +113,10 @@ class IntegerType(SetTypeColumnPredictor):
         super().__init__(SimpleIntegerType())
 
 
-class IVAType(SetTypeColumnPredictor):
+class ItalianVATType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleIVAType(), others=SimpleCodiceFiscaleType(), min_threshold=0.95)
+        super().__init__(SimpleItalianVATType(), others=SimpleItalianFiscalCodeType(), min_threshold=0.95)
 
 
 class MunicipalityType(SetTypeColumnPredictor):

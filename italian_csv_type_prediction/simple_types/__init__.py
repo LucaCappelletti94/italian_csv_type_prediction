@@ -1,9 +1,9 @@
 from .address_type import AddressType
 from .biological_sex_type import BiologicalSexType
 from .boolean_type import BooleanType
-from .CAP_type import CAPType
-from .codice_catasto_type import CodiceCatastoType
-from .codice_fiscale_type import CodiceFiscaleType
+from .italian_zip_code_type import ItalianZIPCodeType
+from .cadastre_code_type import CadastreCodeType
+from .italian_fiscal_code_type import ItalianFiscalCodeType
 from .country_code_type import CountryCodeType
 from .country_type import CountryType
 from .currency_type import CurrencyType
@@ -12,7 +12,7 @@ from .document_type import DocumentType
 from .email_type import EMailType
 from .float_type import FloatType
 from .integer_type import IntegerType
-from .IVA_type import IVAType
+from .italian_vat_type import ItalianVATType
 from .municipality_type import MunicipalityType
 from .name_type import NameType
 from .nan_type import NaNType
@@ -29,9 +29,9 @@ __all__ = [
     "AddressType",
     "BiologicalSexType",
     "BooleanType",
-    "CAPType",
-    "CodiceFiscaleType",
-    "CodiceCatastoType",
+    "ItalianZIPCodeType",
+    "ItalianFiscalCodeType",
+    "CadastreCodeType",
     "CountryCodeType",
     "CountryType",
     "DateType",
@@ -39,7 +39,7 @@ __all__ = [
     "EMailType",
     "FloatType",
     "IntegerType",
-    "IVAType",
+    "ItalianVATType",
     "MunicipalityType",
     "NameType",
     "NaNType",

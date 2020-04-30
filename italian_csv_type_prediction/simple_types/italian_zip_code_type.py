@@ -3,7 +3,7 @@ from .set_type_predictor import SetTypePredictor
 from ..datasets import load_caps
 
 
-class CAPType(SetTypePredictor):
+class ItalianZIPCodeType(SetTypePredictor):
 
     def __init__(self):
         """Create new float type predictor based on regex."""

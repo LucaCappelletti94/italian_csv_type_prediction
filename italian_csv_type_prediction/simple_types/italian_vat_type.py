@@ -4,7 +4,7 @@ from .integer_type import IntegerType
 from .float_type import FloatType
 
 
-class IVAType(SimpleTypePredictor):
+class ItalianVATType(SimpleTypePredictor):
     def __init__(self):
         """Create new IVA type predictor based on rules."""
         super().__init__()

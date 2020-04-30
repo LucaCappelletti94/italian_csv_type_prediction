@@ -1,0 +1,21 @@
+Updated class names
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch master
+# Your branch is up to date with 'origin/master'.
+#
+# Changes to be committed:
+#	modified:   italian_csv_type_prediction/column_types/__init__.py
+#	modified:   italian_csv_type_prediction/column_types/any_type.py
+#	modified:   italian_csv_type_prediction/column_types/single_type_column.py
+#	modified:   italian_csv_type_prediction/embedding/dataframe_embedding.py
+#	deleted:    italian_csv_type_prediction/models/type_predictor.pkl.gz
+#	modified:   italian_csv_type_prediction/simple_types/__init__.py
+#	renamed:    italian_csv_type_prediction/simple_types/codice_catasto_type.py -> italian_csv_type_prediction/simple_types/cadastre_code_type.py
+#	modified:   italian_csv_type_prediction/simple_types/date_type.py
+#	renamed:    italian_csv_type_prediction/simple_types/codice_fiscale_type.py -> italian_csv_type_prediction/simple_types/italian_fiscal_code_type.py
+#	renamed:    italian_csv_type_prediction/simple_types/IVA_type.py -> italian_csv_type_prediction/simple_types/italian_vat_type.py
+#	renamed:    italian_csv_type_prediction/simple_types/CAP_type.py -> italian_csv_type_prediction/simple_types/italian_zip_code_type.py
+#	modified:   tests/test_placeholders.py
+#

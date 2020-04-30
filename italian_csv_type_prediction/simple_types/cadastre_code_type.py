@@ -3,7 +3,7 @@ from .string_type import StringType
 from ..datasets import load_codice_catasto
 
 
-class CodiceCatastoType(StringType):
+class CadastreCodeType(StringType):
 
     def __init__(self):
         super().__init__()

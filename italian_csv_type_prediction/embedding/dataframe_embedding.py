@@ -1,4 +1,4 @@
-from ..column_types import AnyTypePredictor, IVAType, CodiceFiscaleType
+from ..column_types import AnyTypePredictor, ItalianVATType, ItalianFiscalCodeType
 from sklearn.preprocessing import LabelEncoder
 import pandas as pd
 import numpy as np
@@ -9,8 +9,8 @@ class DataframeEmbedding:
     def __init__(self):
         self._predictor = AnyTypePredictor()
         self._encoder = LabelEncoder().fit(self._predictor.supported_types)
-        self._ivas = IVAType()
-        self._fiscal_codes = CodiceFiscaleType()
+        self._ivas = ItalianVATType()
+        self._fiscal_codes = ItalianFiscalCodeType()
 
     def transform(self, df: pd.DataFrame, y: np.ndarray = None) -> np.ndarray:
         """Encode given dataframe into a vector space."""

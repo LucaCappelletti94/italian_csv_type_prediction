@@ -1,6 +1,5 @@
 from italian_csv_type_prediction.dataframe_generators import SimpleDatasetGenerator
 from italian_csv_type_prediction import TypePredictor, extract_placeholders
-import pandas as pd
 
 
 def test_type_predictor():

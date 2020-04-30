@@ -2,13 +2,13 @@ from typing import Dict, List
 
 from .column_type_predictor import ColumnTypePredictor
 from .single_type_column import (AddressType, BiologicalSexType, BooleanType,
-                                 CAPType, CodiceFiscaleType, CountryCodeType,
+                                 ItalianZIPCodeType, ItalianFiscalCodeType, CountryCodeType,
                                  CountryType, CurrencyType, DateType,
                                  DocumentType, EMailType, FloatType,
-                                 IntegerType, IVAType, MunicipalityType,
+                                 IntegerType, ItalianVATType, MunicipalityType,
                                  NameType, NaNType, PhoneNumberType, PlateType,
                                  ProvinceCodeType, RegionType, StringType,
-                                 SurnameType, YearType, CodiceCatastoType
+                                 SurnameType, YearType, CadastreCodeType
                                  )
 from .numeric_id_type import NumericIdType
 
@@ -18,12 +18,12 @@ class AnyTypePredictor:
         self._predictors = [
             predictor()
             for predictor in (
-                AddressType, CAPType, CodiceFiscaleType, CountryCodeType,
+                AddressType, ItalianZIPCodeType, ItalianFiscalCodeType, CountryCodeType,
                 CountryType, CurrencyType, DateType, EMailType,
-                FloatType, IntegerType, IVAType, DocumentType, NumericIdType,
+                FloatType, IntegerType, ItalianVATType, DocumentType, NumericIdType,
                 MunicipalityType, NameType, NaNType, PhoneNumberType,
                 ProvinceCodeType, RegionType, StringType, SurnameType,
-                YearType, BiologicalSexType, BooleanType, PlateType, CodiceCatastoType
+                YearType, BiologicalSexType, BooleanType, PlateType, CadastreCodeType
             )
         ]
 

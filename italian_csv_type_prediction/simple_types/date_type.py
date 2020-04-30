@@ -2,7 +2,7 @@ from dateutil.parser import parse
 from dateutil.parser import parserinfo
 from .string_type import StringType
 from .float_type import FloatType
-from .CAP_type import CAPType
+from .italian_zip_code_type import ItalianZIPCodeType
 
 class ItalianMonths(parserinfo):
 
@@ -33,7 +33,7 @@ class DateType(StringType):
         super().__init__()
         self._parserinfo = ItalianMonths()
         self._float = FloatType()
-        self._cap = CAPType()
+        self._cap = ItalianZIPCodeType()
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate is a Date."""
