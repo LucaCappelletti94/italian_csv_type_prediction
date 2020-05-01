@@ -3,6 +3,8 @@ from .digits import Digits
 from .length import Length
 from .symbols import Symbols
 from .feature import Feature
+from .spaces import Spaces
+from .words import Words
 
 
 class AnyFeature:
@@ -10,7 +12,7 @@ class AnyFeature:
         self._features = [
             feature()
             for feature in (
-                Digits, Length, Symbols
+                Digits, Length, Symbols, Spaces, Words
             )
         ]
 
