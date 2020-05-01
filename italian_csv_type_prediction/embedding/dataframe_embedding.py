@@ -1,5 +1,6 @@
 from ..column_types import AnyTypePredictor, ItalianVATType, ItalianFiscalCodeType
 from sklearn.preprocessing import LabelEncoder
+from ..features import AnyFeature
 import pandas as pd
 import numpy as np
 
@@ -8,6 +9,7 @@ class DataframeEmbedding:
 
     def __init__(self):
         self._predictor = AnyTypePredictor()
+        self._feature = AnyFeature()
         self._encoder = LabelEncoder().fit(self._predictor.supported_types)
         self._ivas = ItalianVATType()
         self._fiscal_codes = ItalianFiscalCodeType()
@@ -37,11 +39,14 @@ class DataframeEmbedding:
         means = []
 
         for column in df.columns:
-            predictions = pd.DataFrame(self._predictor.predict(
-                df[column],
-                fiscal_codes=fiscal_codes,
-                ivas=ivas
-            ))
+            predictions = pd.DataFrame({
+                **self._predictor.predict(
+                    df[column],
+                    fiscal_codes=fiscal_codes,
+                    ivas=ivas
+                ),
+                **self._feature.scores(df[column])
+            })
 
             column_x.append(predictions.values)
             means.append(np.tile(predictions.values.mean(axis=0), (predictions.shape[0], 1)))
