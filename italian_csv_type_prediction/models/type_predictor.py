@@ -17,7 +17,7 @@ class TypePredictor:
         self._model = self._load_model()
 
     def fit(self, X:np.array, y:np.array):
-        self._model = DecisionTreeClassifier(max_depth=30, random_state=42, class_weight="balanced").fit(X, y)
+        self._model = DecisionTreeClassifier(max_depth=50, random_state=42, class_weight="balanced").fit(X, y)
         self._save_model()
 
     def _save_model(self):
