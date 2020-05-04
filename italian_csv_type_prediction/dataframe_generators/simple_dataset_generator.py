@@ -92,7 +92,7 @@ class SimpleDatasetGenerator:
     def generate_simple_dataframe(
         self,
         nan_percentage: float = 0.2,
-        error_percentage: float = 0.01,
+        error_percentage: float = 0.1,
         min_rows: int = 3,
         max_rows: int = 100,
         mix_codes: bool = True
