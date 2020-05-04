@@ -10,7 +10,7 @@ class DataframeEmbedding:
     def __init__(self):
         self._predictor = AnyTypePredictor()
         self._feature = AnyFeature()
-        self._encoder = LabelEncoder().fit(self._predictor.supported_types)
+        self._encoder = LabelEncoder().fit(self._predictor.supported_types + ["Error"])
         self._ivas = ItalianVATType()
         self._fiscal_codes = ItalianFiscalCodeType()
 
