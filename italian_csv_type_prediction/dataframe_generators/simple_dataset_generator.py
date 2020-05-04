@@ -92,6 +92,7 @@ class SimpleDatasetGenerator:
     def generate_simple_dataframe(
         self,
         nan_percentage: float = 0.2,
+        error_percentage: float = 0.01,
         min_rows: int = 3,
         max_rows: int = 100,
         mix_codes: bool = True
@@ -117,14 +118,25 @@ class SimpleDatasetGenerator:
             index=df.index
         )
 
+        for column in df.columns:
+            datasets = list(self._datasets.keys())
+            if column in datasets:
+                datasets.remove(column)
+            
+            for i in df[column].index:
+                if np.random.uniform(0, 1) < error_percentage:
+                    df.loc[i, column] = choice(self._datasets[choice(datasets)])
+                    types.loc[i, column] = "Error"
+
         if mix_codes and choice([True, False]):
             mask = np.random.randint(0, 2, size=df.shape[0], dtype=bool)
             swap_codice_fiscale = df.ItalianFiscalCode[mask].values
             swap_iva = df.ItalianVAT[mask].values
             df.loc[mask, "ItalianFiscalCode"] = swap_iva
             df.loc[mask, "ItalianVAT"] = swap_codice_fiscale
-            types.loc[mask, "ItalianFiscalCode"] = "ItalianVAT"
-            types.loc[mask, "ItalianVAT"] = "ItalianFiscalCode"
+            backup_fiscal_codes = types.loc[mask, "ItalianFiscalCode"]
+            types.loc[mask, "ItalianFiscalCode"] = types.loc[mask, "ItalianVAT"]
+            types.loc[mask, "ItalianVAT"] = backup_fiscal_codes
             column_to_drop = choice(["ItalianFiscalCode", "ItalianVAT"])
             df = df.drop(columns=column_to_drop)
             types = types.drop(columns=column_to_drop)

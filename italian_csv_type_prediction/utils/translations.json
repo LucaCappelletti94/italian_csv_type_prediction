@@ -25,5 +25,6 @@
     "String": "testo",
     "Year": "anno",
     "NumericId": "identificatore",
-    "Company": "ragioneSociale"
+    "Company": "ragioneSociale",
+    "Error": "errore"
 }
