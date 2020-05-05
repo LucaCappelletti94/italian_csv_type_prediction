@@ -1,5 +1,6 @@
 from .string_type import SimpleTypePredictor
 from ..datasets import load_address_starters
+from ..utils import normalize
 
 
 class AddressType(SimpleTypePredictor):
@@ -12,5 +13,5 @@ class AddressType(SimpleTypePredictor):
         return True
 
     def validate(self, candidate, **kwargs) -> bool:
-        candidate = str(candidate)
+        candidate = normalize(str(candidate))
         return any(candidate.startswith(e) for e in self._words)

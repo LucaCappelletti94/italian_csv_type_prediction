@@ -68,19 +68,19 @@ class ItalianFiscalCodeType(SetTypeColumnPredictor):
 class CadastreCodeType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCadastreCodeType(), min_threshold=0.9)
+        super().__init__(SimpleCadastreCodeType())
 
 
 class CountryCodeType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCountryCodeType(), min_threshold=0.9)
+        super().__init__(SimpleCountryCodeType())
 
 
 class CountryType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCountryType(), min_threshold=0.95)
+        super().__init__(SimpleCountryType())
 
 
 class DateType(SetTypeColumnPredictor):
@@ -122,7 +122,7 @@ class ItalianVATType(SetTypeColumnPredictor):
 class MunicipalityType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleMunicipalityType(), min_threshold=0.8)
+        super().__init__(SimpleMunicipalityType())
 
 
 class NameType(SetTypeColumnPredictor):
