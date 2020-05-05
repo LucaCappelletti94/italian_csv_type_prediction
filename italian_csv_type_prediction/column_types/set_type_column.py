@@ -127,7 +127,7 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
         # of the same column, and the Predictor used is caracterized by false negatives
         # with the "fuzzy" property, we extend the predictions to the
         # values that are predicted by any of the generalizations.
-        if self._main.fuzzy and only_main > (total_values - only_nan)*self._fuzzy_generalization_threshold:
+        if only_main > (total_values - only_nan)*self._fuzzy_generalization_threshold:
             is_main_type = is_generalization
 
         return is_main_type

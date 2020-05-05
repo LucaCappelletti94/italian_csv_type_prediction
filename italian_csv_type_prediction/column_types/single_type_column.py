@@ -176,4 +176,4 @@ class SurnameType(SetTypeColumnPredictor):
 class YearType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleYearType(), min_threshold=0.9)
+        super().__init__(SimpleYearType())
