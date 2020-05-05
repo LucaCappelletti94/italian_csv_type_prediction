@@ -128,6 +128,9 @@ class SimpleDatasetGenerator:
         }
 
         for column in df.columns:
+            if column == "String":
+                continue
+
             datasets = list(self._datasets.keys())
             to_remove = [column]
             to_remove += overlaps.get(column, [])
