@@ -53,12 +53,10 @@ class DataframeEmbedding:
 
         column_x = np.vstack(column_x)
         means = np.vstack(means)
-        global_means = np.tile(means.mean(axis=0), (column_x.shape[0], 1))
 
         X = np.hstack([
             column_x,
-            means,
-            global_means
+            means
         ])
 
         if y is not None:
