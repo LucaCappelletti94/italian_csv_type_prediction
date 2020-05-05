@@ -118,10 +118,12 @@ class SimpleDatasetGenerator:
         )
 
         overlaps = {
-            "Name": ["Surname", "String"],
-            "Surname": ["Name", "String"],
-            "Integer": ["Float", "NumericId"],
-            "Float": ["Integer", "NumericId"],
+            "Name": ["Surname", "Municipality", "Region", "String"],
+            "Surname": ["Name", "Municipality", "Region", "String"],
+            "Region": ["Name", "Surname", "Municipality"],
+            "Municipality": ["Name", "Surname", "Region"],
+            "Integer": ["Float"],
+            "Float": ["Integer"],
             "NumericId": ["Integer", "Float"]
         }
 
