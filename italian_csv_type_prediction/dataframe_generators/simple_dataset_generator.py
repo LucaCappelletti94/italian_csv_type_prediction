@@ -118,8 +118,6 @@ class SimpleDatasetGenerator:
         )
 
         overlaps = {
-            "Name": ["Surname", "Municipality", "Region", "String", "Country"],
-            "Surname": ["Name", "Municipality", "Region", "String", "Country"],
             "Region": ["Name", "Surname", "Municipality", "Country"],
             "Municipality": ["Name", "Surname", "Region", "Country"],
             "Country": ["Name", "Surname", "Region", "Municipality"],
@@ -129,7 +127,7 @@ class SimpleDatasetGenerator:
         }
 
         for column in df.columns:
-            if column == "String":
+            if column in ("String", "Name", "Surname", "Address"):
                 continue
 
             datasets = list(self._datasets.keys())
