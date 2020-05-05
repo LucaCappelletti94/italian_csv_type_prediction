@@ -117,10 +117,20 @@ class SimpleDatasetGenerator:
             index=df.index
         )
 
+        overlaps = {
+            "Name": ["Surname", "String"],
+            "Surname": ["Name", "String"],
+            "Integer": ["Float"],
+            "Float": ["Integer"]
+        }
+
         for column in df.columns:
             datasets = list(self._datasets.keys())
-            if column in datasets:
-                datasets.remove(column)
+            to_remove = [column]
+            to_remove += overlaps.get(column, [])
+            for remove in to_remove:
+                if column in datasets:
+                    datasets.remove(remove)
             
             for i in df[column].index:
                 if np.random.uniform(0, 1) < error_percentage:
