@@ -21,14 +21,14 @@ class SimpleDatasetGenerator:
         self._embedding = DataframeEmbedding()
 
     def _load_types_datasets(self):
-        integers = np.random.randint(-100, 10000, size=10000)
+        integers = np.random.randint(0, 10000, size=10000)
         string_integers = integers.astype(str)
         float_integers = integers.astype(float)
 
         all_integers = integers.tolist() + string_integers.tolist() + \
             float_integers.tolist()
 
-        floats = np.random.uniform(-100, 10000, size=10000)
+        floats = np.random.uniform(0, 10000, size=10000)
         string_floats = floats.astype(str)
 
         all_floats = floats.tolist() + string_floats.tolist()
