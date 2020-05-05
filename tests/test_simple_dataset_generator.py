@@ -10,7 +10,7 @@ def test_simple_dataset_builder():
     dataset = SimpleDatasetGenerator()
     features = AnyFeature()
     simple_predictor = AnyTypePredictor()
-    assert set(list(dataset._datasets.keys()) + ["NaN", "NumericId"]) == set(
+    assert set(list(dataset._datasets.keys()) + ["NaN"]) == set(
         simple_predictor.supported_types)
 
     available_types_number = len(simple_predictor.supported_types)

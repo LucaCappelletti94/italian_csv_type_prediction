@@ -102,13 +102,13 @@ class SimpleDatasetGenerator:
             for key, values in self._datasets.items()
         })
 
-        base = randint(1, 100000)
-        df["NumericId"] = list(range(base, base+rows))
+        # base = randint(1, 100000)
+        # df["NumericId"] = list(range(base, base+rows))
         
-        if choice([True, False]):
-            df["NumericId"] = [
-                str(e) for e in df["NumericId"]
-            ]
+        # if choice([True, False]):
+        #     df["NumericId"] = [
+        #         str(e) for e in df["NumericId"]
+        #     ]
 
         rnd = random_csv(rows)
 
@@ -128,7 +128,6 @@ class SimpleDatasetGenerator:
             "Country": ["Name", "Surname", "Region", "Municipality"],
             "Integer": ["Float", "Year", "ItalianVAT", "ItalianZIPCode"],
             "Float": ["Integer", "Year", "ItalianVAT", "ItalianZIPCode"],
-            "NumericId": ["Integer", "Float", "Year"],
             "CountryCode": ["ProvinceCode"],
             "ProvinceCode": ["CountryCode"]
         }

@@ -20,7 +20,7 @@ class AnyTypePredictor:
             for predictor in (
                 AddressType, ItalianZIPCodeType, ItalianFiscalCodeType, CountryCodeType,
                 CountryType, DateType, EMailType,
-                FloatType, IntegerType, ItalianVATType, DocumentType, NumericIdType,
+                FloatType, IntegerType, ItalianVATType, DocumentType,
                 MunicipalityType, NameType, NaNType, PhoneNumberType,
                 ProvinceCodeType, RegionType, StringType, SurnameType,
                 YearType, BiologicalSexType, BooleanType, PlateType, CadastreCodeType
