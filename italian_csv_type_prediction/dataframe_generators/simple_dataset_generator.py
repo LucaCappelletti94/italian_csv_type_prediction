@@ -123,7 +123,9 @@ class SimpleDatasetGenerator:
             "Country": ["Name", "Surname", "Region", "Municipality"],
             "Integer": ["Float", "Year", "ItalianVAT", "ItalianZIPCode"],
             "Float": ["Integer", "Year", "ItalianVAT", "ItalianZIPCode"],
-            "NumericId": ["Integer", "Float", "Year"]
+            "NumericId": ["Integer", "Float", "Year"],
+            "CountryCode": ["ProvinceCode"],
+            "ProvinceCode": ["CountryCode"]
         }
 
         for column in df.columns:
