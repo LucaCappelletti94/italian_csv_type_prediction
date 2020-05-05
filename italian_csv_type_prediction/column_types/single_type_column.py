@@ -62,13 +62,13 @@ class ItalianZIPCodeType(SetTypeColumnPredictor):
 class ItalianFiscalCodeType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleItalianFiscalCodeType(), others=SimpleItalianVATType())
+        super().__init__(SimpleItalianFiscalCodeType(), others=SimpleItalianVATType(), min_threshold=0.3)
 
 
 class CadastreCodeType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCadastreCodeType())
+        super().__init__(SimpleCadastreCodeType(), min_threshold=0.3)
 
 
 class CountryCodeType(SetTypeColumnPredictor):
@@ -116,7 +116,7 @@ class IntegerType(SetTypeColumnPredictor):
 class ItalianVATType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleItalianVATType(), others=SimpleItalianFiscalCodeType())
+        super().__init__(SimpleItalianVATType(), others=SimpleItalianFiscalCodeType(), min_threshold=0.3)
 
 
 class MunicipalityType(SetTypeColumnPredictor):
