@@ -4,12 +4,12 @@ from typing import List, Dict
 
 class NumericIdType(IntegerType):
 
-    def __init__(self, density: float = 0.9):
+    def __init__(self, density: float = 0.95):
         """Create new NumericId Predictor based on data within column.
 
         Parameters
         --------------------------
-        density: float = 0.9,
+        density: float = 0.95,
             Minimal density from minimum integer to maximum integer.
         """
         super().__init__()
