@@ -130,7 +130,7 @@ class SimpleDatasetGenerator:
             to_remove = [column]
             to_remove += overlaps.get(column, [])
             for remove in to_remove:
-                if column in datasets:
+                if remove in datasets:
                     datasets.remove(remove)
             
             for i in df[column].index:
