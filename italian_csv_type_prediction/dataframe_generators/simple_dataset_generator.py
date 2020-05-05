@@ -65,7 +65,6 @@ class SimpleDatasetGenerator:
             "String": load_strings(),
             "EMail": load_email(),
             "PhoneNumber": load_phone(),
-            "Currency": load_euro(),
             "Date": load_date(),
             "BiologicalSex": load_biological_sex(),
             "Boolean": load_boolean()

@@ -3,7 +3,7 @@ from typing import Dict, List
 from .column_type_predictor import ColumnTypePredictor
 from .single_type_column import (AddressType, BiologicalSexType, BooleanType,
                                  ItalianZIPCodeType, ItalianFiscalCodeType, CountryCodeType,
-                                 CountryType, CurrencyType, DateType,
+                                 CountryType, DateType,
                                  DocumentType, EMailType, FloatType,
                                  IntegerType, ItalianVATType, MunicipalityType,
                                  NameType, NaNType, PhoneNumberType, PlateType,
@@ -19,7 +19,7 @@ class AnyTypePredictor:
             predictor()
             for predictor in (
                 AddressType, ItalianZIPCodeType, ItalianFiscalCodeType, CountryCodeType,
-                CountryType, CurrencyType, DateType, EMailType,
+                CountryType, DateType, EMailType,
                 FloatType, IntegerType, ItalianVATType, DocumentType, NumericIdType,
                 MunicipalityType, NameType, NaNType, PhoneNumberType,
                 ProvinceCodeType, RegionType, StringType, SurnameType,

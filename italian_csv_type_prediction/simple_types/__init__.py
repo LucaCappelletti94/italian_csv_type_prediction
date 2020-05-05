@@ -8,7 +8,6 @@ from .cadastre_code_type import CadastreCodeType
 from .italian_fiscal_code_type import ItalianFiscalCodeType
 from .country_code_type import CountryCodeType
 from .country_type import CountryType
-from .currency_type import CurrencyType
 from .date_type import DateType
 from .document_type import DocumentType
 from .email_type import EMailType

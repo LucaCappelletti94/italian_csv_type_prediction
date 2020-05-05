@@ -10,7 +10,6 @@ from ..simple_types import CadastreCodeType as SimpleCadastreCodeType
 from ..simple_types import ItalianFiscalCodeType as SimpleItalianFiscalCodeType
 from ..simple_types import CountryCodeType as SimpleCountryCodeType
 from ..simple_types import CountryType as SimpleCountryType
-from ..simple_types import CurrencyType as SimpleCurrencyType
 from ..simple_types import DateType as SimpleDateType
 from ..simple_types import DocumentType as SimpleDocumentType
 from ..simple_types import EMailType as SimpleEMailType
@@ -82,12 +81,6 @@ class CountryType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
         super().__init__(SimpleCountryType(), min_threshold=0.95)
-
-
-class CurrencyType(SetTypeColumnPredictor):
-    def __init__(self):
-        """Create new Predictor based on a single type."""
-        super().__init__(SimpleCurrencyType(), min_threshold=0.95)
 
 
 class DateType(SetTypeColumnPredictor):

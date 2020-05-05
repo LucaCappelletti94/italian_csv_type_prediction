@@ -7,7 +7,6 @@
     "ItalianFiscalCode": "codiceFiscale",
     "CountryCode": "codiceNazione",
     "Country": "nazione",
-    "Currency": "importo",
     "Date": "data",
     "Document": "tipoPratica",
     "EMail": "email",

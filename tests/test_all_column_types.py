@@ -44,14 +44,6 @@ def test_all_column_types():
         "ProvinceCode":[
             "Boolean",
             "CountryCode"
-        ],
-        "Currency":[
-            "Year",
-            "Float",
-            "Integer",
-            "ItalianZIPCode",
-            "NumericId",
-            "Boolean"
         ]
     }
 
