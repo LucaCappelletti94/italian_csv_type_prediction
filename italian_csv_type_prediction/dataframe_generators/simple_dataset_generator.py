@@ -120,8 +120,9 @@ class SimpleDatasetGenerator:
         overlaps = {
             "Name": ["Surname", "String"],
             "Surname": ["Name", "String"],
-            "Integer": ["Float"],
-            "Float": ["Integer"]
+            "Integer": ["Float", "NumericId"],
+            "Float": ["Integer", "NumericId"],
+            "NumericId": ["Integer", "Float"]
         }
 
         for column in df.columns:
