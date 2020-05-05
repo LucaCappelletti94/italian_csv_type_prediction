@@ -1,9 +1,11 @@
 from typing import Dict
 
 from ..simple_types import AddressType as SimpleAddressType
+from ..simple_types import FuzzyAddressType as SimpleFuzzyAddressType
 from ..simple_types import BiologicalSexType as SimpleBiologicalSexType
 from ..simple_types import BooleanType as SimpleBooleanType
 from ..simple_types import ItalianZIPCodeType as SimpleItalianZIPCodeType
+from ..simple_types import FuzzyItalianZIPCodeType as SimpleFuzzyItalianZIPCodeType
 from ..simple_types import CadastreCodeType as SimpleCadastreCodeType
 from ..simple_types import ItalianFiscalCodeType as SimpleItalianFiscalCodeType
 from ..simple_types import CountryCodeType as SimpleCountryCodeType
@@ -31,8 +33,10 @@ from .set_type_column import SetTypeColumnPredictor
 class AddressType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleAddressType(), generalizations=SimpleStringType(),
-                         fuzzy_generalization_threshold=0.8)
+        super().__init__(
+            SimpleAddressType(),
+            generalizations=SimpleFuzzyAddressType()
+        )
 
 
 class BiologicalSexType(SetTypeColumnPredictor):
@@ -50,37 +54,40 @@ class BooleanType(SetTypeColumnPredictor):
 class ItalianZIPCodeType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleItalianZIPCodeType())
+        super().__init__(
+            SimpleItalianZIPCodeType(),
+            generalizations=SimpleFuzzyItalianZIPCodeType()
+        )
 
 
 class ItalianFiscalCodeType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleItalianFiscalCodeType(), others=SimpleItalianVATType(), min_threshold=0.95)
+        super().__init__(SimpleItalianFiscalCodeType(), others=SimpleItalianVATType())
 
 
 class CadastreCodeType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCadastreCodeType())
+        super().__init__(SimpleCadastreCodeType(), min_threshold=0.9)
 
 
 class CountryCodeType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCountryCodeType())
+        super().__init__(SimpleCountryCodeType(), min_threshold=0.9)
 
 
 class CountryType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCountryType())
+        super().__init__(SimpleCountryType(), min_threshold=0.95)
 
 
 class CurrencyType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCurrencyType())
+        super().__init__(SimpleCurrencyType(), min_threshold=0.95)
 
 
 class DateType(SetTypeColumnPredictor):
@@ -122,13 +129,13 @@ class ItalianVATType(SetTypeColumnPredictor):
 class MunicipalityType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleMunicipalityType())
+        super().__init__(SimpleMunicipalityType(), min_threshold=0.8)
 
 
 class NameType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleNameType(), generalizations=SimpleStringType(), fuzzy_generalization_threshold=0.8)
+        super().__init__(SimpleNameType())
 
 
 class NaNType(SetTypeColumnPredictor):
@@ -170,10 +177,10 @@ class StringType(SetTypeColumnPredictor):
 class SurnameType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleSurnameType(), generalizations=SimpleStringType(), fuzzy_generalization_threshold=0.8)
+        super().__init__(SimpleSurnameType())
 
 
 class YearType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleYearType())
+        super().__init__(SimpleYearType(), min_threshold=0.9)

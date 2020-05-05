@@ -1,7 +1,9 @@
 from .address_type import AddressType
+from .fuzzy_address_type import FuzzyAddressType
 from .biological_sex_type import BiologicalSexType
 from .boolean_type import BooleanType
 from .italian_zip_code_type import ItalianZIPCodeType
+from .fuzzy_italian_zip_code_type import FuzzyItalianZIPCodeType
 from .cadastre_code_type import CadastreCodeType
 from .italian_fiscal_code_type import ItalianFiscalCodeType
 from .country_code_type import CountryCodeType
@@ -27,9 +29,11 @@ from .year_type import YearType
 
 __all__ = [
     "AddressType",
+    "FuzzyAddressType",
     "BiologicalSexType",
     "BooleanType",
     "ItalianZIPCodeType",
+    "FuzzyItalianZIPCodeType",
     "ItalianFiscalCodeType",
     "CadastreCodeType",
     "CountryCodeType",

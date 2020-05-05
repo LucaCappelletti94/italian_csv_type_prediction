@@ -9,7 +9,7 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
         self,
         main: SimpleTypePredictor,
         others: List[SimpleTypePredictor] = (),
-        min_threshold: float = 0.6,  # [4 out of 5]
+        min_threshold: float = 0.8,  # [4 out of 5]
         fuzzy_generalization_threshold: float = 0.9,
         generalizations: List[SimpleTypePredictor] = ()
     ):
@@ -31,19 +31,10 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
             Minimal amount of predictions of main (only main, not others)
             to generalize the type to the values that are accept by any of
             the predictors specified in the generalizations parameter.
-            THIS PARAMETER ONLY APPLY TO FUZZY TYPES.
         generalizations: List[SimpleTypePredictor] = ()
             List of predictors that accept the type when main predictor
             is fuzzy and the predicted elements are more than the fuzzy
             generalization threshold.
-            THIS PARAMETER ONLY APPLY TO FUZZY TYPES.
-
-        Raises
-        ----------------------------------
-        ValueError,
-            When a predictor is not fuzzy but generalization are given.
-        ValueError,
-            When a predictor is fuzzy but not generalization are given.
         """
         self._main = main
 
@@ -53,16 +44,6 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
             others = (others,)
         if isinstance(generalizations, SimpleTypePredictor):
             generalizations = (generalizations,)
-
-        if len(generalizations) > 0 and not self._main.fuzzy:
-            raise ValueError("Given main predictor {predictor_type} is not fuzzy, but generalizations were given.".format(
-                predictor_type=self._main.__class__.__name__
-            ))
-
-        if len(generalizations) == 0 and self._main.fuzzy:
-            raise ValueError("Given main predictor {predictor_type} is fuzzy, but not generalizations were given.".format(
-                predictor_type=self._main.__class__.__name__
-            ))
 
         self._others = others
         self._generalizations = generalizations
@@ -139,7 +120,7 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
         # known to happen in the same column such as others or NaN
         # are less than a given percentage, we consider the eventual
         # positive matches as false positives.
-        if only_main < (total_values - only_others - only_nan) * self._min_threshold:
+        if only_main <= (total_values - only_others - only_nan) * self._min_threshold:
             return [False]*total_values
 
         # If the identified values are above a given percentage of the values

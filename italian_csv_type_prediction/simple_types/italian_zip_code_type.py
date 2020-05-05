@@ -6,7 +6,7 @@ from ..datasets import load_caps
 class ItalianZIPCodeType(SetTypePredictor):
 
     def __init__(self):
-        """Create new float type predictor based on regex."""
+        """Create new Italian ZIP Code type predictor based on regex."""
         self._integer = IntegerType()
         super().__init__([
             self.convert(e)
@@ -17,7 +17,7 @@ class ItalianZIPCodeType(SetTypePredictor):
         """Convert given candidate to CAP."""
         if self._integer.validate(candidate):
             candidate = self._integer.convert(candidate)
-        return str(candidate).zfill(5)
+        return str(candidate)
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate matches regex for CAP values."""
