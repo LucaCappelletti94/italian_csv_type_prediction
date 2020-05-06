@@ -16,9 +16,10 @@ from ..datasets import (
 
 class SimpleDatasetGenerator:
 
-    def __init__(self):
+    def __init__(self, verbose:bool=False):
         self._datasets = self._load_types_datasets()
         self._embedding = DataframeEmbedding()
+        self._verbose = verbose
 
     def _load_types_datasets(self):
         integers = np.random.randint(0, 10000, size=10000)
@@ -75,7 +76,7 @@ class SimpleDatasetGenerator:
 
         datasets["String"] += [
             choice(separator).join(np.random.choice(all_strings, size=choice((2, 3, 4, 5, 6))))
-            for _ in trange(1000, desc="Building string dataset")
+            for _ in trange(1000, desc="Building string dataset", disable=not self._verbose)
         ]
 
         return {
@@ -87,10 +88,6 @@ class SimpleDatasetGenerator:
         """Return dataset for given predictor."""
         if predictor.name == "NaN":
             return self._nans
-        if predictor.name == "NumericId":
-            base = randint(0, 100000)
-            rows = randint(5, 100)
-            return list(range(base, base+rows))
         return self._datasets[predictor.name]
 
     def random_nan(self, df):

@@ -14,7 +14,6 @@ def test_all_column_types():
         "ItalianZIPCode": [
             "Integer",
             "Year",
-            "NumericId"
         ],
         "Name":[
             "Country",
