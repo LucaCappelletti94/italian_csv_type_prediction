@@ -110,14 +110,6 @@ class SimpleDatasetGenerator:
             for key, values in self._datasets.items()
         })
 
-        base = randint(0, 100000)
-        df["NumericId"] = list(range(base, base+rows))
-        
-        if choice([True, False]):
-            df["NumericId"] = [
-                str(e) for e in df["NumericId"]
-            ]
-
         rnd = random_csv(rows)
 
         df["Name"] = rnd["name"]

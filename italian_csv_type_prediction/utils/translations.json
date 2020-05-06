@@ -23,7 +23,6 @@
     "Region": "regione",
     "String": "testo",
     "Year": "anno",
-    "NumericId": "identificatore",
     "Company": "ragioneSociale",
     "Error": "errore"
 }
