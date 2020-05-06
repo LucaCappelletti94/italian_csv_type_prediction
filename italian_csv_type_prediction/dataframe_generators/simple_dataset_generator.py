@@ -16,10 +16,10 @@ from ..datasets import (
 
 class SimpleDatasetGenerator:
 
-    def __init__(self, verbose:bool=False):
+    def __init__(self, verbose: bool = False):
+        self._verbose = verbose
         self._datasets = self._load_types_datasets()
         self._embedding = DataframeEmbedding()
-        self._verbose = verbose
 
     def _load_types_datasets(self):
         integers = np.random.randint(0, 10000, size=10000)
@@ -70,12 +70,13 @@ class SimpleDatasetGenerator:
             "BiologicalSex": load_biological_sex(),
             "Boolean": load_boolean()
         }
-        
+
         all_strings = sum(datasets.values(), [])
         separator = (", ", "; ", ". ")
 
         datasets["String"] += [
-            choice(separator).join(np.random.choice(all_strings, size=choice((2, 3, 4, 5, 6))))
+            choice(separator).join(np.random.choice(
+                all_strings, size=choice((2, 3, 4, 5, 6))))
             for _ in trange(1000, desc="Building string dataset", disable=not self._verbose)
         ]
 
@@ -139,10 +140,11 @@ class SimpleDatasetGenerator:
             for remove in to_remove:
                 if remove in datasets:
                     datasets.remove(remove)
-            
+
             for i in df[column].index:
                 if np.random.uniform(0, 1) < error_percentage:
-                    df.loc[i, column] = choice(self._datasets[choice(datasets)])
+                    df.loc[i, column] = choice(
+                        self._datasets[choice(datasets)])
                     types.loc[i, column] = "Error"
 
         if mix_codes and choice([True, False]):
