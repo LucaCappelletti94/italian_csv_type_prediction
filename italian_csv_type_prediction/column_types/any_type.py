@@ -19,7 +19,7 @@ class AnyTypePredictor:
             predictor()
             for predictor in (
                 AddressType, ItalianZIPCodeType, ItalianFiscalCodeType, CountryCodeType,
-                CountryType, DateType, EMailType,
+                CountryType, DateType, EMailType, NumericIdType,
                 FloatType, IntegerType, ItalianVATType, DocumentType,
                 MunicipalityType, NameType, NaNType, PhoneNumberType,
                 ProvinceCodeType, RegionType, StringType, SurnameType,

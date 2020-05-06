@@ -69,6 +69,14 @@ class SimpleDatasetGenerator:
             "BiologicalSex": load_biological_sex(),
             "Boolean": load_boolean()
         }
+        
+        all_strings = sum(datasets.values(), [])
+        separator = (", ", "; ", ". ")
+
+        datasets["String"] += [
+            choice(separator).join(np.random.choice(all_strings, size=choice((2, 3, 4, 5, 6))))
+            for _ in trange(1000, desc="Building string dataset")
+        ]
 
         return {
             key: np.array(value)
@@ -102,13 +110,13 @@ class SimpleDatasetGenerator:
             for key, values in self._datasets.items()
         })
 
-        # base = randint(1, 100000)
-        # df["NumericId"] = list(range(base, base+rows))
+        base = randint(0, 100000)
+        df["NumericId"] = list(range(base, base+rows))
         
-        # if choice([True, False]):
-        #     df["NumericId"] = [
-        #         str(e) for e in df["NumericId"]
-        #     ]
+        if choice([True, False]):
+            df["NumericId"] = [
+                str(e) for e in df["NumericId"]
+            ]
 
         rnd = random_csv(rows)
 

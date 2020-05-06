@@ -16,6 +16,7 @@ from ..simple_types import EMailType as SimpleEMailType
 from ..simple_types import FloatType as SimpleFloatType
 from ..simple_types import IntegerType as SimpleIntegerType
 from ..simple_types import ItalianVATType as SimpleItalianVATType
+from ..simple_types import FuzzyItalianVATType as SimpleFuzzyItalianVATType
 from ..simple_types import MunicipalityType as SimpleMunicipalityType
 from ..simple_types import NameType as SimpleNameType
 from ..simple_types import NaNType as SimpleNaNType
@@ -62,7 +63,10 @@ class ItalianZIPCodeType(SetTypeColumnPredictor):
 class ItalianFiscalCodeType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleItalianFiscalCodeType(), others=SimpleItalianVATType(), min_threshold=0.3)
+        super().__init__(SimpleItalianFiscalCodeType(), others=[
+            SimpleItalianVATType(),
+            SimpleFuzzyItalianVATType()
+        ], min_threshold=0.3)
 
 
 class CadastreCodeType(SetTypeColumnPredictor):
@@ -116,7 +120,9 @@ class IntegerType(SetTypeColumnPredictor):
 class ItalianVATType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleItalianVATType(), others=SimpleItalianFiscalCodeType(), min_threshold=0.3)
+        super().__init__(SimpleItalianVATType(), others=SimpleItalianFiscalCodeType(), generalizations=[
+            SimpleFuzzyItalianVATType()
+        ], min_threshold=0.5, fuzzy_generalization_threshold=0.5)
 
 
 class MunicipalityType(SetTypeColumnPredictor):

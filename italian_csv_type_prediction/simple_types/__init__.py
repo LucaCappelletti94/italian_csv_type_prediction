@@ -14,6 +14,7 @@ from .email_type import EMailType
 from .float_type import FloatType
 from .integer_type import IntegerType
 from .italian_vat_type import ItalianVATType
+from .fuzzy_italian_vat_type import FuzzyItalianVATType
 from .municipality_type import MunicipalityType
 from .name_type import NameType
 from .nan_type import NaNType
@@ -43,6 +44,7 @@ __all__ = [
     "FloatType",
     "IntegerType",
     "ItalianVATType",
+    "FuzzyItalianVATType",
     "MunicipalityType",
     "NameType",
     "NaNType",
