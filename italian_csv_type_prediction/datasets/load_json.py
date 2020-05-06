@@ -3,10 +3,7 @@ import os
 
 
 def load_local_json(path: str):
-    return compress_json.load("{pwd}/{path}.json.gz".format(
-        pwd=os.path.dirname(os.path.abspath(__file__)),
-        path=path
-    ))
+    return compress_json.local_load("{0}.json.gz".format(path))
 
 
 def load_nan():
@@ -103,3 +100,7 @@ def load_codice_catasto():
 
 def load_currency_starters():
     return load_local_json("currency_starters")
+
+
+def load_tax():
+    return load_local_json("tax")

@@ -27,6 +27,7 @@ from ..simple_types import RegionType as SimpleRegionType
 from ..simple_types import StringType as SimpleStringType
 from ..simple_types import SurnameType as SimpleSurnameType
 from ..simple_types import YearType as SimpleYearType
+from ..simple_types import TaxType as SimpleTaxType
 from .set_type_column import SetTypeColumnPredictor
 
 
@@ -183,3 +184,9 @@ class YearType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
         super().__init__(SimpleYearType())
+
+
+class TaxType(SetTypeColumnPredictor):
+    def __init__(self):
+        """Create new Predictor based on a single type."""
+        super().__init__(SimpleTaxType())

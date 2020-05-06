@@ -10,7 +10,7 @@ from ..datasets import (
     load_municipalities, load_surnames, load_provinces_codes, load_caps,
     load_codice_fiscale, load_iva, load_strings, load_email, load_phone,
     load_date, load_euro, load_address, load_biological_sex, load_boolean,
-    load_document_types, load_plate, load_codice_catasto
+    load_document_types, load_plate, load_codice_catasto, load_tax
 )
 
 
@@ -50,6 +50,7 @@ class SimpleDatasetGenerator:
             "ItalianVAT": load_iva(),
             "CadastreCode": load_codice_catasto(),
             "Document": load_document_types(),
+            "Tax": load_tax(),
             "Plate": load_plate(),
             "Address": load_address(),
             "ItalianZIPCode": load_caps(),
@@ -72,7 +73,7 @@ class SimpleDatasetGenerator:
         }
 
         all_strings = sum(datasets.values(), [])
-        separator = (", ", "; ", ". ")
+        separator = (", ", "; ", ". ", "-", "/")
 
         datasets["String"] += [
             choice(separator).join(np.random.choice(

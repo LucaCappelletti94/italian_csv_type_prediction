@@ -26,6 +26,7 @@ from .simple_type import SimpleTypePredictor
 from .string_type import StringType
 from .surname_type import SurnameType
 from .year_type import YearType
+from .tax_type import TaxType
 
 __all__ = [
     "AddressType",
@@ -56,4 +57,5 @@ __all__ = [
     "StringType",
     "SurnameType",
     "YearType",
+    "TaxType"
 ]

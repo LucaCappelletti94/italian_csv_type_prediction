@@ -6,7 +6,7 @@ from .load_json import (load_address, load_address_starters,
                         load_email, load_euro, load_iva, load_municipalities,
                         load_names, load_nan, load_phone, load_plate,
                         load_provinces_codes, load_regions, load_strings,
-                        load_surnames)
+                        load_surnames, load_tax)
 
 __all__ = [
     "load_nan",
@@ -30,5 +30,6 @@ __all__ = [
     "load_document_types",
     "load_plate",
     "load_codice_catasto",
-    "load_currency_starters"
+    "load_currency_starters",
+    "load_tax"
 ]

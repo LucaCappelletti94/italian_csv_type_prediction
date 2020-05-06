@@ -8,7 +8,7 @@ from .single_type_column import (AddressType, BiologicalSexType, BooleanType,
                                  IntegerType, ItalianVATType, MunicipalityType,
                                  NameType, NaNType, PhoneNumberType, PlateType,
                                  ProvinceCodeType, RegionType, StringType,
-                                 SurnameType, YearType, CadastreCodeType
+                                 SurnameType, YearType, CadastreCodeType, TaxType
                                  )
 
 
@@ -18,7 +18,7 @@ class AnyTypePredictor:
             predictor()
             for predictor in (
                 AddressType, ItalianZIPCodeType, ItalianFiscalCodeType, CountryCodeType,
-                CountryType, DateType, EMailType,
+                CountryType, DateType, EMailType, TaxType,
                 FloatType, IntegerType, ItalianVATType, DocumentType,
                 MunicipalityType, NameType, NaNType, PhoneNumberType,
                 ProvinceCodeType, RegionType, StringType, SurnameType,
