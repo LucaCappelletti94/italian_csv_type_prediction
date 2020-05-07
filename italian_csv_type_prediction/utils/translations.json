@@ -24,5 +24,6 @@
     "String": "testo",
     "Year": "anno",
     "Company": "ragioneSociale",
-    "Error": "errore"
+    "Error": "errore",
+    "Tax": "tipoProdotto"
 }
