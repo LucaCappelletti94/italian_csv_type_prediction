@@ -1,6 +1,6 @@
 from italian_csv_type_prediction.column_types import AnyTypePredictor
 from italian_csv_type_prediction.dataframe_generators import SimpleDatasetGenerator
-from italian_csv_type_prediction.simple_types import FuzzyItalianVATType
+from italian_csv_type_prediction.simple_types import FuzzyItalianZIPCodeType
 from tqdm.auto import tqdm
 
 
@@ -10,7 +10,7 @@ def test_all_simple_types():
     X = SimpleDatasetGenerator()
 
     aliases = {
-        "ItalianVAT": [FuzzyItalianVATType()]
+        "ItalianZIPCodeType": [FuzzyItalianZIPCodeType()]
     }
 
     for column_predictor in tqdm(predictor.predictors, desc="Testing predictors"):

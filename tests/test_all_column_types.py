@@ -7,7 +7,7 @@ import numpy as np
 def test_all_column_types():
     """Test that predictors do not create false positives."""
     predictor = AnyTypePredictor()
-    X = SimpleDatasetGenerator()
+    X = SimpleDatasetGenerator(verbose=True)
     success = True
 
     known_collisions = {
@@ -59,7 +59,8 @@ def test_all_column_types():
             if sub_predictor.name in known_collisions.get(column_predictor.name, []):
                 continue
             dataset = X.get_dataset(sub_predictor)
-            for candidate in [np.random.choice(dataset, size=np.random.randint(5, 30)) for i in range(500)]:
+            candidates =  [np.random.choice(dataset, size=np.random.randint(5, 30)) for i in range(500)]
+            for candidate in tqdm(candidates, leave=False, desc=f"Test {column_predictor.name}"):
                 try:
                     prediction = np.array(column_predictor.validate(candidate))
                     if column_predictor == sub_predictor:

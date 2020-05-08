@@ -18,7 +18,7 @@ class ItalianVATType(SimpleTypePredictor):
         candidate = self._vat_predictor.compact(str(candidate))
         if self._integer.validate(candidate):
             candidate = self._integer.convert(candidate)
-        return str(candidate)
+        return str(candidate).zfill(11)
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate is an IVA."""
