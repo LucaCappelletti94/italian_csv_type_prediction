@@ -34,6 +34,7 @@ class DataframeEmbedding:
                     value if prediction else None
                     for value, prediction in zip(df[column].values, predictions)
                 ]
+                break
 
         column_x = []
         means = []
