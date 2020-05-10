@@ -126,7 +126,7 @@ class SimpleDatasetGenerator:
     def generate_simple_dataframe(
         self,
         nan_percentage: float = 0.2,
-        error_percentage: float = 0.2,
+        error_percentage: float = 0.1,
         min_rows: int = 5,
         max_rows: int = 50,
         mix_codes: bool = True
