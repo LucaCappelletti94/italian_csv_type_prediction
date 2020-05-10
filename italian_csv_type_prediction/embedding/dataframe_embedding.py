@@ -1,6 +1,7 @@
-from ..column_types import AnyTypePredictor, ItalianVATType, ItalianFiscalCodeType
+from ..column_types import AnyTypePredictor, ItalianVATType, ItalianFiscalCodeType, ColumnTypePredictor
 from sklearn.preprocessing import LabelEncoder
 from ..features import AnyFeature
+from typing import List
 import pandas as pd
 import numpy as np
 
@@ -10,55 +11,52 @@ class DataframeEmbedding:
     def __init__(self):
         self._predictor = AnyTypePredictor()
         self._feature = AnyFeature()
-        self._encoder = LabelEncoder().fit(self._predictor.supported_types + ["Error"])
-        self._ivas = ItalianVATType()
+        self._encoder = LabelEncoder().fit(
+            self._predictor.supported_types + ["Error"])
+        self._italian_vat_codes = ItalianVATType()
         self._fiscal_codes = ItalianFiscalCodeType()
+
+    def get_column(self, df: pd.DataFrame, validator: ColumnTypePredictor) -> List:
+        for column in df.columns:
+            predictions = validator.validate(df[column])
+            if any(predictions):
+                return [
+                    value if prediction else None
+                    for value, prediction in zip(df[column], predictions)
+                ]
+        return (None,)*df.shape[0]
 
     def transform(self, df: pd.DataFrame, y: np.ndarray = None) -> np.ndarray:
         """Encode given dataframe into a vector space."""
-        fiscal_codes = [None]*df.shape[0]
-        ivas = [None]*df.shape[0]
-        for column in df.columns:
-            predictions = self._ivas.validate(df[column])
-            if any(predictions):
-                ivas = [
-                    value if prediction else None
-                    for value, prediction in zip(df[column].values, predictions)
-                ]
-                break
+        fiscal_codes = self.get_column(df, self._fiscal_codes)
+        italian_vat_codes = self.get_column(df, self._italian_vat_codes)
 
-        for column in df.columns:
-            predictions = self._fiscal_codes.validate(df[column])
-            if any(predictions):
-                fiscal_codes = [
-                    value if prediction else None
-                    for value, prediction in zip(df[column].values, predictions)
-                ]
-                break
+        predictors_number = len(self._predictor.supported_types)
+        features_number = len(self._feature.supported_features)
+        predictions = np.zeros((
+            df.shape[0],
+            predictors_number + features_number
+        ))
+        X = np.zeros((
+            df.shape[0]*df.shape[1],
+            (predictors_number + features_number)*2
+        ))
 
-        column_x = []
-        means = []
+        for i, column in enumerate(df.columns):
+            predictions[:, :predictors_number] = np.array(self._predictor.predict_values(
+                df[column],
+                fiscal_codes=fiscal_codes,
+                italian_vat_codes=italian_vat_codes
+            )).T
+            predictions[:, predictors_number:] = np.array(self._feature.score_values(
+                df[column]
+            )).T
 
-        for column in df.columns:
-            predictions = pd.DataFrame({
-                **self._predictor.predict(
-                    df[column],
-                    fiscal_codes=fiscal_codes,
-                    ivas=ivas
-                ),
-                **self._feature.scores(df[column])
-            })
+            vertical_cut = slice(i*df.shape[0], (i+1)*df.shape[0])
+            X[vertical_cut, :predictions.shape[1]] = predictions
 
-            column_x.append(predictions.values)
-            means.append(np.tile(predictions.values.mean(axis=0), (predictions.shape[0], 1)))
-
-        column_x = np.vstack(column_x)
-        means = np.vstack(means)
-
-        X = np.hstack([
-            column_x,
-            means
-        ])
+            indices = list(range(predictions.shape[1], predictions.shape[1]*2))
+            X[vertical_cut, indices] = predictions.mean(axis=0)
 
         if y is not None:
             return X, self._encoder.transform(y.T.values.ravel())

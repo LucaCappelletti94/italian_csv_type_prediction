@@ -2,7 +2,7 @@ from ..embedding import DataframeEmbedding
 from ..simple_types.simple_type import SimpleTypePredictor
 from random import randint, uniform, choice
 import numpy as np
-from tqdm.auto import trange
+from tqdm.auto import trange, tqdm
 import pandas as pd
 from random_csv_generator import random_csv
 from ..datasets import (
@@ -16,8 +16,9 @@ from ..datasets import (
 
 class SimpleDatasetGenerator:
 
-    def __init__(self, verbose: bool = False):
+    def __init__(self, verbose: bool = False, combinatorial_strings_number: int =1000):
         self._verbose = verbose
+        self._combinatorial_strings_number = combinatorial_strings_number
         self._datasets = self._load_types_datasets()
         self._embedding = DataframeEmbedding()
 
@@ -75,10 +76,15 @@ class SimpleDatasetGenerator:
         all_strings = sum(datasets.values(), [])
         separator = (", ", "; ", ". ", "-", "/")
 
+        strings = [
+            np.random.choice(all_strings, size=(self._combinatorial_strings_number, number))
+            for number in (2, 3, 4, 5)
+        ]
+
         datasets["String"] += [
-            choice(separator).join(np.random.choice(
-                all_strings, size=choice((2, 3, 4, 5, 6))))
-            for _ in trange(1000, desc="Building string dataset", disable=not self._verbose)
+            choice(separator).join(phrase)
+            for phrases in tqdm(strings, desc="Building string dataset", disable=not self._verbose)
+            for phrase in phrases
         ]
 
         return {
@@ -172,11 +178,11 @@ class SimpleDatasetGenerator:
         df, types = self.generate_simple_dataframe()
         return self._embedding.transform(df, types)
 
-    def build(self, number: int = 1000, verbose: bool = True):
+    def build(self, number: int = 1000):
         """Creates and encodes a number of dataframe samples for training"""
         X, y = list(zip(*[
             self._build()
-            for _ in trange(number, desc="Rendering dataset", disable=not verbose)
+            for _ in trange(number, desc="Rendering dataset", disable=not self._verbose)
         ]))
 
         return np.vstack(X), np.concatenate(y)

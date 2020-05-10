@@ -38,14 +38,17 @@ class AnyTypePredictor:
     def predictors(self) -> List[ColumnTypePredictor]:
         return self._predictors
 
-    def predict(self, values: List, fiscal_codes: List[str] = (), ivas: List[str] = (), **kwargs) -> Dict[str, List[bool]]:
-        """Return prediction from all available type."""
-        return {
-            predictor.name: predictor.validate(
+    def predict_values(self, values: List, fiscal_codes: List[str] = (), italian_vat_codes: List[str] = (), **kwargs) -> List[bool]:
+        return [
+            predictor.validate(
                 values,
                 fiscal_codes=fiscal_codes,
-                ivas=ivas,
+                italian_vat_codes=italian_vat_codes,
                 **kwargs
             )
             for predictor in self._predictors
-        }
+        ]
+
+    def predict(self, values: List, fiscal_codes: List[str] = (), italian_vat_codes: List[str] = (), **kwargs) -> Dict[str, List[bool]]:
+        """Return prediction from all available type."""
+        return dict(zip(self.supported_types, self.predict_values(values, fiscal_codes, italian_vat_codes, **kwargs)))

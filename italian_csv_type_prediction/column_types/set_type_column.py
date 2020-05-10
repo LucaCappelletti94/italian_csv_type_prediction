@@ -51,7 +51,7 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
         self._fuzzy_generalization_threshold = fuzzy_generalization_threshold
         self._nan = NaNType()
 
-    def validate(self, values: List, fiscal_codes: List = None, ivas: List = None, **kwargs: Dict) -> List[bool]:
+    def validate(self, values: List, fiscal_codes: List = None, italian_vat_codes: List = None, **kwargs: Dict) -> List[bool]:
         """Return list of booleans representing if each value has been identified.
 
         Parameters
@@ -73,7 +73,7 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
         # We iterate on every available value
         for i, value in enumerate(values):
             fiscal_code = fiscal_codes[i] if fiscal_codes is not None else None
-            iva = ivas[i] if ivas is not None else None
+            iva = italian_vat_codes[i] if italian_vat_codes is not None else None
             # If the value is of the main type
             if self._main.validate(value, fiscal_code=fiscal_code, iva=iva, **kwargs):
                 is_main_type.append(True)

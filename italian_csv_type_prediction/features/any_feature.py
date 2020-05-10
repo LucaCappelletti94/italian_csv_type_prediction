@@ -28,9 +28,12 @@ class AnyFeature:
     def features(self) -> List[Feature]:
         return self._features
 
+    def score_values(self, values: List) -> Dict[str, List[bool]]:
+        return [
+            [feature.score(v) for v in values]
+            for feature in self._features
+        ]
+
     def scores(self, values: List) -> Dict[str, List[bool]]:
         """Return prediction from all available type."""
-        return {
-            feature.name: [feature.score(v) for v in values]
-            for feature in self._features
-        }
+        return dict(zip(self.supported_features, self.score_values(values)))

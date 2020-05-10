@@ -9,4 +9,11 @@ class IntegerType(FloatType):
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate can be considered integer."""
-        return super().validate(candidate, **kwargs) and super().convert(candidate).is_integer()
+        if not super().validate(candidate, **kwargs):
+            return False
+        try:
+            converted = super().convert(candidate)
+            int(converted)
+        except OverflowError:
+            return False
+        return converted.is_integer()

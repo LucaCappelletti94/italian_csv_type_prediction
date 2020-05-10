@@ -1,13 +1,13 @@
 from .simple_type import SimpleTypePredictor
 from .regex_type_predictor import RegexTypePredictor
 from ..utils import normalize
-
+import numpy as np
 
 class FloatType(SimpleTypePredictor):
 
     def __init__(self):
         """Create new float type predictor based on regex."""
-        self._predictor = RegexTypePredictor(r"^-?(?:\d+|[,.]\d{3})+(?:[,.]\d+)?$")
+        pass
 
     def convert(self, candidate, **kwargs):
         candidate = str(normalize(candidate)).replace(",", ".")
@@ -20,4 +20,8 @@ class FloatType(SimpleTypePredictor):
             return True
         if str(candidate).startswith("0") and not str(candidate).replace(",", ".").startswith("0."):
             return False
-        return self._predictor.validate(candidate)
+        try:
+            self.convert(candidate)
+            return True
+        except (ValueError, OverflowError):
+           return False

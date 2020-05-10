@@ -2,7 +2,7 @@ from italian_csv_type_prediction.column_types import AnyTypePredictor
 from italian_csv_type_prediction.dataframe_generators import SimpleDatasetGenerator
 from tqdm.auto import tqdm
 import numpy as np
-
+from time import time
 
 def test_all_column_types():
     """Test that predictors do not create false positives."""
@@ -49,7 +49,7 @@ def test_all_column_types():
     for column_predictor in tqdm(predictor.predictors, desc="Testing predictors"):
         if column_predictor.name in ("String", "NaN"):
             continue
-        for sub_predictor in predictor.predictors:
+        for sub_predictor in tqdm(predictor.predictors, desc=f"Datasets", leave=False):
             if sub_predictor.name in ("NaN"):
                 continue
             if isinstance(column_predictor._main, sub_predictor._main.__class__):
@@ -60,13 +60,13 @@ def test_all_column_types():
                 continue
             dataset = X.get_dataset(sub_predictor)
             candidates =  [np.random.choice(dataset, size=np.random.randint(5, 30)) for i in range(500)]
-            for candidate in tqdm(candidates, leave=False, desc=f"Test {column_predictor.name}"):
+            for candidate in tqdm(candidates, leave=False, desc=f"Test {column_predictor.name} on {sub_predictor.name} dataset"):
                 try:
                     prediction = np.array(column_predictor.validate(candidate))
                     if column_predictor == sub_predictor:
-                        assert all(prediction)
+                        assert np.all(prediction)
                     else:
-                        assert not any(prediction)
+                        assert not np.any(prediction)
                 except AssertionError:
                     success = False
                     error_type = "False negative" if column_predictor == sub_predictor else "False positive"
