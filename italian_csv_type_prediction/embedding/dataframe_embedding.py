@@ -26,10 +26,16 @@ class DataframeEmbedding:
                 ]
         return (None,)*df.shape[0]
 
+    def get_fiscal_codes(self, df: pd.DataFrame) -> List[str]:
+        return self.get_column(df, self._fiscal_codes)
+
+    def get_italian_vat_codes(self, df: pd.DataFrame) -> List[str]:
+        return self.get_column(df, self._italian_vat_codes)
+
     def transform(self, df: pd.DataFrame, y: np.ndarray = None) -> np.ndarray:
         """Encode given dataframe into a vector space."""
-        fiscal_codes = self.get_column(df, self._fiscal_codes)
-        italian_vat_codes = self.get_column(df, self._italian_vat_codes)
+        fiscal_codes = self.get_fiscal_codes(df)
+        italian_vat_codes = self.get_italian_vat_codes(df)
 
         predictors_number = len(self._predictor.supported_types)
         features_number = len(self._feature.supported_features)
