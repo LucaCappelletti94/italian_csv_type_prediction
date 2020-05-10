@@ -71,7 +71,7 @@ class SimpleDatasetGenerator:
                     sep=choice(self._separators),
                     surname=choice(surnames)
                 )
-                for _ in range(1000)
+                for _ in range(10000)
             ],
             "SurnameName": [
                 "{surname}{sep}{name}".format(
@@ -79,7 +79,7 @@ class SimpleDatasetGenerator:
                     sep=choice(self._separators),
                     surname=choice(surnames)
                 )
-                for _ in range(1000)
+                for _ in range(10000)
             ],
             "Surname": surnames,
             "String": load_strings(),
@@ -90,7 +90,11 @@ class SimpleDatasetGenerator:
             "Boolean": load_boolean()
         }
         
-        all_strings = sum(datasets.values(), [])
+        columns = set(list(datasets.keys())) - set(("Name", "Surname", "NameSurname", "SurnameName"))
+        all_strings = sum([
+            datasets[col]
+            for col in columns
+        ], [])
         separator = (", ", "; ", ". ", "-", "/")
 
         strings = [
@@ -122,7 +126,7 @@ class SimpleDatasetGenerator:
     def generate_simple_dataframe(
         self,
         nan_percentage: float = 0.2,
-        error_percentage: float = 0.05,
+        error_percentage: float = 0.2,
         min_rows: int = 5,
         max_rows: int = 50,
         mix_codes: bool = True
