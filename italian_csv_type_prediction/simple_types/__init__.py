@@ -26,6 +26,8 @@ from .string_type import StringType
 from .surname_type import SurnameType
 from .year_type import YearType
 from .tax_type import TaxType
+from .name_surname_type import NameSurnameType
+from .surname_name_type import SurnameNameType
 
 __all__ = [
     "AddressType",
@@ -55,5 +57,7 @@ __all__ = [
     "StringType",
     "SurnameType",
     "YearType",
-    "TaxType"
+    "TaxType",
+    "NameSurnameType",
+    "SurnameNameType"
 ]

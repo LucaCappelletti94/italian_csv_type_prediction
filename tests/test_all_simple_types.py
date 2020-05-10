@@ -13,6 +13,8 @@ def test_all_simple_types():
         "ItalianZIPCodeType": [FuzzyItalianZIPCodeType()]
     }
 
+    success = True
+
     for column_predictor in tqdm(predictor.predictors, desc="Testing predictors"):
         simple_predictor = column_predictor._main
         for candidate in X.get_dataset(simple_predictor):
@@ -22,6 +24,8 @@ def test_all_simple_types():
                     for pred in aliases.get(simple_predictor.name, [])
                 )
             except AssertionError:
+                success = False
                 print(
                     f"Predictor {simple_predictor.name} was not able to correctly predict data from its dataset!")
-                print(f"A sample of the data is: {candidate}.")
+                print(f"The data were the failure happened was: {candidate}.")
+    assert success

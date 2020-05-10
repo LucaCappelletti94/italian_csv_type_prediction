@@ -1,5 +1,4 @@
 from typing import Dict, List
-
 from .column_type_predictor import ColumnTypePredictor
 from .single_type_column import (AddressType, BiologicalSexType, BooleanType,
                                  ItalianZIPCodeType, ItalianFiscalCodeType, CountryCodeType,
@@ -8,7 +7,8 @@ from .single_type_column import (AddressType, BiologicalSexType, BooleanType,
                                  IntegerType, ItalianVATType, MunicipalityType,
                                  NameType, NaNType, PhoneNumberType, PlateType,
                                  ProvinceCodeType, RegionType, StringType,
-                                 SurnameType, YearType, CadastreCodeType, TaxType
+                                 SurnameType, YearType, CadastreCodeType, TaxType,
+                                 SurnameNameType, NameSurnameType
                                  )
 
 
@@ -18,7 +18,7 @@ class AnyTypePredictor:
             predictor()
             for predictor in (
                 AddressType, ItalianZIPCodeType, ItalianFiscalCodeType, CountryCodeType,
-                CountryType, DateType, EMailType, TaxType,
+                CountryType, DateType, EMailType, TaxType, SurnameNameType, NameSurnameType,
                 FloatType, IntegerType, ItalianVATType, DocumentType,
                 MunicipalityType, NameType, NaNType, PhoneNumberType,
                 ProvinceCodeType, RegionType, StringType, SurnameType,

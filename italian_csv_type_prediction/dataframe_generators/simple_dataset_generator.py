@@ -1,5 +1,5 @@
 from ..embedding import DataframeEmbedding
-from ..simple_types.simple_type import SimpleTypePredictor
+from ..simple_types import SimpleTypePredictor, NameSurnameType
 from random import randint, uniform, choice
 import numpy as np
 from tqdm.auto import trange, tqdm
@@ -16,8 +16,9 @@ from ..datasets import (
 
 class SimpleDatasetGenerator:
 
-    def __init__(self, verbose: bool = False, combinatorial_strings_number: int =1000):
+    def __init__(self, verbose: bool = False, combinatorial_strings_number: int = 1000):
         self._verbose = verbose
+        self._separators = NameSurnameType()._separators
         self._combinatorial_strings_number = combinatorial_strings_number
         self._datasets = self._load_types_datasets()
         self._embedding = DataframeEmbedding()
@@ -64,6 +65,22 @@ class SimpleDatasetGenerator:
             "Country": load_countries(),
             "CountryCode": load_country_codes(),
             "Name": names,
+            "NameSurname": [
+                "{name}{sep}{surname}".format(
+                    name=choice(names),
+                    sep=choice(self._separators),
+                    surname=choice(surnames)
+                )
+                for _ in range(1000)
+            ],
+            "SurnameName": [
+                "{surname}{sep}{name}".format(
+                    name=choice(names),
+                    sep=choice(self._separators),
+                    surname=choice(surnames)
+                )
+                for _ in range(1000)
+            ],
             "Surname": surnames,
             "String": load_strings(),
             "EMail": load_email(),
@@ -72,12 +89,13 @@ class SimpleDatasetGenerator:
             "BiologicalSex": load_biological_sex(),
             "Boolean": load_boolean()
         }
-
+        
         all_strings = sum(datasets.values(), [])
         separator = (", ", "; ", ". ", "-", "/")
 
         strings = [
-            np.random.choice(all_strings, size=(self._combinatorial_strings_number, number))
+            np.random.choice(all_strings, size=(
+                self._combinatorial_strings_number, number))
             for number in (2, 3, 4, 5)
         ]
 
@@ -119,6 +137,12 @@ class SimpleDatasetGenerator:
 
         df["Name"] = rnd["name"]
         df["Surname"] = rnd["surname"]
+        df["SurnameName"] = rnd["surname"].str.cat(
+            rnd["name"], sep=choice(self._separators)
+        )
+        df["NameSurname"] = rnd["name"].str.cat(
+            rnd["surname"], sep=choice(self._separators)
+        )
         df["ItalianFiscalCode"] = rnd["codice_fiscale"]
 
         types = pd.DataFrame(
