@@ -2,7 +2,7 @@ from .string_type import StringType
 from .name_type import NameType
 from .surname_type import SurnameType
 from typing import Tuple
-
+from ..exceptions import IllegalStateError
 
 class FullNameType(StringType):
 
@@ -33,8 +33,7 @@ class FullNameType(StringType):
             for first, second in full_names:
                 if self._validate(first, second, **kwargs):
                     return self._convert(first, second)
-
-        raise ValueError("Illegal state reached.")
+        raise IllegalStateError("Illegal state reached.")
 
     def validate(self, candidate, **kwargs) -> bool:
         if not super().validate(candidate):
@@ -43,5 +42,5 @@ class FullNameType(StringType):
         try:
             self.convert(candidate, **kwargs)
             return True
-        except ValueError:
+        except IllegalStateError:
             return False

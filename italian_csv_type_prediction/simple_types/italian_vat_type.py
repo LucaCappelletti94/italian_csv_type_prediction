@@ -28,6 +28,7 @@ class ItalianVATType(SimpleTypePredictor):
         if self._float.validate(candidate) and not self._integer.validate(candidate):
             # If it is an float but not an integer it is not a valid VAT.
             return False
+            
         converted = self.convert(candidate)
         
         if self._digits.score(converted) != len(converted):

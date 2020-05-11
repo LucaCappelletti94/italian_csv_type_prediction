@@ -7,5 +7,5 @@ class SurnameNameType(FullNameType):
     def _convert(self, surname: str, name: str) -> Tuple[str, str]:
         return name, surname
 
-    def _validate(self, surname: str, name: str, fiscal_code: str = None, **kwargs) -> bool:
-        return self._name.validate(name) and self._surname.validate(surname)
+    def _validate(self, surname: str, name: str, **kwargs) -> bool:
+        return self._name.validate(name, **kwargs) and self._surname.validate(surname, **kwargs)

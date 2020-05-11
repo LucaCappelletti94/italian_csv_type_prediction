@@ -4,6 +4,7 @@ from .name_surname_extractor import NameSurnameExtractor
 from .surname_name_extractor import SurnameNameExtractor
 from .default_extractor import DefaultExtractor
 from ..embedding import DataframeEmbedding
+from ..exceptions import IllegalStateError
 
 class PlaceholderExtractor:
 
@@ -26,7 +27,7 @@ class PlaceholderExtractor:
                 candidate_type=candidate_type,
                 **kwargs
             )
-        except ValueError:
+        except IllegalStateError:
             return self._default.extract(candidate, "Error")
 
 
@@ -38,10 +39,10 @@ class PlaceholderExtractor:
                 self._handle_value_extraction(
                     candidate=candidate,
                     candidate_type=candidate_type,
-                    fiscal_codes=fiscal_codes,
-                    italian_vat_codes=italian_vat_codes
+                    fiscal_code=fiscal_code,
+                    italian_vat_code=italian_vat_code
                 )
-                for candidate, candidate_type in zip(df[column], types[column])
+                for candidate, candidate_type, fiscal_code, italian_vat_code in zip(df[column], types[column], fiscal_codes, italian_vat_codes)
             ]
             for column in df.columns
         })
