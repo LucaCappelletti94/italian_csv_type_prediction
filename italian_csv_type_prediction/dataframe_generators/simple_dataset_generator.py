@@ -182,18 +182,23 @@ class SimpleDatasetGenerator:
                         self._datasets[choice(datasets)])
                     types.loc[i, column] = "Error"
 
-        if mix_codes and choice([True, False]):
-            mask = np.random.randint(0, 2, size=df.shape[0], dtype=bool)
-            swap_codice_fiscale = df.ItalianFiscalCode[mask].values
-            swap_iva = df.ItalianVAT[mask].values
-            df.loc[mask, "ItalianFiscalCode"] = swap_iva
-            df.loc[mask, "ItalianVAT"] = swap_codice_fiscale
-            backup_fiscal_codes = types.loc[mask, "ItalianFiscalCode"]
-            types.loc[mask, "ItalianFiscalCode"] = types.loc[mask, "ItalianVAT"]
-            types.loc[mask, "ItalianVAT"] = backup_fiscal_codes
-            column_to_drop = choice(["ItalianFiscalCode", "ItalianVAT"])
-            df = df.drop(columns=column_to_drop)
-            types = types.drop(columns=column_to_drop)
+        if mix_codes:
+            for column_a, column_b in (
+                ("ItalianFiscalCode", "ItalianVAT"),
+                ("SurnameName", "NameSurname")
+            ):
+                if choice([True, False]):
+                    mask = np.random.randint(0, 2, size=df.shape[0], dtype=bool)
+                    swap_column_a = df[column_a][mask].values
+                    swap_column_b = df[column_b][mask].values
+                    df.loc[mask, column_a] = swap_column_b
+                    df.loc[mask, column_b] = swap_column_a
+                    backup_fiscal_codes = types.loc[mask, column_a]
+                    types.loc[mask, column_a] = types.loc[mask, column_b]
+                    types.loc[mask, column_b] = backup_fiscal_codes
+                    column_to_drop = choice([column_a, column_b])
+                    df = df.drop(columns=column_to_drop)
+                    types = types.drop(columns=column_to_drop)
 
         if nan_percentage > 0:
             mask = np.random.choice([False, True], size=df.shape, p=[

@@ -50,13 +50,13 @@ class BiologicalSexType(SetTypeColumnPredictor):
 class SurnameNameType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleSurnameNameType())
+        super().__init__(SimpleSurnameNameType(), others=SimpleNameSurnameType())
 
 
 class NameSurnameType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleNameSurnameType())
+        super().__init__(SimpleNameSurnameType(), others=SimpleSurnameNameType())
 
 
 class BooleanType(SetTypeColumnPredictor):
