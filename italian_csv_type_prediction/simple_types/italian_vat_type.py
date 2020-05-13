@@ -3,7 +3,7 @@ from .simple_type import SimpleTypePredictor
 from .integer_type import IntegerType
 from .float_type import FloatType
 from .date_type import DateType
-from ..features import Digits
+from ..features import Symbols
 
 class ItalianVATType(SimpleTypePredictor):
     def __init__(self):
@@ -13,7 +13,7 @@ class ItalianVATType(SimpleTypePredictor):
         self._integer = IntegerType()
         self._float = FloatType()
         self._date = DateType()
-        self._digits = Digits()
+        self._symbols = Symbols()
 
     def convert(self, candidate):
         candidate = self._vat_predictor.compact(str(candidate))
@@ -28,10 +28,10 @@ class ItalianVATType(SimpleTypePredictor):
         if self._float.validate(candidate) and not self._integer.validate(candidate):
             # If it is an float but not an integer it is not a valid VAT.
             return False
-            
-        converted = self.convert(candidate)
         
-        if self._digits.score(converted) != len(converted):
+        if self._symbols.score(candidate)>0:
             return False
+
+        converted = self.convert(candidate)
         
         return self._vat_predictor.is_valid(converted)
