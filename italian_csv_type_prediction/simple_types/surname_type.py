@@ -27,11 +27,8 @@ class SurnameType(StringType):
             fiscal_code
         )["raw"]["surname"]
 
-        candidate = candidate.lower()
+        code = codicefiscale.decode(
+            codicefiscale.encode(surname=candidate, name="XXXXXXXXXXX", sex='M', birthdate='01/01/1990', birthplace='Roma')
+        )["raw"]["surname"]
 
-        for character in characters.rstrip("X").lower():
-            if character not in candidate:
-                return False
-            candidate = candidate[candidate.index(character):]
-
-        return True
+        return code == characters
