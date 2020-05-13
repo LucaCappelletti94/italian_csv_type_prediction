@@ -25,11 +25,11 @@ class ItalianVATType(SimpleTypePredictor):
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate is an IVA."""
-        if self._float.validate(candidate) and not self._integer.validate(candidate):
-            # If it is an float but not an integer it is not a valid VAT.
-            return False
-        
-        if self._symbols.score(candidate)>0:
+        if self._float.validate(candidate):
+            if not self._integer.validate(candidate):
+                # If it is an float but not an integer it is not a valid VAT.
+                return False
+        elif self._symbols.score(candidate)>0:
             return False
 
         converted = self.convert(candidate)
