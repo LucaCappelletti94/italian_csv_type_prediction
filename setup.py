@@ -71,7 +71,6 @@ setup(
         "compress_pickle",
         "validate_email",
         "phonenumbers",
-        "money_parser",
         "unidecode",
         "random_csv_generator"
     ],
