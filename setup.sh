@@ -6,4 +6,4 @@ cd libpostal
 make > /dev/null 2>&1
 sudo make install > /dev/null 2>&1
 cd ..
-rm -fdr libpostal
+sudo rm -fdr libpostal
