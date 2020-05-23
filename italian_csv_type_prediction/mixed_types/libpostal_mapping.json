@@ -1,0 +1,6 @@
+{
+    "road": "Road",
+    "house_number": "HouseNumber",
+    "postcode": "ItalianZIPCode",
+    "city": "Municipality"
+}

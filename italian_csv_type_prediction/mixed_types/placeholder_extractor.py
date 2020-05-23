@@ -2,25 +2,31 @@ import pandas as pd
 from typing import Dict
 from .name_surname_extractor import NameSurnameExtractor
 from .surname_name_extractor import SurnameNameExtractor
+from .address_extractor import AddressExtractor
 from .default_extractor import DefaultExtractor
 from ..embedding import DataframeEmbedding
 from ..exceptions import IllegalStateError
+
 
 class PlaceholderExtractor:
 
     def __init__(self):
         extractors = [
             extractor()
-            for extractor in (NameSurnameExtractor, SurnameNameExtractor)
+            for extractor in (
+                NameSurnameExtractor,
+                SurnameNameExtractor,
+                AddressExtractor
+            )
         ]
         self._default = DefaultExtractor()
         self._embedding = DataframeEmbedding()
         self._extractors = {
-            extractor.name:extractor
+            extractor.name: extractor
             for extractor in extractors
         }
 
-    def _handle_value_extraction(self, candidate:str, candidate_type:str, **kwargs)->Dict:
+    def _handle_value_extraction(self, candidate: str, candidate_type: str, **kwargs) -> Dict:
         try:
             return self._extractors.get(candidate_type, self._default).extract(
                 candidate=candidate,
@@ -29,7 +35,6 @@ class PlaceholderExtractor:
             )
         except IllegalStateError:
             return self._default.extract(candidate, "Error")
-
 
     def extract(self, df: pd.DataFrame, types: pd.DataFrame) -> pd.DataFrame:
         fiscal_codes = self._embedding.get_fiscal_codes(df)

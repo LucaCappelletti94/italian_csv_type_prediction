@@ -18,8 +18,9 @@ class Extractor:
     def _build_placeholder(self, candidate: str, values: Dict) -> str:
         if len(values)==1:
             return "{{{0}}}".format(list(values.keys())[0])
-        for key, value in values.items():
-            candidate = candidate.replace(value, "{{{0}}}".format(key))
+        for key, values in values.items():
+            for value in values:
+                candidate = candidate.replace(value, "{{{0}}}".format(key), 1)
         return candidate
 
     def build_dictionary(self, candidate: str, values: Dict) -> str:

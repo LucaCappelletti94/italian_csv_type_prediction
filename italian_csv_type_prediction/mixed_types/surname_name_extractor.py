@@ -14,7 +14,7 @@ class SurnameNameExtractor(Extractor):
         return self.build_dictionary(
             candidate=candidate,
             values={
-                "Name": name,
-                "Surname": surname
+                "Name": [name],
+                "Surname": [surname]
             }
         )
