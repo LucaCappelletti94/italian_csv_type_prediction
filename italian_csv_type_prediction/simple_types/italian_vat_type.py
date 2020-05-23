@@ -5,6 +5,7 @@ from .float_type import FloatType
 from .date_type import DateType
 from ..features import Symbols
 
+
 class ItalianVATType(SimpleTypePredictor):
     def __init__(self):
         """Create new IVA type predictor based on rules."""
@@ -29,9 +30,9 @@ class ItalianVATType(SimpleTypePredictor):
             if not self._integer.validate(candidate):
                 # If it is an float but not an integer it is not a valid VAT.
                 return False
-        elif self._symbols.score(candidate)>0:
+        elif self._symbols.score(candidate) > 0:
             return False
 
         converted = self.convert(candidate)
-        
+
         return self._vat_predictor.is_valid(converted)

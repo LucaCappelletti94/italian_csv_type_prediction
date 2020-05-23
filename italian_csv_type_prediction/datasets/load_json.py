@@ -1,5 +1,4 @@
 import compress_json
-import os
 
 
 def load_local_json(path: str):

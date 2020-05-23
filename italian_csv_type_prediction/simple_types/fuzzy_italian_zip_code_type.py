@@ -1,6 +1,4 @@
-from .integer_type import IntegerType
 from .italian_zip_code_type import ItalianZIPCodeType
-from ..datasets import load_caps
 
 
 class FuzzyItalianZIPCodeType(ItalianZIPCodeType):

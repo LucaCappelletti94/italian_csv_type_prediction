@@ -1,7 +1,5 @@
 from .simple_type import SimpleTypePredictor
-from .regex_type_predictor import RegexTypePredictor
 from ..utils import normalize
-import numpy as np
 
 class FloatType(SimpleTypePredictor):
 

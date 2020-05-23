@@ -1,5 +1,3 @@
-from typing import Dict
-
 from ..simple_types import AddressType as SimpleAddressType
 from ..simple_types import FuzzyAddressType as SimpleFuzzyAddressType
 from ..simple_types import BiologicalSexType as SimpleBiologicalSexType

@@ -2,7 +2,7 @@ from italian_csv_type_prediction.column_types import AnyTypePredictor
 from italian_csv_type_prediction.dataframe_generators import SimpleDatasetGenerator
 from tqdm.auto import tqdm
 import numpy as np
-from time import time
+
 
 def test_all_column_types():
     """Test that predictors do not create false positives."""
@@ -15,32 +15,32 @@ def test_all_column_types():
             "Integer",
             "Year",
         ],
-        "Name":[
+        "Name": [
             "Country",
             "BiologicalSex"
         ],
-        "Surname":[
+        "Surname": [
             "BiologicalSex",
             "Document"
         ],
-        "Integer":[
+        "Integer": [
             "ItalianZIPCode",
             "Boolean",
             "ItalianVAT"
         ],
-        "Float":[
+        "Float": [
             "ItalianZIPCode",
             "Boolean",
             "ItalianVAT"
         ],
-        "PhoneNumber":[
+        "PhoneNumber": [
             "ItalianVAT"
         ],
-        "CountryCode":[
+        "CountryCode": [
             "Boolean",
             "ProvinceCode"
         ],
-        "ProvinceCode":[
+        "ProvinceCode": [
             "Boolean",
             "CountryCode"
         ]
@@ -59,7 +59,8 @@ def test_all_column_types():
             if sub_predictor.name in known_collisions.get(column_predictor.name, []):
                 continue
             dataset = X.get_dataset(sub_predictor)
-            candidates =  [np.random.choice(dataset, size=np.random.randint(5, 30)) for i in range(500)]
+            candidates = [np.random.choice(
+                dataset, size=np.random.randint(5, 30)) for i in range(500)]
             for candidate in tqdm(candidates, leave=False, desc=f"Test {column_predictor.name} on {sub_predictor.name} dataset"):
                 try:
                     prediction = np.array(column_predictor.validate(candidate))
