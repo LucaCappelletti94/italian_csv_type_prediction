@@ -65,6 +65,7 @@ setup(
         "numpy",
         "python-stdnum",
         "tqdm",
+        "postal",
         "python-codicefiscale",
         "scikit-learn",
         "compress_json",
