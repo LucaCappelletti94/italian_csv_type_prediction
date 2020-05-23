@@ -61,10 +61,6 @@ def load_phone():
     return load_local_json("phone")
 
 
-def load_euro():
-    return load_local_json("euro")
-
-
 def load_date():
     return load_local_json("date")
 

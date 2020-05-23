@@ -9,7 +9,7 @@ from ..datasets import (
     load_nan, load_names, load_regions, load_countries, load_country_codes,
     load_municipalities, load_surnames, load_provinces_codes, load_caps,
     load_codice_fiscale, load_iva, load_strings, load_email, load_phone,
-    load_date, load_euro, load_address, load_biological_sex, load_boolean,
+    load_date, load_address, load_biological_sex, load_boolean,
     load_document_types, load_plate, load_codice_catasto, load_tax
 )
 
@@ -89,8 +89,9 @@ class SimpleDatasetGenerator:
             "BiologicalSex": load_biological_sex(),
             "Boolean": load_boolean()
         }
-        
-        columns = set(list(datasets.keys())) - set(("Name", "Surname", "NameSurname", "SurnameName"))
+
+        columns = set(list(datasets.keys())) - \
+            set(("Name", "Surname", "NameSurname", "SurnameName"))
         all_strings = sum([
             datasets[col]
             for col in columns
@@ -188,7 +189,8 @@ class SimpleDatasetGenerator:
                 ("SurnameName", "NameSurname")
             ):
                 if choice([True, False]):
-                    mask = np.random.randint(0, 2, size=df.shape[0], dtype=bool)
+                    mask = np.random.randint(
+                        0, 2, size=df.shape[0], dtype=bool)
                     swap_column_a = df[column_a][mask].values
                     swap_column_b = df[column_b][mask].values
                     df.loc[mask, column_a] = swap_column_b
