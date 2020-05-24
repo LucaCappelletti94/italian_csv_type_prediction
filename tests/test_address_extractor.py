@@ -1,5 +1,7 @@
 from italian_csv_type_prediction.mixed_types.address_extractor import AddressExtractor
 from italian_csv_type_prediction.datasets import load_address
+from tqdm.auto import tqdm
+
 
 def test_address_extractor():
     extractor = AddressExtractor()
@@ -16,5 +18,5 @@ def test_address_extractor():
 
     adresses = load_address()
 
-    for candidate in strange_addresses + adresses:
+    for candidate in tqdm(strange_addresses + adresses):
         extractor.extract(candidate, None)

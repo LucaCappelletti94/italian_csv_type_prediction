@@ -27,5 +27,7 @@
     "Error": "errore",
     "Tax": "tipoProdotto",
     "Road": "via",
-    "HouseNumber": "civico"
+    "HouseNumber": "civico",
+    "House": "casa",
+    "Suburb": "sobborgo"
 }
