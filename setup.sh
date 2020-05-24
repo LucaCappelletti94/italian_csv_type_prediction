@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-git clone https://github.com/openvenues/libpostal  > /dev/null 2>&1
+git clone https://github.com/openvenues/libpostal 
 cd libpostal
-./bootstrap.sh > /dev/null 2>&1
-./configure > /dev/null 2>&1
-make > /dev/null 2>&1
-sudo make install > /dev/null 2>&1
+./bootstrap.sh
+./configure
+make
+sudo make install
 cd ..
 sudo rm -fdr libpostal
