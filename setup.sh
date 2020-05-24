@@ -4,6 +4,6 @@ cd libpostal
 ./bootstrap.sh
 ./configure
 make
-sudo make install
+make install
 cd ..
-sudo rm -fdr libpostal
+rm -fdr libpostal
