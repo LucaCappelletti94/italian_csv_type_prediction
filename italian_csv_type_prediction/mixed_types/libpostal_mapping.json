@@ -6,5 +6,8 @@
     "house": "House",
     "suburb": "Suburb",
     "country": "Country",
-    "state": "Region"
+    "state": "Region",
+    "po_box": "HouseNumber",
+    "staircase": "Staircase",
+    "level": "Level"
 }

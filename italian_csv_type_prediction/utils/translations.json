@@ -29,5 +29,7 @@
     "Road": "via",
     "HouseNumber": "civico",
     "House": "casa",
-    "Suburb": "sobborgo"
+    "Suburb": "sobborgo",
+    "Staircase": "scala",
+    "Level": "piano"
 }

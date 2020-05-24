@@ -1,4 +1,4 @@
-from dateutil.parser import parse
+from dateutil.parser import parse, UnknownTimezoneWarning
 from dateutil.parser import parserinfo
 from .string_type import StringType
 from .float_type import FloatType
@@ -44,5 +44,5 @@ class DateType(StringType):
         try:
             parse(candidate, parserinfo=self._parserinfo)
             return True
-        except Exception:
+        except (Exception, UnknownTimezoneWarning):
             return False
