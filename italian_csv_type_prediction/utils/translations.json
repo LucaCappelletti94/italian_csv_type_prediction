@@ -25,5 +25,7 @@
     "Year": "anno",
     "Company": "ragioneSociale",
     "Error": "errore",
-    "Tax": "tipoProdotto"
+    "Tax": "tipoProdotto",
+    "Road": "via",
+    "HouseNumber": "civico"
 }
