@@ -16,7 +16,7 @@ from ..datasets import (
 
 class SimpleDatasetGenerator:
 
-    def __init__(self, verbose: bool = False, combinatorial_strings_number: int = 1000):
+    def __init__(self, verbose: bool = False, combinatorial_strings_number: int = 10000):
         self._verbose = verbose
         self._separators = NameSurnameType()._separators
         self._combinatorial_strings_number = combinatorial_strings_number
@@ -34,7 +34,7 @@ class SimpleDatasetGenerator:
         floats = np.random.uniform(0, 10000, size=10000)
         string_floats = floats.astype(str)
 
-        all_floats = floats.tolist() + string_floats.tolist()
+        all_floats = floats.tolist() + string_floats.tolist() + all_integers
 
         years = np.random.randint(1990, 2030, size=1000)
         string_years = years.astype(str)

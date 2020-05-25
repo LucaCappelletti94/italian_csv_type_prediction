@@ -1,6 +1,5 @@
 from ..column_types import AnyTypePredictor, ItalianVATType, ItalianFiscalCodeType, ColumnTypePredictor
 from sklearn.preprocessing import LabelEncoder
-from ..features import AnyFeature
 from typing import List
 import pandas as pd
 import numpy as np
@@ -10,7 +9,6 @@ class DataframeEmbedding:
 
     def __init__(self):
         self._predictor = AnyTypePredictor()
-        self._feature = AnyFeature()
         self._encoder = LabelEncoder().fit(
             self._predictor.supported_types + ["Error"])
         self._italian_vat_codes = ItalianVATType()
@@ -38,14 +36,13 @@ class DataframeEmbedding:
         italian_vat_codes = self.get_italian_vat_codes(df)
 
         predictors_number = len(self._predictor.supported_types)
-        features_number = len(self._feature.supported_features)
         predictions = np.zeros((
             df.shape[0],
-            predictors_number + features_number
+            predictors_number
         ))
         X = np.zeros((
             df.shape[0]*df.shape[1],
-            (predictors_number + features_number)*2
+            (predictors_number)*2
         ))
 
         for i, column in enumerate(df.columns):
@@ -53,9 +50,6 @@ class DataframeEmbedding:
                 df[column],
                 fiscal_codes=fiscal_codes,
                 italian_vat_codes=italian_vat_codes
-            )).T
-            predictions[:, predictors_number:] = np.array(self._feature.score_values(
-                df[column]
             )).T
 
             vertical_cut = slice(i*df.shape[0], (i+1)*df.shape[0])
