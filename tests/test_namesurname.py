@@ -13,7 +13,8 @@ def test_namesurname():
         ("LINO", "ANZOLIN", "NZLLNI74R09F964X"),
         ("MARIO", "CRISCUOLO", "CRSMRA70S13C129M"),
         ("GINO", "DONADELLO", "DNDGNI73E27E682L"),
-    ]
+        #("MARCO PIETRO", "BONATO", "BNTMRC34M28A093M"),
+    ] 
 
     for name, surname, fiscal_code in candidates:
         if fiscal_code is None:

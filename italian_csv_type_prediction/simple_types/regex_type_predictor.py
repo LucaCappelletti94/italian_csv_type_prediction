@@ -1,18 +1,24 @@
 from .simple_type import SimpleTypePredictor
 from ..utils import normalize
 import re
+from typing import List, Union
 
 
 class RegexTypePredictor(SimpleTypePredictor):
 
-    def __init__(self, pattern: str):
+    def __init__(self, pattern: Union[List[str], str]):
         """Create new regex based predictor.
 
         Parameters
         --------------------------------
-        pattern: str,
+        pattern: Union[List[str], str],
             The pattern against which to test.
         """
+        if isinstance(pattern, list):
+            pattern = "|".join(
+                "({})".format(p)
+                for p in pattern
+            )
         self._regex = re.compile(pattern)
 
     def validate(self, candidate, **kwargs) -> bool:
