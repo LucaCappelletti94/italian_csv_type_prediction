@@ -9,8 +9,8 @@ import compress_json
 
 class AddressExtractor(Extractor):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self._default_extractor = DefaultExtractor()
         self._mapping = compress_json.local_load("libpostal_mapping.json")
         self._validators = {

@@ -6,20 +6,21 @@ from .address_extractor import AddressExtractor
 from .default_extractor import DefaultExtractor
 from ..embedding import DataframeEmbedding
 from ..exceptions import IllegalStateError
-
+from ..utils import TranslateType
 
 class PlaceholderExtractor:
 
-    def __init__(self):
+    def __init__(self, language: str = None):
+        translator = None if language is None else TranslateType(language)
         extractors = [
-            extractor()
+            extractor(translator=translator)
             for extractor in (
                 NameSurnameExtractor,
                 SurnameNameExtractor,
                 AddressExtractor
             )
         ]
-        self._default = DefaultExtractor()
+        self._default = DefaultExtractor(translator)
         self._embedding = DataframeEmbedding()
         self._extractors = {
             extractor.name: extractor

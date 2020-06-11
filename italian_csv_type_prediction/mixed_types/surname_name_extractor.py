@@ -5,8 +5,8 @@ from typing import Dict
 
 class SurnameNameExtractor(Extractor):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self._name_surname = SurnameNameType()
 
     def extract(self, candidate: str, candidate_type:str, **kwargs) -> Dict:

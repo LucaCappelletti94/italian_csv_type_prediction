@@ -1,12 +1,13 @@
 from typing import Dict
+from ..utils import TranslateType
 
 
 class Extractor:
 
-    def __init__(self):
-        pass
+    def __init__(self, translator: TranslateType = None):
+        self._translator = translator
 
-    def extract(self, candidate: str, candidate_type:str, **kwargs) -> Dict:
+    def extract(self, candidate: str, candidate_type: str, **kwargs) -> Dict:
         raise NotImplementedError(
             "This method must be implemented in the child classes.")
 
@@ -24,6 +25,10 @@ class Extractor:
         return candidate
 
     def build_dictionary(self, candidate: str, values: Dict) -> str:
+        values = {
+            (self._translator.translate(key) if self._translator is not None else key): value
+            for key, value in values.items()
+        }
         return {
             "placeholder": self._build_placeholder(candidate, values),
             "values": values
