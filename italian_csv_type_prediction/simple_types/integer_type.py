@@ -11,6 +11,8 @@ class IntegerType(FloatType):
         """Return boolean representing if given candidate can be considered integer."""
         if not super().validate(candidate, **kwargs):
             return False
+        if isinstance(candidate, int):
+            return True
         try:
             converted = super().convert(candidate)
             int(converted)

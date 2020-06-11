@@ -1,5 +1,5 @@
 from .simple_type import SimpleTypePredictor
-from ..utils import normalize
+import numpy as np
 
 class FloatType(SimpleTypePredictor):
 
@@ -8,7 +8,9 @@ class FloatType(SimpleTypePredictor):
         pass
 
     def convert(self, candidate, **kwargs):
-        candidate = str(normalize(candidate)).replace(",", ".")
+        if isinstance(candidate, (float, int)):
+            return candidate
+        candidate = candidate.replace(",", ".")
         candidate = candidate.replace('.', "", (candidate.count('.')-1))
         return float(candidate)
 
@@ -16,10 +18,17 @@ class FloatType(SimpleTypePredictor):
         """Return boolean representing if given candidate matches regex for float values."""
         if str(candidate) == "0":
             return True
+        if isinstance(candidate, bool):
+            return False
+        if isinstance(candidate, (float, int)):
+            return np.isfinite(candidate)
+        candidate = str(candidate)
+        if "." in candidate and any(len(sub) < 3 for sub in candidate.split(".")[1:-1]):
+            return False
         if str(candidate).startswith("0") and not str(candidate).replace(",", ".").startswith("0."):
             return False
         try:
-            self.convert(candidate)
-            return True
+            candidate = self.convert(candidate)
+            return np.isfinite(candidate)
         except (ValueError, OverflowError):
-           return False
+            return False
