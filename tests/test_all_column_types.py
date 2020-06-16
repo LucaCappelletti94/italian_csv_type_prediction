@@ -60,7 +60,7 @@ def test_all_column_types():
                 continue
             dataset = X.get_dataset(sub_predictor)
             candidates = [np.random.choice(
-                dataset, size=np.random.randint(5, 30)) for i in range(500)]
+                dataset, size=np.random.randint(5, 30)) for i in range(5000)]
             for candidate in tqdm(candidates, leave=False, desc=f"Test {column_predictor.name} on {sub_predictor.name} dataset"):
                 try:
                     prediction = np.array(column_predictor.validate(candidate))
