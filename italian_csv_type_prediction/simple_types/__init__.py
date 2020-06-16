@@ -28,6 +28,7 @@ from .year_type import YearType
 from .tax_type import TaxType
 from .name_surname_type import NameSurnameType
 from .surname_name_type import SurnameNameType
+from .any_type import AnyTypePredictor
 
 __all__ = [
     "AddressType",
@@ -59,5 +60,6 @@ __all__ = [
     "YearType",
     "TaxType",
     "NameSurnameType",
-    "SurnameNameType"
+    "SurnameNameType",
+    "AnyTypePredictor"
 ]
