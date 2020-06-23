@@ -21,7 +21,7 @@ python:
 - '3.6'
 before_install:
 - pip install --upgrade pytest
-- pip uninstall numpy
+- pip uninstall numpy -y
 - pip install numpy --upgrade
 - sudo bash setup.sh > /dev/null 2>&1
 - sudo ldconfig
