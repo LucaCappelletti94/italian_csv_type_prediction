@@ -25,7 +25,7 @@ class AddressExtractor(Extractor):
 
     def extract(self, candidate: str, candidate_type: str, **kwargs) -> Dict:
         from postal.parser import parse_address
-        
+
         lower = candidate.lower()
         parsed = parse_address(
             candidate, language="IT", country="IT")
