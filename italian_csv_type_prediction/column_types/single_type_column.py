@@ -85,7 +85,7 @@ class ItalianFiscalCodeType(SetTypeColumnPredictor):
 class CadastreCodeType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleCadastreCodeType(), min_threshold=0.3)
+        super().__init__(SimpleCadastreCodeType())
 
 
 class CountryCodeType(SetTypeColumnPredictor):

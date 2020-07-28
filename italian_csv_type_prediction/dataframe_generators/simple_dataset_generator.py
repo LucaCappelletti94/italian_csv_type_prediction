@@ -45,6 +45,14 @@ class SimpleDatasetGenerator:
 
         names = load_names()
         surnames = load_surnames()
+        caps = load_caps()
+        caps = caps + [
+            float(cap)
+            for cap in caps
+        ] + [
+            int(cap)
+            for cap in caps
+        ]
         self._nans = load_nan()
 
         datasets = {
@@ -55,7 +63,7 @@ class SimpleDatasetGenerator:
             "Tax": load_tax(),
             "Plate": load_plate(),
             "Address": load_address(),
-            "ItalianZIPCode": load_caps(),
+            "ItalianZIPCode": caps,
             "ProvinceCode": load_provinces_codes(),
             "Region": load_regions(),
             "Municipality": load_municipalities(),
@@ -167,7 +175,7 @@ class SimpleDatasetGenerator:
         }
 
         for column in df.columns:
-            if column in ("String", "Name", "Surname", "Address"):
+            if column in ("String", "Address"):
                 continue
 
             datasets = list(self._datasets.keys())

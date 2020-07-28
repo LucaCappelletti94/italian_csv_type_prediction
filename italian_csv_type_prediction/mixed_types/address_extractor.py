@@ -1,5 +1,4 @@
 from .extractor import Extractor
-from postal.parser import parse_address
 from ..simple_types import (FuzzyItalianZIPCodeType,
                             MunicipalityType, CountryType, RegionType)
 from .default_extractor import DefaultExtractor
@@ -25,6 +24,8 @@ class AddressExtractor(Extractor):
         ]
 
     def extract(self, candidate: str, candidate_type: str, **kwargs) -> Dict:
+        from postal.parser import parse_address
+
         lower = candidate.lower()
         parsed = parse_address(
             candidate, language="IT", country="IT")

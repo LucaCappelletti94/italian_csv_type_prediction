@@ -12,7 +12,7 @@
     "EMail": "email",
     "Float": "numeroDecimale",
     "Integer": "numeroIntero",
-    "ItalianVAT": "partitaIva",
+    "ItalianVAT": "partitaIVA",
     "Municipality": "comune",
     "Name": "nome",
     "Surname": "cognome",
