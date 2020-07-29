@@ -11,7 +11,7 @@ def test_all_simple_types():
     X = SimpleDatasetGenerator()
 
     aliases = {
-        "ItalianZIPCodeType": [FuzzyItalianZIPCodeType()]
+        "ItalianZIPCode": [FuzzyItalianZIPCodeType()]
     }
 
     errors = 0
