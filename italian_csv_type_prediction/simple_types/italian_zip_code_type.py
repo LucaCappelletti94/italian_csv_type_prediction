@@ -1,17 +1,24 @@
 from .integer_type import IntegerType
 from .set_type_predictor import SetTypePredictor
 from ..datasets import load_caps
+from typing import List
 
 
 class ItalianZIPCodeType(SetTypePredictor):
 
-    def __init__(self):
-        """Create new Italian ZIP Code type predictor based on regex."""
+    def __init__(self, zip_codes: List[str] = None):
+        """Create new Italian ZIP Code type predictor based on regex.
+
+        Parameters
+        ---------------------
+        zip_codes: List[str] = None,
+            List of zip codes to consider.
+            By default, all the valid italian Zip Codes.
+        """
         self._integer = IntegerType()
-        super().__init__([
-            self.convert(e)
-            for e in load_caps()
-        ])
+        if zip_codes is None:
+            zip_codes = load_caps()
+        super().__init__(zip_codes)
 
     def convert(self, candidate) -> str:
         """Convert given candidate to CAP."""

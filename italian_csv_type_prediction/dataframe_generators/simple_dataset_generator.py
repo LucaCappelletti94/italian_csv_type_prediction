@@ -10,7 +10,7 @@ from ..datasets import (
     load_municipalities, load_surnames, load_provinces_codes, load_caps,
     load_codice_fiscale, load_iva, load_strings, load_email, load_phone,
     load_date, load_address, load_biological_sex, load_boolean,
-    load_document_types, load_plate, load_codice_catasto, load_tax
+    load_document_types, load_plate, load_codice_catasto, load_tax, load_generic_caps
 )
 
 
@@ -45,7 +45,7 @@ class SimpleDatasetGenerator:
 
         names = load_names()
         surnames = load_surnames()
-        caps = load_caps()
+        caps = load_caps() + load_generic_caps()
         caps = caps + [
             float(cap)
             for cap in caps

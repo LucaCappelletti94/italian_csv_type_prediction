@@ -1,6 +1,6 @@
 from italian_csv_type_prediction.column_types import AnyTypePredictor
 from italian_csv_type_prediction.dataframe_generators import SimpleDatasetGenerator
-from italian_csv_type_prediction.simple_types import FuzzyItalianZIPCodeType
+from italian_csv_type_prediction.simple_types import FuzzyItalianZIPCodeType, FuzzyGenericItalianZIPCodeType, GenericItalianZIPCodeType
 from italian_csv_type_prediction.utils import normalize
 from tqdm.auto import tqdm
 
@@ -11,7 +11,11 @@ def test_all_simple_types():
     X = SimpleDatasetGenerator()
 
     aliases = {
-        "ItalianZIPCode": [FuzzyItalianZIPCodeType()]
+        "ItalianZIPCode": [
+            FuzzyItalianZIPCodeType(),
+            FuzzyGenericItalianZIPCodeType(),
+            GenericItalianZIPCodeType()
+        ]
     }
 
     errors = 0

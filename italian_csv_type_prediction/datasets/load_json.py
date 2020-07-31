@@ -41,6 +41,10 @@ def load_caps():
     return load_local_json("CAP")
 
 
+def load_generic_caps():
+    return load_local_json("GenericCAP")
+
+
 def load_codice_fiscale():
     return load_local_json("CodiceFiscale")
 

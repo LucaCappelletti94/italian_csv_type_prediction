@@ -13,7 +13,7 @@ class AddressExtractor(Extractor):
         self._default_extractor = DefaultExtractor(**kwargs)
         self._mapping = compress_json.local_load("libpostal_mapping.json")
         self._validators = {
-            "ItalianZIPCodeType": FuzzyItalianZIPCodeType(),
+            "ItalianZIPCode": FuzzyItalianZIPCodeType(),
             "Municipality": MunicipalityType(),
             "Country": CountryType(),
             "Region": RegionType()
