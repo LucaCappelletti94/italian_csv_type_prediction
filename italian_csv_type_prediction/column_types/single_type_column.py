@@ -66,7 +66,7 @@ class NameSurnameType(SetTypeColumnPredictor):
 class BooleanType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleBooleanType())
+        super().__init__(SimpleBooleanType(), min_threshold=0.4)
 
 
 class ItalianZIPCodeType(SetTypeColumnPredictor):
@@ -91,6 +91,7 @@ class ItalianFiscalCodeType(SetTypeColumnPredictor):
             min_threshold=0.3
         )
 
+
 class CompanyType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
@@ -102,7 +103,7 @@ class CompanyType(SetTypeColumnPredictor):
                 SimpleNameType(),
                 SimpleSurnameType()
             ],
-            min_threshold=0.5
+            min_threshold=0.4
         )
 
 
