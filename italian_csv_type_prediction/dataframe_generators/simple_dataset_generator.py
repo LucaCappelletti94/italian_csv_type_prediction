@@ -114,7 +114,7 @@ class SimpleDatasetGenerator:
 
     def generate_simple_dataframe(
         self,
-        nan_percentage: float = 0.2,
+        nan_percentage: float = 0.1,
         error_percentage: float = 0.1,
         min_rows: int = 5,
         max_rows: int = 50,
@@ -166,13 +166,12 @@ class SimpleDatasetGenerator:
                 backup_fiscal_codes = types.loc[mask, column_a]
                 types.loc[mask, column_a] = types.loc[mask, column_b]
                 types.loc[mask, column_b] = backup_fiscal_codes
-                types.loc[~mask, "Name"] = "Company"
-                types.loc[~mask, "Surname"] = "Company"
-                types.loc[~mask, "SurnameName"] = "Company"
-                types.loc[~mask, "NameSurname"] = "Company"
-                column_to_drop = choice([column_a, column_b])
-                df = df.drop(columns=column_to_drop)
-                types = types.drop(columns=column_to_drop)
+                types.loc[mask, "Name"] = "Company"
+                types.loc[mask, "Surname"] = "Company"
+                types.loc[mask, "SurnameName"] = "Company"
+                types.loc[mask, "NameSurname"] = "Company"
+                df = df.drop(columns=column_b)
+                types = types.drop(columns=column_b)
 
         for column in df.columns:
             if column in ("String", "Address"):
@@ -196,6 +195,20 @@ class SimpleDatasetGenerator:
                 nan_percentage, 1-nan_percentage])
             types[np.logical_not(mask)] = "NaN"
             df = df.where(mask, other=self.random_nan)
+
+        mask = types["ItalianFiscalCode"].isin(["Error", "NaN"])
+        types.loc[mask, "Name"] = "String"
+        types.loc[mask, "Surname"] = "String"
+        types.loc[mask, "SurnameName"] = "String"
+        types.loc[mask, "NameSurname"] = "String"
+
+        if "ItalianVAT" in types.columns: 
+            mask &= ~types["ItalianVAT"].isin(["Error", "NaN"])
+            types.loc[mask, "Name"] = "Company"
+            types.loc[mask, "Surname"] = "Company"
+            types.loc[mask, "SurnameName"] = "Company"
+            types.loc[mask, "NameSurname"] = "Company"
+
         return df, types
 
     def _build(self):
