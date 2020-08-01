@@ -1,15 +1,16 @@
 from typing import Dict, List
 from .column_type_predictor import ColumnTypePredictor
-from .single_type_column import (AddressType, BiologicalSexType, BooleanType,
-                                 ItalianZIPCodeType, ItalianFiscalCodeType, CountryCodeType,
-                                 CountryType, DateType,
-                                 DocumentType, EMailType, FloatType,
-                                 IntegerType, ItalianVATType, MunicipalityType,
-                                 NameType, NaNType, PhoneNumberType, PlateType,
-                                 ProvinceCodeType, RegionType, StringType,
-                                 SurnameType, YearType, CadastreCodeType, TaxType,
-                                 SurnameNameType, NameSurnameType
-                                 )
+from .single_type_column import (
+    AddressType, BiologicalSexType, BooleanType,
+    ItalianZIPCodeType, ItalianFiscalCodeType,
+    CountryCodeType, CountryType, DateType,
+    DocumentType, EMailType, FloatType,
+    IntegerType, ItalianVATType, MunicipalityType,
+    NameType, NaNType, PhoneNumberType, PlateType,
+    ProvinceCodeType, RegionType, StringType,
+    SurnameType, YearType, CadastreCodeType, TaxType,
+    SurnameNameType, NameSurnameType, CompanyType
+)
 
 
 class AnyTypePredictor:
@@ -17,12 +18,14 @@ class AnyTypePredictor:
         self._predictors = [
             predictor()
             for predictor in (
-                AddressType, ItalianZIPCodeType, ItalianFiscalCodeType, CountryCodeType,
-                CountryType, DateType, EMailType, TaxType, SurnameNameType, NameSurnameType,
+                AddressType, ItalianZIPCodeType, ItalianFiscalCodeType,
+                CountryCodeType, CountryType, DateType, EMailType,
+                TaxType, SurnameNameType, NameSurnameType,
                 FloatType, IntegerType, ItalianVATType, DocumentType,
                 MunicipalityType, NameType, NaNType, PhoneNumberType,
                 ProvinceCodeType, RegionType, StringType, SurnameType,
-                YearType, BiologicalSexType, BooleanType, PlateType, CadastreCodeType
+                CompanyType, YearType, BiologicalSexType, BooleanType,
+                PlateType, CadastreCodeType
             )
         ]
 

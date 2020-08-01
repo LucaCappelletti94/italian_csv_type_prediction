@@ -33,6 +33,7 @@ from ..simple_types import SurnameType as SimpleSurnameType
 from ..simple_types import TaxType as SimpleTaxType
 from ..simple_types import YearType as SimpleYearType
 from .set_type_column import SetTypeColumnPredictor
+from ..simple_types import CompanyType as SimpleCompanyType
 
 
 class AddressType(SetTypeColumnPredictor):
@@ -88,6 +89,20 @@ class ItalianFiscalCodeType(SetTypeColumnPredictor):
             SimpleItalianFiscalCodeType(),
             others=SimpleItalianVATType(),
             min_threshold=0.3
+        )
+
+class CompanyType(SetTypeColumnPredictor):
+    def __init__(self):
+        """Create new Predictor based on a single type."""
+        super().__init__(
+            SimpleCompanyType(),
+            others=[
+                SimpleNameSurnameType(),
+                SimpleSurnameNameType(),
+                SimpleNameType(),
+                SimpleSurnameType()
+            ],
+            min_threshold=0.5
         )
 
 

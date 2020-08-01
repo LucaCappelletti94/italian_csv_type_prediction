@@ -6,8 +6,8 @@ from tqdm.auto import trange, tqdm
 import pandas as pd
 from random_csv_generator import random_csv
 from ..datasets import (
-    load_nan, load_names, load_regions, load_countries, load_country_codes,
-    load_municipalities, load_surnames, load_provinces_codes, load_caps,
+    load_nan, load_regions, load_countries, load_country_codes,
+    load_municipalities, load_provinces_codes, load_caps,
     load_codice_fiscale, load_iva, load_strings, load_email, load_phone,
     load_date, load_address, load_biological_sex, load_boolean,
     load_document_types, load_plate, load_codice_catasto, load_tax, load_generic_caps
@@ -43,8 +43,6 @@ class SimpleDatasetGenerator:
         all_years = years.tolist() + string_years.tolist() + \
             float_years.tolist()
 
-        names = load_names()
-        surnames = load_surnames()
         caps = load_caps() + load_generic_caps()
         caps = caps + [
             float(cap)
@@ -72,24 +70,6 @@ class SimpleDatasetGenerator:
             "Float": all_floats,
             "Country": load_countries(),
             "CountryCode": load_country_codes(),
-            "Name": names,
-            "NameSurname": [
-                "{name}{sep}{surname}".format(
-                    name=choice(names),
-                    sep=choice(self._separators),
-                    surname=choice(surnames)
-                )
-                for _ in range(10000)
-            ],
-            "SurnameName": [
-                "{surname}{sep}{name}".format(
-                    name=choice(names),
-                    sep=choice(self._separators),
-                    surname=choice(surnames)
-                )
-                for _ in range(10000)
-            ],
-            "Surname": surnames,
             "String": load_strings(),
             "EMail": load_email(),
             "PhoneNumber": load_phone(),
@@ -174,6 +154,26 @@ class SimpleDatasetGenerator:
             "ProvinceCode": ["CountryCode"]
         }
 
+        if mix_codes:
+            column_a, column_b = "ItalianFiscalCode", "ItalianVAT"
+            if choice([True, False]):
+                mask = np.random.randint(
+                    0, 2, size=df.shape[0], dtype=bool)
+                swap_column_a = df[column_a][mask].values
+                swap_column_b = df[column_b][mask].values
+                df.loc[mask, column_a] = swap_column_b
+                df.loc[mask, column_b] = swap_column_a
+                backup_fiscal_codes = types.loc[mask, column_a]
+                types.loc[mask, column_a] = types.loc[mask, column_b]
+                types.loc[mask, column_b] = backup_fiscal_codes
+                types.loc[mask, "Name"] = "Company"
+                types.loc[mask, "Surname"] = "Company"
+                types.loc[mask, "SurnameName"] = "Company"
+                types.loc[mask, "NameSurname"] = "Company"
+                column_to_drop = choice([column_a, column_b])
+                df = df.drop(columns=column_to_drop)
+                types = types.drop(columns=column_to_drop)
+
         for column in df.columns:
             if column in ("String", "Address"):
                 continue
@@ -190,25 +190,6 @@ class SimpleDatasetGenerator:
                     df.loc[i, column] = choice(
                         self._datasets[choice(datasets)])
                     types.loc[i, column] = "Error"
-
-        if mix_codes:
-            for column_a, column_b in (
-                ("ItalianFiscalCode", "ItalianVAT"),
-                ("SurnameName", "NameSurname")
-            ):
-                if choice([True, False]):
-                    mask = np.random.randint(
-                        0, 2, size=df.shape[0], dtype=bool)
-                    swap_column_a = df[column_a][mask].values
-                    swap_column_b = df[column_b][mask].values
-                    df.loc[mask, column_a] = swap_column_b
-                    df.loc[mask, column_b] = swap_column_a
-                    backup_fiscal_codes = types.loc[mask, column_a]
-                    types.loc[mask, column_a] = types.loc[mask, column_b]
-                    types.loc[mask, column_b] = backup_fiscal_codes
-                    column_to_drop = choice([column_a, column_b])
-                    df = df.drop(columns=column_to_drop)
-                    types = types.drop(columns=column_to_drop)
 
         if nan_percentage > 0:
             mask = np.random.choice([False, True], size=df.shape, p=[

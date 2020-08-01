@@ -45,12 +45,22 @@ def test_all_column_types():
             "CountryCode"
         ]
     }
+    
+    without_dataset = set([
+        "SurnameName",
+        "NameSurname",
+        "Name",
+        "Surname",
+        "Company",
+        "String",
+        "NaN"
+    ])
 
     for column_predictor in tqdm(predictor.predictors, desc="Testing predictors"):
-        if column_predictor.name in ("String", "NaN"):
+        if column_predictor.name in without_dataset:
             continue
         for sub_predictor in tqdm(predictor.predictors, desc=f"Datasets", leave=False):
-            if sub_predictor.name in ("NaN"):
+            if sub_predictor.name in without_dataset:
                 continue
             if isinstance(column_predictor._main, sub_predictor._main.__class__):
                 continue

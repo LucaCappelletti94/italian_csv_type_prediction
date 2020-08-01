@@ -31,6 +31,7 @@ from .surname_name_type import SurnameNameType
 from .surname_type import SurnameType
 from .tax_type import TaxType
 from .year_type import YearType
+from .company_type import CompanyType
 
 __all__ = [
     "AddressType",
@@ -48,6 +49,7 @@ __all__ = [
     "DateType",
     "DocumentType",
     "EMailType",
+    "CompanyType",
     "FloatType",
     "IntegerType",
     "ItalianVATType",

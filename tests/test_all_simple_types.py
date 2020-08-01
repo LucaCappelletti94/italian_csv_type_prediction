@@ -20,8 +20,18 @@ def test_all_simple_types():
 
     errors = 0
 
+    without_dataset = [
+        "SurnameName",
+        "NameSurname",
+        "Name",
+        "Surname",
+        "Company"
+    ]
+
     for column_predictor in tqdm(predictor.predictors, desc="Testing predictors"):
         simple_predictor = column_predictor._main
+        if simple_predictor.name in without_dataset:
+            continue
         for candidate in X.get_dataset(simple_predictor):
             try:
                 assert simple_predictor.validate(candidate) or any(
