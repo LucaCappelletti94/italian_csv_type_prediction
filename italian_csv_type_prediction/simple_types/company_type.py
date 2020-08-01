@@ -12,9 +12,9 @@ class CompanyType(StringType):
     def fuzzy(self) -> bool:
         return True
 
-    def validate(self, candidate, italian_vat_code: str = None, **kwargs) -> bool:
+    def validate(self, candidate, fiscal_code: str = None, italian_vat_code: str = None, **kwargs) -> bool:
         """Return boolean representing if given candidate is a valid italian name."""
         if not super().validate(candidate, **kwargs):
             return False
 
-        return italian_vat_code is not None
+        return italian_vat_code is not None and fiscal_code is None
