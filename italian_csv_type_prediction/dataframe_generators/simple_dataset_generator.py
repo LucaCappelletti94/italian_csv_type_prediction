@@ -166,10 +166,10 @@ class SimpleDatasetGenerator:
                 backup_fiscal_codes = types.loc[mask, column_a]
                 types.loc[mask, column_a] = types.loc[mask, column_b]
                 types.loc[mask, column_b] = backup_fiscal_codes
-                types.loc[mask, "Name"] = "Company"
-                types.loc[mask, "Surname"] = "Company"
-                types.loc[mask, "SurnameName"] = "Company"
-                types.loc[mask, "NameSurname"] = "Company"
+                types.loc[~mask, "Name"] = "Company"
+                types.loc[~mask, "Surname"] = "Company"
+                types.loc[~mask, "SurnameName"] = "Company"
+                types.loc[~mask, "NameSurname"] = "Company"
                 column_to_drop = choice([column_a, column_b])
                 df = df.drop(columns=column_to_drop)
                 types = types.drop(columns=column_to_drop)
