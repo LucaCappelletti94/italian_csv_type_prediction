@@ -196,18 +196,20 @@ class SimpleDatasetGenerator:
             types[np.logical_not(mask)] = "NaN"
             df = df.where(mask, other=self.random_nan)
 
-        mask = types["ItalianFiscalCode"].isin(["Error", "NaN"])
-        types.loc[mask, "Name"] = "String"
-        types.loc[mask, "Surname"] = "String"
-        types.loc[mask, "SurnameName"] = "String"
-        types.loc[mask, "NameSurname"] = "String"
-
         if "ItalianVAT" in types.columns: 
+            mask = types["ItalianFiscalCode"].isin(["Error", "NaN"])
             mask &= ~types["ItalianVAT"].isin(["Error", "NaN"])
             types.loc[mask, "Name"] = "Company"
             types.loc[mask, "Surname"] = "Company"
             types.loc[mask, "SurnameName"] = "Company"
             types.loc[mask, "NameSurname"] = "Company"
+
+        mask = types["ItalianFiscalCode"].isin(["Error", "NaN"])
+        if "ItalianVAT" in types.columns:
+            mask &= types["ItalianVAT"].isin(["Error", "NaN"])
+
+        df = df[~mask.values]
+        types = types[~mask.values]
 
         return df, types
 
