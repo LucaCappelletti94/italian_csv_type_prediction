@@ -22,7 +22,7 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
         others: List[SimpleTypePredictor] = (),
             The other predictors that are allowed in this column.
             For instance often in CodiceFiscale columns there
-            are often IVA codes.
+            are often italian_vat_code codes.
         min_threshold: float = 0.9,
             Minimal amount of predictions of either main, others
             to accept the predictions as correct.
@@ -73,9 +73,9 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
         # We iterate on every available value
         for i, value in enumerate(values):
             fiscal_code = fiscal_codes[i] if fiscal_codes is not None else None
-            iva = italian_vat_codes[i] if italian_vat_codes is not None else None
+            italian_vat_code = italian_vat_codes[i] if italian_vat_codes is not None else None
             # If the value is of the main type
-            if self._main.validate(value, fiscal_code=fiscal_code, iva=iva, **kwargs):
+            if self._main.validate(value, fiscal_code=fiscal_code, italian_vat_code=italian_vat_code, **kwargs):
                 is_main_type.append(True)
                 is_other_type.append(False)
                 # The type itself is considered a generalization
@@ -84,21 +84,21 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
                 is_nan_type.append(False)
                 continue
             # Or is from any of the other given valid types
-            if any(other.validate(value, fiscal_code=fiscal_code, iva=iva, **kwargs) for other in self._others):
+            if any(other.validate(value, fiscal_code=fiscal_code, italian_vat_code=italian_vat_code, **kwargs) for other in self._others):
                 is_main_type.append(False)
                 is_other_type.append(True)
                 is_generalization.append(False)
                 is_nan_type.append(False)
                 continue
             # Or finally the value can be a NaN
-            if self._nan.validate(value, fiscal_code=fiscal_code, iva=iva, **kwargs):
+            if self._nan.validate(value, fiscal_code=fiscal_code, italian_vat_code=italian_vat_code, **kwargs):
                 is_main_type.append(False)
                 is_other_type.append(False)
                 is_generalization.append(False)
                 is_nan_type.append(True)
                 continue
             # Or the main predictor is fuzzy and we have to check the given generalizations
-            if self._main.fuzzy and any(generalization.validate(value, fiscal_code=fiscal_code, iva=iva, **kwargs) for generalization in self._generalizations):
+            if self._main.fuzzy and any(generalization.validate(value, fiscal_code=fiscal_code, italian_vat_code=italian_vat_code, **kwargs) for generalization in self._generalizations):
                 is_main_type.append(False)
                 is_other_type.append(False)
                 is_generalization.append(True)
