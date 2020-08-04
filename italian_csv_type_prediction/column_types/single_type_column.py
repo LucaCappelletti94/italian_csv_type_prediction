@@ -54,13 +54,25 @@ class BiologicalSexType(SetTypeColumnPredictor):
 class SurnameNameType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleSurnameNameType(), others=SimpleNameSurnameType())
+        super().__init__(
+            SimpleSurnameNameType(),
+            others=[
+                SimpleNameSurnameType(),
+                SimpleCompanyType()
+            ]
+        )
 
 
 class NameSurnameType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleNameSurnameType(), others=SimpleSurnameNameType())
+        super().__init__(
+            SimpleNameSurnameType(),
+            others=[
+                SimpleSurnameNameType(),
+                SimpleCompanyType()
+            ]
+        )
 
 
 class BooleanType(SetTypeColumnPredictor):
@@ -174,7 +186,12 @@ class MunicipalityType(SetTypeColumnPredictor):
 class NameType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleNameType())
+        super().__init__(
+            SimpleNameType(),
+            others=[
+                SimpleCompanyType()
+            ]
+        )
 
 
 class NaNType(SetTypeColumnPredictor):
@@ -216,7 +233,12 @@ class StringType(SetTypeColumnPredictor):
 class SurnameType(SetTypeColumnPredictor):
     def __init__(self):
         """Create new Predictor based on a single type."""
-        super().__init__(SimpleSurnameType())
+        super().__init__(
+            SimpleSurnameType(),
+            others=[
+                SimpleCompanyType()
+            ]
+        )
 
 
 class YearType(SetTypeColumnPredictor):
