@@ -33,6 +33,9 @@ class ItalianVATType(SimpleTypePredictor):
         elif self._symbols.score(candidate) > 0:
             return False
 
+        if len(str(candidate)) < 8:
+            return False
+
         converted = self.convert(candidate)
 
         return self._vat_predictor.is_valid(converted)

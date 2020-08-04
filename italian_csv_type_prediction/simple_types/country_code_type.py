@@ -1,9 +1,9 @@
 from .set_type_predictor import SetTypePredictor
-from .string_type import StringType
+from .simple_type import SimpleTypePredictor
 from ..datasets import load_country_codes
 
 
-class CountryCodeType(StringType):
+class CountryCodeType(SimpleTypePredictor):
 
     def __init__(self):
         super().__init__()
@@ -12,4 +12,4 @@ class CountryCodeType(StringType):
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate is a valid country code."""
-        return super().validate(candidate, **kwargs) and self._predictor.validate(candidate)
+        return self._predictor.validate(candidate)
