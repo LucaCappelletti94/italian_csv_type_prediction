@@ -88,7 +88,7 @@ class ItalianFiscalCodeType(SetTypeColumnPredictor):
         super().__init__(
             SimpleItalianFiscalCodeType(),
             others=SimpleItalianVATType(),
-            min_threshold=0.3
+            min_threshold=0.2
         )
 
 
@@ -103,7 +103,7 @@ class CompanyType(SetTypeColumnPredictor):
                 SimpleNameType(),
                 SimpleSurnameType()
             ],
-            min_threshold=0.4
+            min_threshold=0.9
         )
 
 
@@ -161,8 +161,7 @@ class ItalianVATType(SetTypeColumnPredictor):
         super().__init__(
             SimpleItalianVATType(),
             others=SimpleItalianFiscalCodeType(),
-            min_threshold=0.5,
-            fuzzy_generalization_threshold=0.5
+            min_threshold=0.2
         )
 
 
