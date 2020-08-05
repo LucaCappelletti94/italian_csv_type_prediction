@@ -50,6 +50,47 @@ class AnyTypePredictor:
         """Return list of currently supported types."""
         return list(self._predictors.keys())
 
+    def supports(self, predictor_type: str) -> bool:
+        """Return boolean representing if predictor_type is supported.
+
+        Parameters
+        --------------------------
+        predictor_type: str,
+            Type to check the support for.
+
+        Returns
+        --------------------------
+        Boolean true if type is supported.
+        """
+        return predictor_type in self._predictors
+
+    def convert(self, predictor: str, value: str) -> bool:
+        """Return converted result on given predictor for given value.
+
+        Parameters
+        -------------------
+        predictor: str,
+            Name of the predictor to use.
+        value: str,
+            Value to validate.
+
+        Raises
+        -------------------
+        ValueError,
+            If given predictor is not currently supported.
+
+        Returns
+        -------------------
+        The converted result.
+        """
+        if predictor not in self._predictors:
+            raise ValueError(
+                "Given predictor {} is not currently supported".format(
+                    predictor
+                )
+            )
+        return self._predictors[predictor].convert(value)
+
     def validate(self, predictor: str, value: str, fuzzy_as_true: bool = False) -> bool:
         """Return validation result on given predictor for given value.
 

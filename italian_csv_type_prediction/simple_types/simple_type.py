@@ -45,6 +45,4 @@ class SimpleTypePredictor:
         kwargs:Dict,
             Additional features to be considered.
         """
-        raise NotImplementedError(
-            "Method convert must be implemented in child class."
-        )
+        return candidate

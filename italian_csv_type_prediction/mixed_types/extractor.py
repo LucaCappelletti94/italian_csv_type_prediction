@@ -1,11 +1,13 @@
 from typing import Dict
 from ..utils import TranslateType
+from ..simple_types import AnyTypePredictor
 
 
 class Extractor:
 
     def __init__(self, translator: TranslateType = None):
         self._translator = translator
+        self._converter = AnyTypePredictor()
 
     def extract(self, candidate: str, candidate_type: str, **kwargs) -> Dict:
         raise NotImplementedError(
@@ -17,7 +19,7 @@ class Extractor:
         return self.__class__.__name__[:-9]
 
     def _build_placeholder(self, candidate: str, values: Dict) -> str:
-        if len(values)==1:
+        if len(values) == 1:
             return "{{{0}}}".format(list(values.keys())[0])
         for key, values in values.items():
             for value in values:
@@ -26,8 +28,14 @@ class Extractor:
 
     def build_dictionary(self, candidate: str, values: Dict) -> str:
         values = {
-            (self._translator.translate(key) if self._translator is not None else key): value
-            for key, value in values.items()
+            (
+                self._translator.translate(key)
+                if self._translator is not None else key
+            ): [
+                self._converter.convert(key, value) if self._converter.supports(key) else value
+                for value in values_list
+            ]
+            for key, values_list in values.items()
         }
         return {
             "placeholder": self._build_placeholder(candidate, values),
