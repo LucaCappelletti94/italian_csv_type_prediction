@@ -97,8 +97,14 @@ class SetTypeColumnPredictor(ColumnTypePredictor):
                 is_generalization.append(False)
                 is_nan_type.append(True)
                 continue
-            # Or the main predictor is fuzzy and we have to check the given generalizations
-            if self._main.fuzzy and any(generalization.validate(value, fiscal_code=fiscal_code, italian_vat_code=italian_vat_code, **kwargs) for generalization in self._generalizations):
+            if any(
+                generalization.validate(
+                    value,
+                    fiscal_code=fiscal_code,
+                    italian_vat_code=italian_vat_code, **kwargs
+                )
+                for generalization in self._generalizations
+            ):
                 is_main_type.append(False)
                 is_other_type.append(False)
                 is_generalization.append(True)
