@@ -1,16 +1,19 @@
+from multiprocessing import Pool, cpu_count
 from typing import Dict, List
+
+import pickle
 from .column_type_predictor import ColumnTypePredictor
-from .single_type_column import (
-    AddressType, BiologicalSexType, BooleanType,
-    ItalianZIPCodeType, ItalianFiscalCodeType,
-    CountryCodeType, CountryType, DateType,
-    DocumentType, EMailType, FloatType,
-    IntegerType, ItalianVATType, MunicipalityType,
-    NameType, NaNType, PhoneNumberType, PlateType,
-    ProvinceCodeType, RegionType, StringType,
-    SurnameType, YearType, CadastreCodeType, TaxType,
-    SurnameNameType, NameSurnameType, CompanyType
-)
+from .single_type_column import (AddressType, BiologicalSexType, BooleanType,
+                                 CadastreCodeType, CompanyType,
+                                 CountryCodeType, CountryType, DateType,
+                                 DocumentType, EMailType, FloatType,
+                                 IntegerType, ItalianFiscalCodeType,
+                                 ItalianVATType, ItalianZIPCodeType,
+                                 MunicipalityType, NameSurnameType, NameType,
+                                 NaNType, PhoneNumberType, PlateType,
+                                 ProvinceCodeType, RegionType, StringType,
+                                 SurnameNameType, SurnameType, TaxType,
+                                 YearType)
 
 
 class AnyTypePredictor:
@@ -41,16 +44,29 @@ class AnyTypePredictor:
     def predictors(self) -> List[ColumnTypePredictor]:
         return self._predictors
 
+    def _predict_values(self, kwargs: Dict):
+        predictor = kwargs.pop("predictor")
+        return predictor.validate(**kwargs)
+
     def predict_values(self, values: List, fiscal_codes: List[str] = (), italian_vat_codes: List[str] = (), **kwargs) -> List[bool]:
-        return [
-            predictor.validate(
-                values,
-                fiscal_codes=fiscal_codes,
-                italian_vat_codes=italian_vat_codes,
-                **kwargs
+        with Pool(cpu_count()) as p:
+            predictions = p.map(
+                self._predict_values,
+                (
+                    dict(
+                        predictor=predictor,
+                        values=values,
+                        fiscal_codes=fiscal_codes,
+                        italian_vat_codes=italian_vat_codes,
+                        **kwargs
+                    )
+                    for predictor in self.predictors
+                )
             )
-            for predictor in self._predictors
-        ]
+            p.close()
+            p.join()
+
+        return predictions
 
     def predict(self, values: List, fiscal_codes: List[str] = (), italian_vat_codes: List[str] = (), **kwargs) -> Dict[str, List[bool]]:
         """Return prediction from all available type."""

@@ -1,9 +1,12 @@
-from ..embedding import DataframeEmbedding
-import numpy as np
-import compress_pickle
-import pandas as pd
 import os
+
+import compress_pickle
+import numpy as np
+import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
+
+from ..embedding import DataframeEmbedding
+from ..utils import logger
 
 
 class TypePredictor:
@@ -16,8 +19,9 @@ class TypePredictor:
         )
         self._model = self._load_model()
 
-    def fit(self, X:np.array, y:np.array):
-        self._model = DecisionTreeClassifier(max_depth=100, random_state=42).fit(X, y)
+    def fit(self, X: np.array, y: np.array):
+        self._model = DecisionTreeClassifier(
+            max_depth=100, random_state=42).fit(X, y)
         self._save_model()
 
     def _save_model(self):
@@ -30,7 +34,12 @@ class TypePredictor:
 
     def predict_dataframe(self, df: pd.DataFrame) -> pd.DataFrame:
         """Return dataframe with given dataframe type predictions."""
+        logger.info("Transforming given DataFrame to embedding.")
+        transformed_dataframe = self._embedder.transform(df)
+        logger.info("Executing predictions on given DataFrame.")
+        predictions = self._model.predict(transformed_dataframe)
+        logger.info("Executing reverse transformation of the predictions from embedding.")
         return self._embedder.reverse_label_embedding(
-            self._model.predict(self._embedder.transform(df)),
+            predictions,
             df
         )
