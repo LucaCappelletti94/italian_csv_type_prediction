@@ -1,19 +1,21 @@
 import compress_json
 import pandas as pd
-from typing import Tuple, List, Union
+from typing import Tuple, List, Union, Dict
 
 
 class Translator:
 
     ERROR_HANDLING = ("raise", "pass")
 
-    def __init__(self, path: str, error_handling: str = "raise"):
+    def __init__(self, path: str = None, dictionary: Dict = None, error_handling: str = "raise"):
         """Create new object to translate types to given language.
 
         Parameters
         ----------------------
-        path: str,
+        path: str = None,
             Path from where to load the dictionary.
+        dictionary: Dict = None,
+            Dictionary for the translations.
         error_handling: str = "raise",
             Behaviour of the translator when a given string is not available.
             The possible behaviours are 'raise' or 'pass'.
@@ -22,11 +24,18 @@ class Translator:
         Raises
         ----------------------
         ValueError,
-            When the given language is not supported.
-        ValueError,
             When the given error handling is not supported.
+        ValueError,
+            When neither path or dictionary is given.
+        ValueError,
+            When both path and dictionary are given.
         """
-        self._translations = compress_json.load(path)
+        if dictionary is None and path is None:
+            raise ValueError("Both given dictionary and path are none.")
+        if dictionary is not None and path is not None:
+            raise ValueError("Both given dictionary and path are not none.")
+        self._translations = compress_json.load(
+            path) if dictionary is None else dictionary
         self._error_handling = error_handling
         self._reverse_translations = {
             v: k
