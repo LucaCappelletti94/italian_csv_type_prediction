@@ -1,23 +1,21 @@
-from stdnum import get_cc_module
+from stdnum.it.iva import is_valid as is_vat_valid, compact as compact_vat
 from .simple_type import SimpleTypePredictor
 from .integer_type import IntegerType
 from .float_type import FloatType
 from .date_type import DateType
 from ..features import Symbols
 
-
 class ItalianVATType(SimpleTypePredictor):
     def __init__(self):
         """Create new IVA type predictor based on rules."""
         super().__init__()
-        self._vat_predictor = get_cc_module('it', 'iva')
         self._integer = IntegerType()
         self._float = FloatType()
         self._date = DateType()
         self._symbols = Symbols()
 
     def convert(self, candidate):
-        candidate = self._vat_predictor.compact(str(candidate))
+        candidate = compact_vat(str(candidate))
         if self._integer.validate(candidate):
             candidate = self._integer.convert(candidate)
         candidate = str(candidate)
@@ -38,4 +36,4 @@ class ItalianVATType(SimpleTypePredictor):
 
         converted = self.convert(candidate)
 
-        return self._vat_predictor.is_valid(converted)
+        return is_vat_valid(converted)

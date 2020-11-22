@@ -1,16 +1,33 @@
 import pandas as pd
-from typing import Dict
+from typing import Dict, List
 from .name_surname_extractor import NameSurnameExtractor
 from .surname_name_extractor import SurnameNameExtractor
 from .address_extractor import AddressExtractor
 from .default_extractor import DefaultExtractor
+from .custom_string_extractor import CustomStringExtractor
+from ..simple_types.string_type import StringType
 from ..embedding import DataframeEmbedding
 from ..exceptions import IllegalStateError
 from ..utils import TranslateType
 
+
 class PlaceholderExtractor:
 
-    def __init__(self, language: str = None):
+    def __init__(self, language: str = None, custom_string_extractors: List[CustomStringExtractor] = None):
+        """Create new placeholder extractor object.
+
+        Parameters
+        ---------------------------------
+        language: str = None,
+            Optional language to translate the types to.
+            If you want to add languages that are not currently supported
+            please consider doing a pull request to the github library.
+        custom_string_extractors: List[CustomStringExtractor] = None,
+            Optional list of custom placeholders to be used when a String
+            type is encountered. The list will be evaluated top to bottom
+            and the first extractor that validates the given
+            string value will be used to extract its placeholders.
+        """
         translator = None if language is None else TranslateType(language)
         extractors = [
             extractor(translator=translator)
@@ -26,9 +43,35 @@ class PlaceholderExtractor:
             extractor.name: extractor
             for extractor in extractors
         }
+        self._custom_string_extractors = custom_string_extractors
 
-    def _handle_value_extraction(self, candidate: str, candidate_type: str, **kwargs) -> Dict:
+    def _handle_value_extraction(self, candidate: str, candidate_type: str, **kwargs: Dict) -> Dict:
+        """Return extraction of given candidate.
+
+        Parameters
+        ---------------------
+        candidate: str,
+            String candidate to be extracted.
+        candidate_type: str,
+            Type of the candidate.
+        **kwargs: Dict,
+            Additional metadata to be used while executing the extractions.
+
+        Returns
+        ---------------------
+        Dictionary of metadata for given candidate.
+        """
         try:
+            # If the type of the candidate is a String
+            if candidate_type == StringType.name and self._custom_string_extractors is not None:
+                # If the custom string extractors are provided
+                # we iterate over them and check if at least one validates the given candidate 
+                for custom_string_extractor in self._custom_string_extractors:
+                    # If we get an extractor that validates the given value
+                    if custom_string_extractor.validate(candidate, **kwargs):
+                        # We return the extracted candidate
+                        return custom_string_extractor.extract(candidate, **kwargs)
+
             return self._extractors.get(candidate_type, self._default).extract(
                 candidate=candidate,
                 candidate_type=candidate_type,

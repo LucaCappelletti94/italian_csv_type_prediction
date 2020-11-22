@@ -1,8 +1,11 @@
-from ..column_types import AnyTypePredictor, ItalianVATType, ItalianFiscalCodeType, ColumnTypePredictor
-from sklearn.preprocessing import LabelEncoder
 from typing import List
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+
+from ..column_types import (AnyTypePredictor, ColumnTypePredictor,
+                            ItalianFiscalCodeType, ItalianVATType)
 
 
 class DataframeEmbedding:
