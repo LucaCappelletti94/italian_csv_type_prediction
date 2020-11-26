@@ -71,7 +71,7 @@ class PlaceholderExtractor:
                     # If we get an extractor that validates the given value
                     if custom_string_extractor.validate(candidate, **kwargs):
                         # We return the extracted candidate
-                        return custom_string_extractor.extract(candidate, **kwargs)
+                        return custom_string_extractor.extract(candidate, candidate_type, **kwargs)
 
             return self._extractors.get(candidate_type, self._default).extract(
                 candidate=candidate,

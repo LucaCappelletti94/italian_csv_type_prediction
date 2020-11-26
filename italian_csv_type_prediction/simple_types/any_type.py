@@ -91,7 +91,7 @@ class AnyTypePredictor:
             )
         return self._predictors[predictor].convert(value)
 
-    def validate(self, predictor: str, value: str, fuzzy_as_true: bool = False) -> bool:
+    def validate(self, predictor: str, value: str, fuzzy_as_true: bool = False, **kwargs: Dict) -> bool:
         """Return validation result on given predictor for given value.
 
         Parameters
@@ -103,6 +103,8 @@ class AnyTypePredictor:
         fuzzy_as_true: bool = False,
             Wethever to consider any fuzzy predictor as tautological.
             By default false.
+        **kwargs: Dict,
+            Metadata to be optionally used to validate the candidate.
 
         Raises
         -------------------
@@ -121,4 +123,4 @@ class AnyTypePredictor:
             )
         if fuzzy_as_true and self._predictors[predictor].fuzzy:
             return True
-        return self._predictors[predictor].validate(value)
+        return self._predictors[predictor].validate(value, **kwargs)
