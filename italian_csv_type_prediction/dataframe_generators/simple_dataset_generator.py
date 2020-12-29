@@ -115,7 +115,7 @@ class SimpleDatasetGenerator:
     def generate_simple_dataframe(
         self,
         nan_percentage: float = 0.05,
-        error_percentage: float = 0.05,
+        error_percentage: float = 0.01,
         min_rows: int = 5,
         max_rows: int = 50,
         mix_codes: bool = True
@@ -173,6 +173,8 @@ class SimpleDatasetGenerator:
                 df = df.drop(columns=column_b)
                 types = types.drop(columns=column_b)
 
+        # Add some errors randomly
+
         for column in df.columns:
             if column in ("String", "Address"):
                 continue
@@ -205,6 +207,7 @@ class SimpleDatasetGenerator:
             types.loc[mask, "NameSurname"] = "Company"
 
         mask = types["ItalianFiscalCode"].isin(["Error", "NaN"])
+
         if "ItalianVAT" in types.columns:
             mask &= types["ItalianVAT"].isin(["Error", "NaN"])
 

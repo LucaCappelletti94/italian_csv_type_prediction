@@ -13,7 +13,8 @@ class DataframeEmbedding:
     def __init__(self):
         self._predictor = AnyTypePredictor()
         self._encoder = LabelEncoder().fit(
-            self._predictor.supported_types + ["Error"])
+            self._predictor.supported_types + ["Error"]
+        )
         self._italian_vat_codes = ItalianVATType()
         self._fiscal_codes = ItalianFiscalCodeType()
 
@@ -56,9 +57,9 @@ class DataframeEmbedding:
             )).T
 
             vertical_cut = slice(i*df.shape[0], (i+1)*df.shape[0])
-            X[vertical_cut, :predictions.shape[1]] = predictions
+            X[vertical_cut, :predictions.shape[1]] = predictions # pylint: disable=unsubscriptable-object
 
-            indices = list(range(predictions.shape[1], predictions.shape[1]*2))
+            indices = list(range(predictions.shape[1], predictions.shape[1]*2))  # pylint: disable=unsubscriptable-object
             X[vertical_cut, indices] = predictions.mean(axis=0)
 
         if y is not None:

@@ -7,17 +7,18 @@ from .italian_zip_code_type import ItalianZIPCodeType
 class ItalianMonths(parserinfo):
 
     ITALIAN_MONTHS = [
-        ("Gen", "Gennaio"),
-        ("Feb", "Febbraio"),
-        ("Mar", "Marzo"),
-        ("Apr", "Aprile"),
-        ("Giu", "Giugno"),
-        ("Lug", "Luglio"),
-        ("Ago", "Agosto"),
-        ("Set", "Settembre"),
-        ("Ott", "Ottobre"),
-        ("Nov", "Novembre"),
-        ("Dic", "Dicembre")
+        ("Gen", "gen", "Gennaio"),
+        ("Feb", "feb", "Febbraio"),
+        ("Mar", "mar", "Marzo"),
+        ("Apr", "apr", "Aprile"),
+        ("Mag", "mag", "Maggio"),
+        ("Giu", "giu", "Giugno"),
+        ("Lug", "lug", "Luglio"),
+        ("Ago", "ago", "Agosto"),
+        ("Set", "set", "Settembre"),
+        ("Ott", "ott", "Ottobre"),
+        ("Nov", "nov", "Novembre"),
+        ("Dic", "dic", "Dicembre")
     ]
 
     MONTHS = [
