@@ -10,8 +10,15 @@ from ..column_types import (AnyTypePredictor, ColumnTypePredictor,
 
 class DataframeEmbedding:
 
-    def __init__(self):
-        self._predictor = AnyTypePredictor()
+    def __init__(self, use_multiprocessing: bool = True):
+        """Create new DataframeEmbedding.
+
+        Parameters
+        -----------------------
+        use_multiprocessing: bool = True,
+            Wether to use multiprocessing.
+        """
+        self._predictor = AnyTypePredictor(use_multiprocessing)
         self._encoder = LabelEncoder().fit(
             self._predictor.supported_types + ["Error"]
         )
@@ -57,9 +64,11 @@ class DataframeEmbedding:
             )).T
 
             vertical_cut = slice(i*df.shape[0], (i+1)*df.shape[0])
-            X[vertical_cut, :predictions.shape[1]] = predictions # pylint: disable=unsubscriptable-object
+            X[vertical_cut, :predictions.shape[1]
+              ] = predictions  # pylint: disable=unsubscriptable-object
 
-            indices = list(range(predictions.shape[1], predictions.shape[1]*2))  # pylint: disable=unsubscriptable-object
+            indices = list(range(
+                predictions.shape[1], predictions.shape[1]*2))  # pylint: disable=unsubscriptable-object
             X[vertical_cut, indices] = predictions.mean(axis=0)
 
         if y is not None:
