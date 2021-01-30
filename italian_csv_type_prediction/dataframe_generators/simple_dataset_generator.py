@@ -16,12 +16,23 @@ from ..datasets import (
 
 class SimpleDatasetGenerator:
 
-    def __init__(self, verbose: bool = False, combinatorial_strings_number: int = 10000):
+    def __init__(self, verbose: bool = False, combinatorial_strings_number: int = 10000, use_multiprocessing: bool = False):
+        """Create new DataframeEmbedding.
+
+        Parameters
+        -----------------------
+        verbose: bool = False,
+            Wether to show the loading bars.
+        combinatorial_strings_number: int = 10000,
+            Number of strings to generate.
+        use_multiprocessing: bool = True,
+            Wether to use multiprocessing during the embedding process.
+        """
         self._verbose = verbose
         self._separators = NameSurnameType()._separators
         self._combinatorial_strings_number = combinatorial_strings_number
         self._datasets = self._load_types_datasets()
-        self._embedding = DataframeEmbedding()
+        self._embedding = DataframeEmbedding(use_multiprocessing)
 
     def _load_types_datasets(self):
         integers = np.random.randint(0, 10000, size=10000)
@@ -115,7 +126,7 @@ class SimpleDatasetGenerator:
     def generate_simple_dataframe(
         self,
         nan_percentage: float = 0.05,
-        error_percentage: float = 0.05,
+        error_percentage: float = 0.01,
         min_rows: int = 5,
         max_rows: int = 50,
         mix_codes: bool = True
@@ -173,6 +184,8 @@ class SimpleDatasetGenerator:
                 df = df.drop(columns=column_b)
                 types = types.drop(columns=column_b)
 
+        # Add some errors randomly
+
         for column in df.columns:
             if column in ("String", "Address"):
                 continue
@@ -196,7 +209,7 @@ class SimpleDatasetGenerator:
             types[np.logical_not(mask)] = "NaN"
             df = df.where(mask, other=self.random_nan)
 
-        if "ItalianVAT" in types.columns: 
+        if "ItalianVAT" in types.columns:
             mask = types["ItalianFiscalCode"].isin(["Error", "NaN"])
             mask &= ~types["ItalianVAT"].isin(["Error", "NaN"])
             types.loc[mask, "Name"] = "Company"
@@ -205,6 +218,7 @@ class SimpleDatasetGenerator:
             types.loc[mask, "NameSurname"] = "Company"
 
         mask = types["ItalianFiscalCode"].isin(["Error", "NaN"])
+
         if "ItalianVAT" in types.columns:
             mask &= types["ItalianVAT"].isin(["Error", "NaN"])
 

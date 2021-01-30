@@ -37,6 +37,7 @@ class PlaceholderExtractor:
                 AddressExtractor
             )
         ]
+        self._string_type_name = StringType().name
         self._default = DefaultExtractor(translator)
         self._embedding = DataframeEmbedding()
         self._extractors = {
@@ -63,14 +64,14 @@ class PlaceholderExtractor:
         """
         try:
             # If the type of the candidate is a String
-            if candidate_type == StringType.name and self._custom_string_extractors is not None:
+            if candidate_type == self._string_type_name and self._custom_string_extractors is not None:
                 # If the custom string extractors are provided
                 # we iterate over them and check if at least one validates the given candidate 
                 for custom_string_extractor in self._custom_string_extractors:
                     # If we get an extractor that validates the given value
                     if custom_string_extractor.validate(candidate, **kwargs):
                         # We return the extracted candidate
-                        return custom_string_extractor.extract(candidate, **kwargs)
+                        return custom_string_extractor.extract(candidate, candidate_type, **kwargs)
 
             return self._extractors.get(candidate_type, self._default).extract(
                 candidate=candidate,

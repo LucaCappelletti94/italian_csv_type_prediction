@@ -17,7 +17,14 @@ from .single_type_column import (AddressType, BiologicalSexType, BooleanType,
 
 
 class AnyTypePredictor:
-    def __init__(self):
+    def __init__(self, use_multiprocessing: bool = True):
+        """Create new AnyType Prediction.
+
+        Parameters
+        -----------------------
+        use_multiprocessing: bool = True,
+            Wether to use multiprocessing.
+        """
         self._predictors = [
             predictor()
             for predictor in (
@@ -31,6 +38,7 @@ class AnyTypePredictor:
                 PlateType, CadastreCodeType
             )
         ]
+        self._use_multiprocessing = use_multiprocessing
 
     @property
     def supported_types(self):
@@ -48,24 +56,33 @@ class AnyTypePredictor:
         predictor = kwargs.pop("predictor")
         return predictor.validate(**kwargs)
 
-    def predict_values(self, values: List, fiscal_codes: List[str] = (), italian_vat_codes: List[str] = (), **kwargs) -> List[bool]:
-        with Pool(cpu_count()) as p:
-            predictions = p.map(
-                self._predict_values,
-                (
-                    dict(
-                        predictor=predictor,
-                        values=values,
-                        fiscal_codes=fiscal_codes,
-                        italian_vat_codes=italian_vat_codes,
-                        **kwargs
-                    )
-                    for predictor in self.predictors
-                )
+    def predict_values(
+        self,
+        values: List,
+        fiscal_codes: List[str] = (),
+        italian_vat_codes: List[str] = (),
+        **kwargs
+    ) -> List[bool]:
+        tasks = (
+            dict(
+                predictor=predictor,
+                values=values,
+                fiscal_codes=fiscal_codes,
+                italian_vat_codes=italian_vat_codes,
+                **kwargs
             )
-            p.close()
-            p.join()
-
+            for predictor in self.predictors
+        )
+        if self._use_multiprocessing:
+            with Pool(cpu_count()) as p:
+                predictions = p.map(self._predict_values, tasks)
+                p.close()
+                p.join()
+        else:
+            predictions = [
+                self._predict_values(task)
+                for task in tasks
+            ]
         return predictions
 
     def predict(self, values: List, fiscal_codes: List[str] = (), italian_vat_codes: List[str] = (), **kwargs) -> Dict[str, List[bool]]:
