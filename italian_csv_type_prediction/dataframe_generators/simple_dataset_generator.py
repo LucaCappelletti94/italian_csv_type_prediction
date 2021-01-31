@@ -1,28 +1,36 @@
-from ..embedding import DataframeEmbedding
-from ..simple_types import SimpleTypePredictor, NameSurnameType
-from random import randint, uniform, choice
+from multiprocessing import Pool, cpu_count
+from random import choice, randint, uniform
+from typing import Tuple
+
 import numpy as np
-from tqdm.auto import trange, tqdm
 import pandas as pd
 from random_csv_generator import random_csv
-from multiprocessing import cpu_count, Pool
-from ..datasets import (
-    load_nan, load_regions, load_countries, load_country_codes,
-    load_municipalities, load_provinces_codes, load_caps,
-    load_codice_fiscale, load_iva, load_strings, load_email, load_phone,
-    load_date, load_address, load_biological_sex, load_boolean,
-    load_document_types, load_plate, load_codice_catasto, load_tax, load_generic_caps
-)
+from tqdm.auto import tqdm, trange
+
+from ..datasets import (load_address, load_biological_sex, load_boolean,
+                        load_caps, load_codice_catasto, load_codice_fiscale,
+                        load_countries, load_country_codes, load_date,
+                        load_document_types, load_email, load_generic_caps,
+                        load_iva, load_municipalities, load_nan, load_phone,
+                        load_plate, load_provinces_codes, load_regions,
+                        load_strings, load_tax)
+from ..embedding import DataframeEmbedding
+from ..simple_types import NameSurnameType, SimpleTypePredictor
 
 
 class SimpleDatasetGenerator:
 
-    def __init__(self, verbose: bool = False, combinatorial_strings_number: int = 10000, use_multiprocessing: bool = False):
+    def __init__(
+        self,
+        verbose: bool = True,
+        combinatorial_strings_number: int = 10000,
+        use_multiprocessing: bool = False
+    ):
         """Create new DataframeEmbedding.
 
         Parameters
         -----------------------
-        verbose: bool = False,
+        verbose: bool = True,
             Wether to show the loading bars.
         combinatorial_strings_number: int = 10000,
             Number of strings to generate.
@@ -228,18 +236,43 @@ class SimpleDatasetGenerator:
 
         return df, types
 
-    def _build(self, *args):
-        df, types = self.generate_simple_dataframe()
-        return self._embedding.transform(df, types)
+    def _build(self, chunk_size:int):
+        X = []
+        y = []
+        for _ in range(chunk_size):
+            df, types = self.generate_simple_dataframe()
+            sub_x, sub_y = self._embedding.transform(df, types)
+            X.append(sub_x)
+            y.append(sub_y)
+        return np.vstack(X), np.concatenate(y)
 
-    def build(self, number: int = 1000):
-        """Creates and encodes a number of dataframe samples for training"""
-        with Pool(cpu_count()) as p:
+    def build(
+        self,
+        number: int = 1000,
+        chunk_size: int = 10
+    ) -> Tuple[np.ndarray, np.ndarray]:
+        """Creates and encodes a number of simulated dataframes samples for training.
+
+        Parameters
+        ----------------------
+        number: int = 1000,
+            Number of samples to generate.
+        chunk_size: int = 10,
+            Chunk size for the single thread to generate.
+
+        Returns
+        ----------------------
+        Tuple with input and output data.
+        """
+        task_number = number//chunk_size
+        processes = min(cpu_count(), number//chunk_size)
+        with Pool(processes) as p:
             X, y = list(zip(*tqdm(
-                p.imap(self._build, range(number)),
-                total=number,
+                p.imap(self._build, (chunk_size for _ in range(task_number))),
+                total=task_number,
                 desc="Rendering dataset",
-                disable=not self._verbose
+                disable=not self._verbose,
+                leave=False
             )))
             p.close()
             p.join()
