@@ -12,6 +12,10 @@ As usual, just download it using pip:
 
 .. code:: shell
 
+    apt-get update -y
+    apt-get install -qyy apt-utils build-essential software-properties-common locales locales-all curl autoconf automake libtool python-dev pkg-config
+    curl https://raw.githubusercontent.com/LucaCappelletti94/italian_csv_type_prediction/master/setup.sh | sh
+    
     pip install italian_csv_type_prediction
 
 Tests Coverage
