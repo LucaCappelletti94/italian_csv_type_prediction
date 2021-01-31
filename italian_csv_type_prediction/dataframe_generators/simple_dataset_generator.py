@@ -5,6 +5,7 @@ import numpy as np
 from tqdm.auto import trange, tqdm
 import pandas as pd
 from random_csv_generator import random_csv
+from multiprocessing import cpu_count, Pool
 from ..datasets import (
     load_nan, load_regions, load_countries, load_country_codes,
     load_municipalities, load_provinces_codes, load_caps,
@@ -227,15 +228,20 @@ class SimpleDatasetGenerator:
 
         return df, types
 
-    def _build(self):
+    def _build(self, *args):
         df, types = self.generate_simple_dataframe()
         return self._embedding.transform(df, types)
 
     def build(self, number: int = 1000):
         """Creates and encodes a number of dataframe samples for training"""
-        X, y = list(zip(*[
-            self._build()
-            for _ in trange(number, desc="Rendering dataset", disable=not self._verbose)
-        ]))
+        with Pool(cpu_count()) as p:
+            X, y = list(zip(*tqdm(
+                p.imap(self._build, range(number)),
+                total=number,
+                desc="Rendering dataset",
+                disable=not self._verbose
+            )))
+            p.close()
+            p.join()
 
         return np.vstack(X), np.concatenate(y)
