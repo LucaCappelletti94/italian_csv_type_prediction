@@ -266,6 +266,7 @@ class SimpleDatasetGenerator:
         """
         task_number = number//chunk_size
         processes = min(cpu_count(), number//chunk_size)
+        processes = max(processes, 1)
         with Pool(processes) as p:
             X, y = list(zip(*tqdm(
                 p.imap(self._build, (chunk_size for _ in range(task_number))),
