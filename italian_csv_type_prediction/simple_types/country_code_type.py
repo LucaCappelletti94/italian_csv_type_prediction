@@ -1,6 +1,6 @@
+from ..datasets import load_country_codes
 from .set_type_predictor import SetTypePredictor
 from .simple_type import SimpleTypePredictor
-from ..datasets import load_country_codes
 
 
 class CountryCodeType(SimpleTypePredictor):

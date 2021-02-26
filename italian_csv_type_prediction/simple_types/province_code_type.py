@@ -1,6 +1,6 @@
+from ..datasets import load_provinces_codes
 from .set_type_predictor import SetTypePredictor
 from .string_type import StringType
-from ..datasets import load_provinces_codes
 
 
 class ProvinceCodeType(StringType):

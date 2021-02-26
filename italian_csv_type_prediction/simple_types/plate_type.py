@@ -1,6 +1,6 @@
-from .string_type import StringType
-from .regex_type_predictor import RegexTypePredictor
 from ..utils import normalize
+from .regex_type_predictor import RegexTypePredictor
+from .string_type import StringType
 
 
 class PlateType(StringType):
