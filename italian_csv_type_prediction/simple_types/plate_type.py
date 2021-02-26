@@ -40,6 +40,9 @@ class PlateType(StringType):
             r"^[0-9]{2}\s?[a-z]{3}\s?[0-9]{1}$",
         ])
 
+    def convert(self, candidate):
+        return str(candidate).upper()
+
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate matches regex for ."""
         if not super().validate(candidate, **kwargs):
