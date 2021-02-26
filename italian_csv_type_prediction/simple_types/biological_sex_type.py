@@ -10,6 +10,15 @@ class BiologicalSexType(StringType):
         self._predictor = SetTypePredictor(
             load_biological_sex(), normalize_values=True)
 
+    def convert(self, candidate):
+        return {
+            'generico': "G",
+            'maschio': "M",
+            'uomo': "M",
+            'femmina': "F",
+            'donna': "F"
+        }.get(candidate.lower(), candidate)
+
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate is a valid biological sex."""
         return super().validate(candidate, **kwargs) and self._predictor.validate(candidate)
