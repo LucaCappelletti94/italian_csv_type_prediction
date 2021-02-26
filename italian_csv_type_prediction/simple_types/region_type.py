@@ -10,6 +10,9 @@ class RegionType(StringType):
         self._predictor = SetTypePredictor(
             load_regions(), normalize_values=True)
 
+    def convert(self, candidate):
+        return str(candidate).upper()
+
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate is a valid region."""
         return super().validate(candidate, **kwargs) and self._predictor.validate(candidate)
