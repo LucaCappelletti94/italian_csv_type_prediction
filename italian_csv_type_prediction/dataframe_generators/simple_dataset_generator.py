@@ -264,6 +264,8 @@ class SimpleDatasetGenerator:
         ----------------------
         Tuple with input and output data.
         """
+        if chunk_size > number:
+            chunk_size = number
         task_number = number//chunk_size
         processes = min(cpu_count(), number//chunk_size)
         processes = max(processes, 1)

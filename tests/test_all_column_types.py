@@ -19,6 +19,12 @@ def test_all_column_types():
             "Country",
             "BiologicalSex"
         ],
+        "BiologicalSex": [
+            "Boolean"
+        ],
+        "Boolean": [
+            "BiologicalSex"
+        ],
         "Surname": [
             "BiologicalSex",
             "Document"
