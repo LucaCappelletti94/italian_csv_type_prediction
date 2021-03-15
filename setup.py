@@ -70,7 +70,7 @@ setup(
         "python-codicefiscale",
         "scikit-learn",
         "compress_json",
-        "compress_pickle",
+        "compress_pickle==1.2.0",
         "validate_email",
         "phonenumbers",
         "unidecode",
