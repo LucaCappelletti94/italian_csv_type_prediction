@@ -13,9 +13,9 @@ class TypePredictor:
 
     def __init__(self, local_path: str = "type_predictor.pkl.gz"):
         self._embedder = DataframeEmbedding()
-        self._local_path = "{pwd}/{local_path}".format(
-            pwd=os.path.dirname(os.path.abspath(__file__)),
-            local_path=local_path
+        self._local_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            local_path
         )
         self._model = self._load_model()
 
@@ -42,7 +42,8 @@ class TypePredictor:
         transformed_dataframe = self._embedder.transform(df)
         logger.info("Executing predictions on given DataFrame.")
         predictions = self._model.predict(transformed_dataframe)
-        logger.info("Executing reverse transformation of the predictions from embedding.")
+        logger.info(
+            "Executing reverse transformation of the predictions from embedding.")
         return self._embedder.reverse_label_embedding(
             predictions,
             df

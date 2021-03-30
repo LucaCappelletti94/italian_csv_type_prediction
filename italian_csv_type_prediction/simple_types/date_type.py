@@ -4,6 +4,7 @@ from .string_type import StringType
 from .float_type import FloatType
 from .italian_zip_code_type import ItalianZIPCodeType
 
+
 class ItalianMonths(parserinfo):
 
     ITALIAN_MONTHS = [
@@ -36,6 +37,10 @@ class DateType(StringType):
         self._float = FloatType()
         self._cap = ItalianZIPCodeType()
 
+    def convert(self, candidate) -> str:
+        """Return given date normalized to standard date format."""
+        return str(parse(candidate, parserinfo=self._parserinfo))
+
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate is a Date."""
         if self._float.validate(candidate):
@@ -43,7 +48,7 @@ class DateType(StringType):
         if self._cap.validate(candidate):
             return False
         try:
-            parse(candidate, parserinfo=self._parserinfo)
+            self.convert(candidate)
             return True
         except (Exception, UnknownTimezoneWarning):
             return False
