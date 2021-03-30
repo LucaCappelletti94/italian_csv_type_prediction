@@ -30,16 +30,26 @@ class ItalianMonths(parserinfo):
 
 class DateType(StringType):
 
-    def __init__(self):
-        """Create new DateType predictor."""
+    def __init__(
+        self,
+        date_format: str = "%d/%m/%Y"
+    ):
+        """Create new DateType predictor.
+
+        Parameters
+        -----------------------
+        date_format: str = "%d/%m/%Y",
+            The date format to use for formatting.
+        """
         super().__init__()
+        self._date_format = date_format
         self._parserinfo = ItalianMonths()
         self._float = FloatType()
         self._cap = ItalianZIPCodeType()
 
     def convert(self, candidate) -> str:
         """Return given date normalized to standard date format."""
-        return str(parse(candidate, parserinfo=self._parserinfo))
+        return parse(candidate, parserinfo=self._parserinfo).strftime(self._date_format)
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate is a Date."""
