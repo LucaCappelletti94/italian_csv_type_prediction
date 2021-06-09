@@ -9,20 +9,20 @@ import re
 
 class AddressExtractor(Extractor):
 
-    def __init__(self, symbols_to_strip_on_collision=":@-,.", **kwargs):
+    def __init__(
+        self,
+        **kwargs
+    ):
         """Create new AddressExtractor object.
 
         Parameters
         ----------------------------
-        symbols_to_strip_on_collision: str = ":@-,.",
-            List of the symbols to remove out of the address in situation of
-            collisions caused by misplaced symbols that are removed within
-            the postal library.
+        fail_on_collision: bool = False,
+            Whether to fail when a collision is detected.
         """
         super().__init__(**kwargs)
         self._default_extractor = DefaultExtractor(**kwargs)
         self._mapping = compress_json.local_load("libpostal_mapping.json")
-        self._symbols_to_strip_on_collision = symbols_to_strip_on_collision
         self._validators = {
             "ItalianZIPCode": FuzzyItalianZIPCodeType(),
             "Municipality": MunicipalityType(),
@@ -63,6 +63,8 @@ class AddressExtractor(Extractor):
                         lower.find(value):lower.find(value)+len(value)
                     ]
                 ]
+            elif self._fail_on_collision:
+                has_errored = True
 
         for key, (value,) in updated_parsed.items():
             if key in self._validators:

@@ -13,7 +13,12 @@ from ..utils import TranslateType
 
 class PlaceholderExtractor:
 
-    def __init__(self, language: str = None, custom_string_extractors: List[CustomStringExtractor] = None):
+    def __init__(
+        self,
+        language: str = None,
+        custom_string_extractors: List[CustomStringExtractor] = None,
+        fail_on_collision: bool = False
+    ):
         """Create new placeholder extractor object.
 
         Parameters
@@ -27,10 +32,15 @@ class PlaceholderExtractor:
             type is encountered. The list will be evaluated top to bottom
             and the first extractor that validates the given
             string value will be used to extract its placeholders.
+        fail_on_collision: bool = False,
+            Whether to fail when a collision is detected.
         """
         translator = None if language is None else TranslateType(language)
         extractors = [
-            extractor(translator=translator)
+            extractor(
+                translator=translator,
+                fail_on_collision=fail_on_collision
+            )
             for extractor in (
                 NameSurnameExtractor,
                 SurnameNameExtractor,
@@ -66,7 +76,7 @@ class PlaceholderExtractor:
             # If the type of the candidate is a String
             if candidate_type == self._string_type_name and self._custom_string_extractors is not None:
                 # If the custom string extractors are provided
-                # we iterate over them and check if at least one validates the given candidate 
+                # we iterate over them and check if at least one validates the given candidate
                 for custom_string_extractor in self._custom_string_extractors:
                     # If we get an extractor that validates the given value
                     if custom_string_extractor.validate(candidate, **kwargs):
