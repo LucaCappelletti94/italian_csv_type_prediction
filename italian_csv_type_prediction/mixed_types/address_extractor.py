@@ -4,14 +4,25 @@ from ..simple_types import (FuzzyItalianZIPCodeType,
 from .default_extractor import DefaultExtractor
 from typing import Dict
 import compress_json
+import re
 
 
 class AddressExtractor(Extractor):
 
-    def __init__(self, **kwargs):
+    def __init__(self, symbols_to_strip_on_collision=":@-,.", **kwargs):
+        """Create new AddressExtractor object.
+
+        Parameters
+        ----------------------------
+        symbols_to_strip_on_collision: str = ":@-,.",
+            List of the symbols to remove out of the address in situation of
+            collisions caused by misplaced symbols that are removed within
+            the postal library.
+        """
         super().__init__(**kwargs)
         self._default_extractor = DefaultExtractor(**kwargs)
         self._mapping = compress_json.local_load("libpostal_mapping.json")
+        self._symbols_to_strip_on_collision = symbols_to_strip_on_collision
         self._validators = {
             "ItalianZIPCode": FuzzyItalianZIPCodeType(),
             "Municipality": MunicipalityType(),
@@ -42,16 +53,18 @@ class AddressExtractor(Extractor):
                 candidate, candidate_type, **kwargs
             )
 
-        parsed = {
-            self._mapping[prediction]: [
-                candidate[
-                    lower.find(value):lower.find(value)+len(value)
+        updated_parsed = {}
+        for value, prediction in parsed:
+            # If the given candidate in lowercase contains the value
+            # we can simply identify it and replace it.
+            if value in lower:
+                updated_parsed[self._mapping[prediction]] = [
+                    candidate[
+                        lower.find(value):lower.find(value)+len(value)
+                    ]
                 ]
-            ]
-            for value, prediction in parsed
-        }
 
-        for key, (value,) in parsed.items():
+        for key, (value,) in updated_parsed.items():
             if key in self._validators:
                 if not self._validators[key].validate(value):
                     has_errored = True
@@ -64,5 +77,5 @@ class AddressExtractor(Extractor):
 
         return self.build_dictionary(
             candidate=candidate,
-            values=parsed
+            values=updated_parsed
         )
