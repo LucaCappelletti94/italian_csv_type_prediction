@@ -13,7 +13,7 @@ class CompanyType(StringType):
         return True
 
     def validate(self, candidate, fiscal_code: str = None, italian_vat_code: str = None, **kwargs) -> bool:
-        """Return boolean representing if given candidate is a valid italian name."""
+        """Return boolean representing if given candidate is a valid company type."""
         if not super().validate(candidate, **kwargs):
             return False
 
