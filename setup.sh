@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-apt-get install autoconf
+apt-get install autoconf curl automake libtool
 rm -fdr libpostal
 git clone https://github.com/openvenues/libpostal 
 cd libpostal
