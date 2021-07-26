@@ -49,7 +49,11 @@ class DateType(StringType):
 
     def convert(self, candidate) -> str:
         """Return given date normalized to standard date format."""
-        return parse(candidate, parserinfo=self._parserinfo).strftime(self._date_format)
+        return parse(
+            candidate,
+            dayfirst=True,
+            parserinfo=self._parserinfo
+        ).strftime(self._date_format)
 
     def validate(self, candidate, **kwargs) -> bool:
         """Return boolean representing if given candidate is a Date."""
