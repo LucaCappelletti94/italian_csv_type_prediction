@@ -38,16 +38,6 @@ To get the typization of a list of data you can use:
     ])
 
 
-Currently supported types
-----------------------------------------------
-We currently support the following types:
-
-TODO
-
-Implementation notes
-----------------------------------
-To train on GPU: https://mc.ai/spacy-training-using-gpu/
-
 .. |travis| image:: https://travis-ci.org/LucaCappelletti94/italian_csv_type_prediction.png
    :target: https://travis-ci.org/LucaCappelletti94/italian_csv_type_prediction
    :alt: Travis CI build
