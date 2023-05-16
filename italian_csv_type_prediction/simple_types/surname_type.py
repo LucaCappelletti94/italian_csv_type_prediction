@@ -24,10 +24,10 @@ class SurnameType(StringType):
 
         characters = codicefiscale.decode(
             fiscal_code
-        )["raw"]["surname"]
+        )["raw"]["lastname"]
 
         code = codicefiscale.decode(
-            codicefiscale.encode(surname=candidate, name="XXXXXXXXXXX", sex='M', birthdate='01/01/1990', birthplace='Roma')
-        )["raw"]["surname"]
+            codicefiscale.encode(lastname=candidate, firstname="XXXXXXXXXXX", gender='M', birthdate='01/01/1990', birthplace='Roma')
+        )["raw"]["lastname"]
 
         return code == characters
