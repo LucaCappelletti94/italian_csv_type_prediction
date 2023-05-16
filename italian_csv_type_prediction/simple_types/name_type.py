@@ -23,10 +23,10 @@ class NameType(StringType):
 
         characters = codicefiscale.decode(
             fiscal_code
-        )["raw"]["name"]
+        )["raw"]["firstname"]
 
         code = codicefiscale.decode(
-            codicefiscale.encode(surname="XXXXXXXXXXXXXXX", name=candidate, sex='M', birthdate='01/01/1990', birthplace='Roma')
-        )["raw"]["name"]
+            codicefiscale.encode(lastname="XXXXXXXXXXXXXXX", firstname=candidate, gender='M', birthdate='01/01/1990', birthplace='Roma')
+        )["raw"]["firstname"]
 
         return code == characters
