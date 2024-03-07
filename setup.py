@@ -67,7 +67,7 @@ setup(
         "tqdm",
         "postal",
         "python-codicefiscale",
-        "scikit-learn",
+        "scikit-learn==1.2.2",
         "compress_json",
         "compress_pickle==1.2.0",
         "validate_email",
