@@ -12,6 +12,7 @@ from ..utils import logger
 class TypePredictor:
 
     def __init__(self, local_path: str = "type_predictor.pkl.gz"):
+
         self._embedder = DataframeEmbedding()
         self._local_path = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
@@ -33,7 +34,7 @@ class TypePredictor:
 
     def _load_model(self):
         if os.path.exists(self._local_path):
-            return compress_pickle.load(self._local_path)
+            return compress_pickle.load(self._local_path, encoding='latin1')
         return None
 
     def predict_dataframe(self, df: pd.DataFrame) -> pd.DataFrame:
