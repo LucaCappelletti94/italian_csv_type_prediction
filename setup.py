@@ -62,7 +62,7 @@ setup(
     # Add here the package dependencies
     install_requires=[
         "pandas",
-        "numpy==1.16.1",
+        "numpy==1.22.0",
         "python-stdnum",
         "tqdm",
         "postal",
