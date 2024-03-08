@@ -66,7 +66,7 @@ setup(
         "python-stdnum",
         "tqdm",
         "postal",
-        "python-codicefiscale==1.1.62",
+        "python-codicefiscale",
         "scikit-learn==1.2.2",
         "compress_json",
         "compress_pickle==1.2.0",
