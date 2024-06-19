@@ -62,12 +62,12 @@ setup(
     # Add here the package dependencies
     install_requires=[
         "pandas",
-        "numpy>=1.20.0",
+        "numpy>=1.26.4",
         "python-stdnum",
         "tqdm",
         "postal",
         "python-codicefiscale",
-        "scikit-learn==1.2.2",
+        "scikit-learn==1.26.4",
         "compress_json",
         "compress_pickle==1.2.0",
         "validate_email",
