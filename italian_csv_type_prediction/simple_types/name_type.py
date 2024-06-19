@@ -15,6 +15,7 @@ class NameType(StringType):
         return True
 
     def validate(self, candidate, fiscal_code: str = None, **kwargs) -> bool:
+
         """Return boolean representing if given candidate is a valid italian name."""
         if fiscal_code is None:
             return False
