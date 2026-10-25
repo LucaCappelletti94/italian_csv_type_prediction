@@ -1,6 +1,6 @@
 italian_csv_type_prediction
 =========================================================================================
-|travis| |sonar_quality| |sonar_maintainability| |codacy|
+|travis| |codacy|
 |code_climate_maintainability| |pip| |downloads|
 
 This package is an attempt at predicting common types in CSVs about Italian people
@@ -23,7 +23,7 @@ Tests Coverage
 Since some software handling coverages sometimes
 get slightly different results, here's three of them:
 
-|coveralls| |sonar_coverage| |code_climate_coverage|
+|coveralls| |code_climate_coverage|
 
 Usage examples
 ----------------------------------------------
@@ -41,18 +41,6 @@ To get the typization of a list of data you can use:
 .. |travis| image:: https://travis-ci.org/LucaCappelletti94/italian_csv_type_prediction.png
    :target: https://travis-ci.org/LucaCappelletti94/italian_csv_type_prediction
    :alt: Travis CI build
-
-.. |sonar_quality| image:: https://sonarcloud.io/api/project_badges/measure?project=LucaCappelletti94_italian_csv_type_prediction&metric=alert_status
-    :target: https://sonarcloud.io/dashboard/index/LucaCappelletti94_italian_csv_type_prediction
-    :alt: SonarCloud Quality
-
-.. |sonar_maintainability| image:: https://sonarcloud.io/api/project_badges/measure?project=LucaCappelletti94_italian_csv_type_prediction&metric=sqale_rating
-    :target: https://sonarcloud.io/dashboard/index/LucaCappelletti94_italian_csv_type_prediction
-    :alt: SonarCloud Maintainability
-
-.. |sonar_coverage| image:: https://sonarcloud.io/api/project_badges/measure?project=LucaCappelletti94_italian_csv_type_prediction&metric=coverage
-    :target: https://sonarcloud.io/dashboard/index/LucaCappelletti94_italian_csv_type_prediction
-    :alt: SonarCloud Coverage
 
 .. |coveralls| image:: https://coveralls.io/repos/github/LucaCappelletti94/italian_csv_type_prediction/badge.svg?branch=master
     :target: https://coveralls.io/github/LucaCappelletti94/italian_csv_type_prediction?branch=master
